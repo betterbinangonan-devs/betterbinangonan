@@ -1,0 +1,23 @@
+{
+  "population": {
+    "count": 321281,
+    "year": 2024,
+    "source": "Philippine Statistics Authority"
+  },
+  "landArea": {
+    "value": 66.34,
+    "unit": "km²",
+    "source": "Municipal Land Area"
+  },
+  "subdivisions": {
+    "count": 40,
+    "type": "Barangays",
+    "source": "Administrative Units"
+  },
+  "incomeClass": {
+    "class": "1st Class",
+    "description": "Municipality",
+    "source": "Income Classification"
+  },
+  "additionalStats": []
+}

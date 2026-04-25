@@ -1,0 +1,298 @@
+{
+  "executive": [
+    {
+      "id": "mayor",
+      "name": "Ma. Elvira Cecille R. Ynares",
+      "position": "mayor",
+      "title": "Municipal Mayor",
+      "email": "mayor@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 208/209/211/220"
+    },
+    {
+      "id": "vice-mayor",
+      "name": "Russel Guiller C. Ynares, J.D.",
+      "position": "vice_mayor",
+      "title": "Municipal Vice Mayor",
+      "email": "vicemayor@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 405/410"
+    }
+  ],
+  "legislative": [
+    {
+      "id": "c1",
+      "name": "Coco C. Antiporda",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Trade and Industry / Transportation and Communication"
+    },
+    {
+      "id": "c2",
+      "name": "Jane Apostadero",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Public Ethics / Housing and Land Utilization"
+    },
+    {
+      "id": "c3",
+      "name": "Oscarlito C. Cequeña",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Senior Citizen / Public Order and Safety"
+    },
+    {
+      "id": "c4",
+      "name": "Ma. Cristina E. Cerda",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Rules and Privileges / Education / Women and Family Affairs"
+    },
+    {
+      "id": "c5",
+      "name": "Angelito U. Dela Cuesta, MD",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Health and Sanitation / Social Services and Community Development / Persons with Disability"
+    },
+    {
+      "id": "c6",
+      "name": "Ruben M. Magdalena",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Appropriations / Agriculture / Ways and Means"
+    },
+    {
+      "id": "c7",
+      "name": "Bienvenido D. Ojeda",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Public Works / Tourism Arts and Culture"
+    },
+    {
+      "id": "c8",
+      "name": "Arnel O. Rivera",
+      "position": "sb_member",
+      "title": "Municipal Councilor",
+      "committees": "Committee on Accountability and Good Governance / Human Rights and Cooperative"
+    },
+    {
+      "id": "liga-president",
+      "name": "Cresencio M. Ojoy",
+      "position": "liga_president",
+      "title": "Liga ng mga Barangay President",
+      "committees": "Committee on Barangay Affairs / Environmental Protection and Natural Resources"
+    },
+    {
+      "id": "sk-president",
+      "name": "Moses Alfonso G. Cerrero",
+      "position": "sk_president",
+      "title": "SK Federation President",
+      "committees": "Committee on Youth and Sports Development"
+    }
+  ],
+  "departments": [
+    {
+      "id": "accounting",
+      "slug": "municipal-accounting-office",
+      "name": "Ms. Ma. Feliza C. Jerusalem",
+      "department": "Municipal Accounting Office",
+      "abbreviation": "Accounting",
+      "description": "Financial records, disbursements, and accounting services",
+      "icon": "bi-calculator-fill",
+      "email": "accounting@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 307/313",
+      "services": "accounting"
+    },
+    {
+      "id": "agriculture",
+      "slug": "municipal-agriculture-office",
+      "name": "Dr. Erwin L. Diestro",
+      "department": "Municipal Agriculture Office",
+      "abbreviation": "Agriculture",
+      "description": "Agricultural assistance and farm support services",
+      "icon": "bi-tree-fill",
+      "email": "agriculture@binangonan.gov.ph",
+      "phone": "8234-2124 (Direct)",
+      "services": "agriculture"
+    },
+    {
+      "id": "assessor",
+      "slug": "assessors-office",
+      "name": "Mr. Joselito A. Certeza",
+      "department": "Assessor's Office",
+      "abbreviation": "Assessor",
+      "description": "Property assessment, tax declarations, and land records",
+      "icon": "bi-house-door-fill",
+      "email": "assessor@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 137/140",
+      "services": "tax-payments"
+    },
+    {
+      "id": "budget",
+      "slug": "budget-office",
+      "name": "Ms. Ma. Editha A. Ceñidoza",
+      "department": "Budget Office",
+      "abbreviation": "Budget",
+      "description": "Budget preparation and fiscal programming",
+      "icon": "bi-piggy-bank-fill",
+      "email": "budget@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 303/304",
+      "services": "budget"
+    },
+    {
+      "id": "engineering",
+      "slug": "engineering-office",
+      "name": "Engr. Nelson R. Pajarillo",
+      "department": "Engineering Office",
+      "abbreviation": "Engineering",
+      "description": "Infrastructure, public works, and engineering services",
+      "icon": "bi-building-fill-gear",
+      "email": "engineering@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 325/328",
+      "services": "infrastructure"
+    },
+    {
+      "id": "gso",
+      "slug": "general-services-office",
+      "name": "Ms. Alicia DJ. Torres",
+      "department": "General Services Office",
+      "abbreviation": "GSO",
+      "description": "Property, procurement, and general administrative support",
+      "icon": "bi-gear-fill",
+      "email": "gso@binangonan.gov.ph",
+      "phone": "",
+      "services": "government"
+    },
+    {
+      "id": "health",
+      "slug": "health-office",
+      "name": "Dr. Fidelito C. Ceñidoza",
+      "department": "Health Office",
+      "abbreviation": "MHO",
+      "description": "Public health, medical, and health certificate services",
+      "icon": "bi-heart-pulse-fill",
+      "email": "mho@binangonan.gov.ph",
+      "phone": "8713-9778 (Direct)",
+      "services": "health"
+    },
+    {
+      "id": "hrmo",
+      "slug": "human-resource-management-office",
+      "name": "Ms. Noemi I. Diumano",
+      "department": "Human Resource Management Office",
+      "abbreviation": "HRMO",
+      "description": "Personnel services, recruitment, and employee records",
+      "icon": "bi-person-badge-fill",
+      "email": "hrmo@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 333/335/336",
+      "services": "government"
+    },
+    {
+      "id": "legal",
+      "slug": "legal-office",
+      "name": "Atty. Reynato M. Directo",
+      "department": "Legal Office",
+      "abbreviation": "Legal",
+      "description": "Legal review, opinions, and municipal legal services",
+      "icon": "bi-briefcase-fill",
+      "email": "legal@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 222/233",
+      "services": "government"
+    },
+    {
+      "id": "civil-registrar",
+      "slug": "local-civil-registrar",
+      "name": "Ms. Maria Rona P. Roldan",
+      "department": "Local Civil Registrar Office",
+      "abbreviation": "LCRO",
+      "description": "Birth, death, marriage, and civil registry services",
+      "icon": "bi-file-earmark-text-fill",
+      "email": "lcr@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 148/150",
+      "services": "certificates"
+    },
+    {
+      "id": "planning",
+      "slug": "municipal-planning-and-development-office",
+      "name": "Ms. Donna Mae P. Diumano",
+      "department": "Municipal Planning and Development Office",
+      "abbreviation": "MPDO",
+      "description": "Development planning, project monitoring, and zoning/locational services",
+      "icon": "bi-clipboard-data-fill",
+      "email": "mpdo@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 226/231",
+      "services": "infrastructure"
+    },
+    {
+      "id": "mswd",
+      "slug": "municipal-social-welfare-and-development-office",
+      "name": "Ms. Ma. Jennifer T. Dilag",
+      "department": "Municipal Social Welfare and Development Office",
+      "abbreviation": "MSWD",
+      "description": "Social welfare assistance and community development services",
+      "icon": "bi-people-fill",
+      "email": "mswd@binangonan.gov.ph",
+      "phone": "8234-2123 (Direct)",
+      "services": "social-services"
+    },
+    {
+      "id": "peso",
+      "slug": "public-employment-service-office",
+      "name": "Mr. Elvis E. Asis",
+      "department": "Public Employment Service Office",
+      "abbreviation": "PESO",
+      "description": "Job matching, employment facilitation, and labor assistance",
+      "icon": "bi-briefcase-fill",
+      "email": "peso@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 322/323",
+      "services": "employment"
+    },
+    {
+      "id": "tourism",
+      "slug": "tourism-office",
+      "name": "Ms. Angela Karla B. Dondoy",
+      "department": "Tourism Office",
+      "abbreviation": "Tourism",
+      "description": "Tourism promotion, events, and visitor services",
+      "icon": "bi-geo-alt-fill",
+      "email": "tourism@binangonan.gov.ph",
+      "phone": "8650-1963 (Direct)",
+      "services": "tourism"
+    },
+    {
+      "id": "treasurer",
+      "slug": "treasury-office",
+      "name": "Ms. Josephine B. Ceñidoza",
+      "department": "Treasury Office",
+      "abbreviation": "Treasury",
+      "description": "Tax collection, cashiering, and treasury services",
+      "icon": "bi-cash-coin",
+      "email": "treasury@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 107/116/117",
+      "services": "tax-payments"
+    },
+    {
+      "id": "mdrrmo",
+      "slug": "mdrrmo",
+      "name": "Mr. Jose P. Hernandez III",
+      "department": "Municipal Disaster Risk Reduction and Management Office",
+      "abbreviation": "MDRRMO",
+      "description": "Disaster preparedness, emergency response, and risk reduction",
+      "icon": "bi-exclamation-triangle-fill",
+      "email": "mdrrmo@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 267 / 8713-9370 (Direct)",
+      "services": "public-safety"
+    },
+    {
+      "id": "bplo",
+      "slug": "business-permits-and-licensing-office",
+      "name": "Ms. Lalaine A. Olorvida",
+      "department": "Business Permits and Licensing Office",
+      "abbreviation": "BPLO",
+      "description": "Business permits, licensing, and related clearances",
+      "icon": "bi-shop",
+      "email": "bplo@binangonan.gov.ph",
+      "phone": "(+632) 8652-6467 loc. 133",
+      "services": "business"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+# Detect package manager
+if [ -d "node_modules/.pnpm" ]; then
+  PM="pnpm"
+else
+  PM="npm"
+fi
+
+echo "🔍 Running pre-commit checks using $PM..."
+
+# Run lint
+echo "📝 Linting..."
+$PM run lint
+if [ $? -ne 0 ]; then
+  echo "❌ Lint failed. Please fix errors before committing."
+  exit 1
+fi
+
+# Run typecheck
+echo "🔎 Type checking..."
+$PM run typecheck
+if [ $? -ne 0 ]; then
+  echo "❌ Type check failed. Please fix type errors before committing."
+  exit 1
+fi
+
+# Run tests
+echo "🧪 Running tests..."
+if [ "$PM" = "npm" ]; then
+  $PM run test -- --run
+elif [ "$PM" = "pnpm" ]; then
+  $PM run test --run
+else
+  $PM run test --run
+fi
+
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Please fix failing tests before committing."
+  exit 1
+fi
+
+echo "✅ All checks passed!"

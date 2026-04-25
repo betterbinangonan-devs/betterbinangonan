@@ -1,0 +1,1891 @@
+export interface QuickStat {
+  icon: string
+  label: string
+  value: string
+}
+
+export interface ProcessStep {
+  title: string
+  description: string
+  isFinal?: boolean
+}
+
+export interface RequirementGroup {
+  title: string
+  icon: string
+  items: string[]
+}
+
+export interface FAQ {
+  question: string
+  answer: string
+}
+
+export interface OfficeInfo {
+  name: string
+  location: string
+  phone: string
+  hours: string
+}
+
+export interface RelatedService {
+  title: string
+  link: string
+}
+
+export interface ServiceDetail {
+  id: string
+  title: string
+  fullTitle: string
+  category: string
+  categoryLink: string
+  badgeText: string
+  badgeIcon: string
+  description: string
+  quickStats: QuickStat[]
+  processSteps: ProcessStep[]
+  requirements: RequirementGroup[]
+  faqs: FAQ[]
+  office: OfficeInfo
+  relatedServices: RelatedService[]
+  onlineLink?: string
+  sourceUrl?: string
+  sourceName?: string
+  hidden?: boolean
+}
+
+export const serviceDetailsContent: ServiceDetail[] = [
+  /**
+   * Certificates & Vital Records
+   */
+  {
+    id: 'birth-certificate',
+    title: 'Birth Certificate',
+    fullTitle: 'Birth Certificate (Local Copy)',
+    category: 'Certificates',
+    categoryLink: '/services/certificates',
+    badgeText: 'Certificates',
+    badgeIcon: 'bi-file-earmark-text',
+    description:
+      'Official certified copy of birth certificate registered in your city',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '15-30 Minutes' },
+      { icon: 'bi-cash', label: 'Fee', value: '₱75/copy' },
+      {
+        icon: 'bi-person-check',
+        label: 'Who Can Apply',
+        value: 'Owner/Representative',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Check Eligibility',
+        description:
+          'You can request if you are the owner, parent/guardian, or authorized representative with proper authorization letter.',
+      },
+      {
+        title: 'Prepare Documents',
+        description:
+          'Bring valid government-issued ID. If representative: authorization letter and IDs of both owner and representative.',
+      },
+      {
+        title: 'Visit Civil Registrar',
+        description:
+          'Go to the City Civil Registrar Office - Window 4 at 2nd Floor, City Hall. Office hours: Mon-Fri, 8AM-5PM.',
+      },
+      {
+        title: 'Fill Out Request Form',
+        description:
+          'Complete the request form / verification slip with full name, date of birth, place of birth, parents\' names, and purpose.',
+      },
+      {
+        title: 'Pay the Fee',
+        description:
+          'Pay ₱75 per certified copy at Window 2 or 3 of the Civil Registrar or at the City Treasurer\'s Office (same building).',
+      },
+      {
+        title: 'Claim Certificate',
+        description:
+          'Return to Civil Registrar Window 4 with official receipt. Certificate released within 15-30 minutes if record is available.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'If You Are the Owner',
+        icon: 'bi-person',
+        items: [
+          'Valid government-issued ID (original + photocopy)',
+          'Payment: ₱75 cash per copy',
+        ],
+      },
+      {
+        title: 'If You Are a Representative',
+        icon: 'bi-people',
+        items: [
+          'Authorization letter signed by the owner',
+          'Valid ID of the owner (photocopy)',
+          'Valid ID of the representative (original + photocopy)',
+          'Payment: ₱75 cash per copy',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question:
+          'Can I get a birth certificate registered in another city?',
+        answer:
+          'No. The City Civil Registrar only has records for births registered in this city. For other cities, request from that city\'s Civil Registrar or from PSA.',
+      },
+      {
+        question: 'What if I don\'t know the exact date of birth?',
+        answer:
+          'Provide an approximate year and month. The staff will help search the records, but this may take longer.',
+      },
+      {
+        question: 'Can I request through email or online?',
+        answer:
+          'Currently, requests must be made in person. Online services are being planned for the future.',
+      },
+      {
+        question: 'What\'s the difference between local copy and PSA copy?',
+        answer:
+          'Both are certified true copies. PSA copies are nationally-recognized and required for passport/visa applications. Local copies are accepted for most local transactions and school enrollment.',
+      },
+    ],
+    office: {
+      name: 'City Civil Registrar',
+      location: 'City Hall, 2nd Floor',
+      phone: '0920 425 8214',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'Marriage Certificate',
+        link: '/service-details/marriage-certificate',
+      },
+      {
+        title: 'Death Certificate',
+        link: '/service-details/death-certificate',
+      },
+      { title: 'Barangay Clearance', link: '/services/certificates' },
+    ],
+  },
+  {
+    id: 'marriage-certificate',
+    title: 'Marriage Certificate',
+    fullTitle: 'Marriage Certificate Registration & Copy',
+    category: 'Certificates',
+    categoryLink: '/services/certificates',
+    badgeText: 'Certificates',
+    badgeIcon: 'bi-heart',
+    description:
+      'Register or request certified true copy of marriage certificate',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '3-10 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: '₱150 (Registration)' },
+      {
+        icon: 'bi-person-check',
+        label: 'Who Can Apply',
+        value: 'Spouses/Representative',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Gather Documents',
+        description:
+          'Prepare marriage certificate from solemnizing officer and valid IDs.',
+      },
+      {
+        title: 'Visit Civil Registrar',
+        description:
+          'Go to the Civil Registrar Office, 2nd Floor, City Hall.',
+      },
+      {
+        title: 'Submit Documents & Verification',
+        description:
+          'Submit marriage certificate and supporting documents for registration at Window 5. Staff verifies document authenticity and completeness.',
+      },
+      {
+        title: 'Payment',
+        description: 'Pay the Solemnization Fee of ₱150 at Window 2 or 3 in the Civil Registrar Office.',
+      },
+      {
+        title: 'Registration',
+        description: 'Marriage is officially registered in the Civil Registry.',
+      },
+      {
+        title: 'Claim Certificate',
+        description:
+          'Receive certified copy of registered marriage certificate.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Timely Registration',
+        icon: 'bi-file-text',
+        items: [
+          'Duly accomplished Certificate of Marriage - 4 copies',
+          'Marriage solemnized outside Churches or Municipal Court must submit a Request address to solemnizing officer for celebration of Marriage in a place other than those authorized by law',
+          'Valid IDs of both spouses',
+          'Marriage license (if applicable)',
+        ],
+      },
+      {
+        title: 'For Late Registration',
+        icon: 'bi-file-text',
+        items: [
+          'Duly accomplished Certificate of Marriage - 4 copies',
+          'Certificate of Marriage of contracting parties',
+          'Valid IDs of both spouses',
+          'Marriage license (if applicable)',
+        ],
+      },
+      {
+        title: 'For Copy Request',
+        icon: 'bi-files',
+        items: [
+          'Valid ID of spouse or authorized representative',
+          'Authorization letter (if representative)',
+          'Payment: ₱75 per copy',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'How soon after the wedding should I register?',
+        answer:
+          'Within 30 days of the marriage ceremony. Late registration may require additional documents.',
+      },
+      {
+        question: 'Can I get a copy if I was married elsewhere?',
+        answer:
+          'Only marriages registered in this city are available. Request from the city where you were married or from PSA.',
+      },
+    ],
+    office: {
+      name: 'City Civil Registrar',
+      location: 'City Hall, 2nd Floor',
+      phone: '0920 425 8214',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'Birth Certificate',
+        link: '/service-details/birth-certificate',
+      },
+      { title: 'CENOMAR', link: '/services/certificates' },
+    ],
+  },
+  {
+    id: 'death-certificate',
+    title: 'Death Certificate',
+    fullTitle: 'Death Certificate Registration & Burial Permit',
+    category: 'Certificates',
+    categoryLink: '/services/certificates',
+    badgeText: 'Certificates',
+    badgeIcon: 'bi-file-earmark-x',
+    description: 'Register death certificate and obtain burial/transfer permit',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '~1.5 Hours' },
+      { icon: 'bi-cash', label: 'Fee', value: '₱75-150' },
+      {
+        icon: 'bi-person-check',
+        label: 'Who Can Apply',
+        value: 'Immediate Family',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Obtain Medical Certificate',
+        description:
+          'Get certificate of death from attending physician or hospital.',
+      },
+      {
+        title: 'Visit Civil Registrar',
+        description:
+          'Go to Civil Registrar at Window 5 with death certificate within 48 hours.',
+      },
+      {
+        title: 'Complete Registry',
+        description: 'Staff registers death in civil registry.',
+      },
+      {
+        title: 'Pay Fees',
+        description:
+          'Pay registration of ₱75, ₱150 if late, and burial permit fees at Window 2 or 3 in the Civil Registrar Office or at the City Treasurer\'s Office.',
+      },
+      {
+        title: 'Claim Permits',
+        description: 'Receive burial permit and certified death certificate at Window 5.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Timely Registration',
+        icon: 'bi-file-text',
+        items: [
+          'Certificate of Death - 4 copies',
+          'Valid ID of informant',
+          'Valid ID of deceased (if available)',
+        ],
+      },
+      {
+        title: 'For Late Registration',
+        icon: 'bi-file-text',
+        items: [
+          'Negative Certification from Philippine Statistics Authority',
+          'Duly accomplished Certificate of Death or Certificate of Fetal Death',
+          'Certification from the Cemetery',
+          'Valid ID of informant',
+          'Valid ID of deceased (if available)',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'How soon must death be registered?',
+        answer:
+          'Within 48 hours of death. Late registration requires additional documents and fees.',
+      },
+      {
+        question: 'Do I need a burial permit?',
+        answer:
+          'Yes, burial permit is required before interment in any cemetery.',
+      },
+      {
+        question: 'How long is the posting period for Late Registration?',
+        answer:
+          'Evaluator shall prepare documents for posting within 10 days, and the release of Certified True Copy is expiration of 10 days posting period.',
+      },
+    ],
+    office: {
+      name: 'City Civil Registrar',
+      location: 'City Hall, 2nd Floor',
+      phone: '0920 425 8214',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'Birth Certificate',
+        link: '/service-details/birth-certificate',
+      },
+      { title: 'CSWDO Services', link: '/service-details/cswdo-services' },
+    ],
+  },
+  {
+    id: 'city-civil-registrar',
+    title: 'City Civil Registrar',
+    fullTitle: 'City Civil Registrar Office',
+    category: 'Certificates',
+    categoryLink: '/services/certificates',
+    badgeText: 'Office',
+    badgeIcon: 'bi-building',
+    description:
+      'Birth, death, marriage registration, corrections, and certified copies',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '0920 425 8214' },
+      {
+        icon: 'bi-geo-alt',
+        label: 'Location',
+        value: '2nd Floor, City Hall',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Identify Service',
+        description: 'Determine what civil registry service you need.',
+      },
+      {
+        title: 'Prepare Documents',
+        description: 'Gather all required documents for your transaction.',
+      },
+      {
+        title: 'Visit Office',
+        description: 'Go to Civil Registrar, 2nd Floor of City Hall.',
+      },
+      {
+        title: 'Submit Application',
+        description: 'Submit documents and pay applicable fees.',
+      },
+      {
+        title: 'Claim Documents',
+        description: 'Return to claim processed documents.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'General Requirements',
+        icon: 'bi-file-text',
+        items: [
+          'Valid government-issued ID',
+          'Accomplished request form',
+          'Payment of applicable fees',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What services are offered?',
+        answer:
+          'Birth, death, marriage registration; certified copies; corrections; late registration; legitimation; and other civil registry services.',
+      },
+    ],
+    office: {
+      name: 'City Civil Registrar',
+      location: 'City Hall, 2nd Floor',
+      phone: '0920 425 8214',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'Birth Certificate',
+        link: '/service-details/birth-certificate',
+      },
+      {
+        title: 'Marriage Certificate',
+        link: '/service-details/marriage-certificate',
+      },
+      {
+        title: 'Death Certificate',
+        link: '/service-details/death-certificate',
+      },
+    ],
+  },
+  {
+    id: 'human-resource-management',
+    title: 'Human Resource Management',
+    fullTitle: 'Human Resource Management Office',
+    category: 'Certificates',
+    categoryLink: '/services/certificates',
+    badgeText: 'HR',
+    badgeIcon: 'bi-people',
+    description:
+      'Service records, employment certificates, and HR services for LGU employees',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '1-3 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Free (employees)' },
+      { icon: 'bi-person-check', label: 'For', value: 'LGU Employees' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Submit Request',
+        description:
+          'File request for the service record or certificate you need.',
+      },
+      {
+        title: 'Verification',
+        description: 'HRMO verifies employment records.',
+      },
+      {
+        title: 'Processing',
+        description: 'Staff prepares the requested document.',
+      },
+      {
+        title: 'Claim Document',
+        description: 'Return to claim service record or certificate.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Service Record',
+        icon: 'bi-file-text',
+        items: [
+          'Request form',
+          'Valid ID',
+          'Previous service record (if available)',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Who can request service records?',
+        answer: 'Current and former LGU employees for their own records.',
+      },
+    ],
+    office: {
+      name: 'HRMO',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      { title: 'Employment Certification', link: '/services/certificates' },
+    ],
+  },
+
+  /**
+   * Business, Trade & Investment
+   */
+  {
+    id: 'business-permit-new',
+    title: 'Business Permit (New)',
+    fullTitle: 'Issuance of New Business License and Mayor’s Permit',
+    category: 'Business',
+    categoryLink: '/services/business',
+    badgeText: 'Business',
+    badgeIcon: 'bi-shop',
+    description: 'Apply for a new mayor\'s permit to operate a business within the city as per City Ordinance No: 1373-16',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '1 Day' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Varies on Assessment' },
+      {
+        icon: 'bi-person-check',
+        label: 'Who Can Apply',
+        value: 'Stakeholders and Business Owners',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Online / Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Submit Application',
+        description:
+          'Submit duly accomplished Unified Application Form together with complete requirements to BPLO.',
+      },
+      {
+        title: 'Planning & Engineering Evaluation',
+        description:
+          'Personnel from Planning (Zoning/Locational Clearance) and Engineering (Occupancy) evaluate the application at the BPLO office.',
+      },
+      {
+        title: 'Data Verification',
+        description:
+          'Verification of accounts and issuance of a Business Account Number at the Electronic Data Processing (EDP) division.',
+      },
+      {
+        title: 'Approval',
+        description:
+          'The application is forwarded for approval by the Chief of BPLO or their authorized representative.',
+      },
+      {
+        title: 'Generate Payment Order',
+        description:
+          'Release of the signed Tax Order of Payment (TOP) covering consolidated taxes, fees, and regulatory charges.',
+      },
+      {
+        title: 'Pay Taxes and Fees',
+        description:
+          'Present TOP to the Business License Tax Division, Treasury Department and pay assessed fees. An Official Receipt and Cedula will be issued.',
+      },
+      {
+        title: 'Claim Permit & Clearances',
+        description:
+          'Claim your Business License, Mayor\'s Permit, Sanitary Permit, and other clearances at BPLO.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Documentary Requirements',
+        icon: 'bi-file-text',
+        items: [
+          'Unified Application Form',
+          'Business Name Registration (DTI / SEC / CDA)',
+          'Proof of Legal Ownership (Tax Dec, TCT) or Notarized Contract of Lease',
+          'Picture of Business Establishment (3R Size Colored, 1pc)',
+          'Picture of Owner/President/Treasurer (2x2 Size, 1pc)',
+          'Homeowners/Subdivision/Villages Clearance or Condominium Approval',
+          'Undertaking (BPLO)',
+          'Special Requirements based on line of business (if applicable)',
+        ],
+      },
+      {
+        title: 'If Applied Through Representative',
+        icon: 'bi-people',
+        items: [
+          'Letter of Authority / Special Power of Attorney / Secretary Certificate',
+          'Valid ID of owner and representative',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'How long does the processing take?',
+        answer: 'As prescribed by R.A. 11032 (Ease of Doing Business Law), government transactions follow a 3-7-20 day rule. While typical applications are processed within 1 Day, official timelines are: Up to 3 days for Simple, 7 days for Complex, and 20 days for Highly Technical transactions. If City Council approval is required, it may take 45 working days (extendable by 20 days).',
+      },
+      {
+        question: 'What if that location had a previous tenant?',
+        answer: 'The previous tenant must have filed a formal Closure/Retirement of business to the City Treasurer\'s Office. Otherwise, the building owner must submit a Termination of Lease Contract and an Affidavit of No Relation so the new applicant can secure an account number.',
+      },
+    ],
+    office: {
+      name: 'Business Permits & Licensing Office',
+      location: 'City Hall, Ground Floor',
+      phone: '(02) 8551-5930',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'Business Permit Renewal',
+        link: '/service-details/business-permit-renewal',
+      },
+      {
+        title: 'City Treasurer',
+        link: '/service-details/city-treasurer',
+      },
+    ],
+    onlineLink: 'https://cityoflaspinas.ph/',
+    sourceUrl: 'https://laspinascity.gov.ph/storage/uploads/gallery/625e67f3ae023.pdf',
+    sourceName: 'Citizen\'s Charter 2022 (1st Edition)',
+  },
+  {
+    id: 'business-permit-renewal',
+    title: 'Business Permit (Renewal)',
+    fullTitle: 'Renewal of Business License and Mayor\'s Permit',
+    category: 'Business',
+    categoryLink: '/services/business',
+    badgeText: 'Business',
+    badgeIcon: 'bi-shop',
+    description: 'Renew your annual business permit, Mayor\'s clearance, and licensing services as per City Ordinance No: 1373-16',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: 'Approx. 3 Hours' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Varies by Assessment' },
+      {
+        icon: 'bi-person-check',
+        label: 'Who Can Apply',
+        value: 'Registered Business Owner',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Online / Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Submit Application',
+        description:
+          'Submit duly accomplished application form indicating gross sale/receipt together with complete requirements to BPLO.',
+      },
+      {
+        title: 'Evaluation & Approval',
+        description:
+          'BPLO personnel reviews requirements. The application is then forwarded for approval by the BPLO Chief or authorized representative.',
+      },
+      {
+        title: 'Generate Payment Order',
+        description:
+          'Once approved, a computer-generated Tax Order of Payment (TOP) is released, covering consolidated taxes and fees.',
+      },
+      {
+        title: 'Pay Taxes and Fees',
+        description: 'Present TOP and pay at the Business License Division, Treasury Department. Receive Official Receipt and Cedula.',
+      },
+      {
+        title: 'Claim Permit & Clearances',
+        description: 'Return to BPLO to claim your Business License, Mayor\'s Permit, Sanitary Permit, and other regulatory clearances.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Documentary Requirements',
+        icon: 'bi-arrow-repeat',
+        items: [
+          'Unified Application Form',
+          'Prior Year Audited Financial Statement / ITR (Last 2 years)',
+          'Monthly/Quarterly VAT Returns / Percentage Tax Returns of previous years',
+          'Homeowners/Subdivision/Condominium Clearance to conduct business',
+          'Undertaking (BPLO)',
+          'Special Requirements based on line of business (if applicable)',
+        ],
+      },
+      {
+        title: 'If Applied Through Representative',
+        icon: 'bi-people',
+        items: [
+          'Letter of Authority / Special Power of Attorney / Secretary Certificate',
+          'Valid ID of owner and representative',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'When should I renew my business permit?',
+        answer: 'Before January 20 of each year to avoid penalties.',
+      },
+      {
+        question: 'How long does the processing take?',
+        answer: 'According to the Citizen\'s Charter 2022, the total processing time for a simple renewal is approximately 3 hours and 10 minutes.',
+      },
+      {
+        question: 'What happens if I renew late?',
+        answer:
+          'Renewals after the January 20 deadline are subject to surcharges and monthly interest as prescribed by the City\'s Revenue Code (Ordinance 1373-16).',
+      },
+    ],
+    office: {
+      name: 'Business Permits & Licensing Office',
+      location: 'City Hall, Ground Floor',
+      phone: '(02) 8551-5930',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'City Treasurer',
+        link: '/service-details/city-treasurer',
+      },
+      // Bring back when we have the details
+      // {
+      //   title: 'Fire Safety Certificate',
+      //   link: '/services/business',
+      // },
+    ],
+    onlineLink: 'https://cityoflaspinas.ph/',
+    sourceUrl: 'https://laspinascity.gov.ph/storage/uploads/gallery/625e67f3ae023.pdf',
+    sourceName: 'Citizen\'s Charter 2022 (1st Edition)',
+  },
+  {
+    id: 'tricycle-franchising',
+    hidden: true,
+    title: 'Tricycle Franchising',
+    fullTitle: 'Tricycle Franchise Application',
+    category: 'Business',
+    categoryLink: '/services/business',
+    badgeText: 'Business',
+    badgeIcon: 'bi-bicycle',
+    description: 'Application for tricycle-for-hire franchise',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '3-5 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: '₱500' },
+      {
+        icon: 'bi-person-check',
+        label: 'Who Can Apply',
+        value: 'Owner/Operator',
+      },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Prepare Requirements',
+        description:
+          'Gather vehicle registration, driver\'s license, and barangay clearance.',
+      },
+      {
+        title: 'Submit Application',
+        description: 'File application at the City Traffic Office.',
+      },
+      {
+        title: 'Vehicle Inspection',
+        description: 'Have your tricycle inspected for safety compliance.',
+      },
+      {
+        title: 'Pay Fees',
+        description: 'Pay franchise fee at City Treasurer\'s Office.',
+      },
+      {
+        title: 'Claim Franchise',
+        description: 'Return to claim franchise certificate.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Required Documents',
+        icon: 'bi-file-text',
+        items: [
+          'OR/CR of tricycle motorcycle',
+          'Valid driver\'s license',
+          'Barangay clearance',
+          'Police clearance',
+          'TODA Endorsement/Certification',
+          '2x2 ID pictures',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'How long is the franchise valid?',
+        answer: 'Usually 3 years, subject to annual renewal of registration.',
+      },
+    ],
+    office: {
+      name: 'City Traffic Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Fri: 8AM - 5PM',
+    },
+    relatedServices: [
+      {
+        title: 'New Business Permit',
+        link: '/service-details/business-permit-new',
+      },
+    ],
+  },
+
+  /**
+   * Taxation & Payments
+   */
+  {
+    id: 'city-assessor',
+    title: 'City Assessor\'s Office',
+    fullTitle: 'City Assessor\'s Office',
+    category: 'Taxation',
+    categoryLink: '/services/tax-payments',
+    badgeText: 'Taxation',
+    badgeIcon: 'bi-house-door',
+    description: 'Property assessment, tax declarations, and land records',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '1-5 Days' },
+      { icon: 'bi-file-text', label: 'Records', value: 'Property Info' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'Ground Floor' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Online / Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Identify Transaction',
+        description:
+          'Determine if you need transfer, update, or new declaration.',
+      },
+      {
+        title: 'Submit Documents',
+        description:
+          'Submit deed of sale, title, or other supporting documents.',
+      },
+      {
+        title: 'Pay Fees',
+        description: 'Pay transfer tax and processing fees.',
+      },
+      {
+        title: 'Wait for Processing',
+        description: 'Allow 1-5 days for assessment and approval.',
+      },
+      {
+        title: 'Claim Declaration',
+        description: 'Return to claim new tax declaration.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Transfer',
+        icon: 'bi-arrow-left-right',
+        items: [
+          'Deed of Absolute Sale',
+          'Transfer Certificate of Title',
+          'Tax Clearance',
+          'Previous Tax Declaration',
+          'Valid IDs',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'How long is a tax declaration valid?',
+        answer:
+          'Until the property is transferred or there are changes requiring reassessment.',
+      },
+    ],
+    office: {
+      name: 'City Assessor\'s Office',
+      location: 'City Hall, Ground Floor',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'City Treasurer',
+        link: '/service-details/city-treasurer',
+      },
+      {
+        title: 'Property Declaration',
+        link: '/service-details/property-declaration',
+      },
+    ],
+  },
+  {
+    id: 'city-treasurer',
+    hidden: true,
+    title: 'City Treasurer\'s Office',
+    fullTitle: 'City Treasurer\'s Office',
+    category: 'Taxation',
+    categoryLink: '/services/tax-payments',
+    badgeText: 'Taxation',
+    badgeIcon: 'bi-cash-coin',
+    description: 'Tax payments, revenue collection, and tax clearances',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '15-30 Minutes' },
+      { icon: 'bi-cash', label: 'Payment Methods', value: 'Cash/Check' },
+      { icon: 'bi-calendar', label: 'Deadline', value: 'Jan 31 (RPT)' },
+      { icon: 'bi-percent', label: 'Discount', value: '10% if paid early' },
+    ],
+    processSteps: [
+      {
+        title: 'Get Tax Bill',
+        description: 'Request your tax bill or assessment from the office.',
+      },
+      {
+        title: 'Verify Amount',
+        description: 'Check the details and amount due.',
+      },
+      { title: 'Make Payment', description: 'Pay at the cashier window.' },
+      {
+        title: 'Claim Receipt',
+        description: 'Keep official receipt for your records.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Real Property Tax',
+        icon: 'bi-house',
+        items: [
+          'Tax Declaration Number',
+          'Previous Official Receipt',
+          'Valid ID',
+        ],
+      },
+      {
+        title: 'For Business Tax',
+        icon: 'bi-shop',
+        items: ['Business Permit', 'Assessment from BPLO', 'Valid ID'],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is there a discount for early payment?',
+        answer: 'Yes, 10% discount for RPT paid in full before January 31.',
+      },
+      {
+        question: 'Can I pay quarterly?',
+        answer: 'Yes, RPT can be paid quarterly without discount.',
+      },
+    ],
+    office: {
+      name: 'City Treasurer\'s Office',
+      location: 'City Hall, Ground Floor',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'Property Declaration',
+        link: '/service-details/property-declaration',
+      },
+      {
+        title: 'City Assessor',
+        link: '/service-details/municipal-assessor',
+      },
+    ],
+    onlineLink: 'https://cityoflaspinas.ph/',
+  },
+  {
+    id: 'property-declaration',
+    title: 'Property Declaration',
+    fullTitle: 'Tax Declaration & Property Records',
+    category: 'Taxation',
+    categoryLink: '/services/tax-payments',
+    badgeText: 'Taxation',
+    badgeIcon: 'bi-file-text',
+    description: 'Transfer or update of property tax declaration',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '1-3 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: '₱50-100' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'Assessor\'s Office' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Gather Documents',
+        description:
+          'Prepare deed of sale, title, and previous tax declaration.',
+      },
+      {
+        title: 'Submit to Assessor',
+        description: 'Submit documents at the City Assessor\'s Office.',
+      },
+      { title: 'Pay Transfer Tax', description: 'Pay at Treasurer\'s Office.' },
+      {
+        title: 'Claim New Declaration',
+        description: 'Return to claim updated tax declaration.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Required Documents',
+        icon: 'bi-file-text',
+        items: [
+          'Notarized Deed of Sale',
+          'Transfer Certificate of Title',
+          'Tax Clearance',
+          'Valid IDs of buyer and seller',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What is the transfer tax rate?',
+        answer:
+          'Usually 0.5% to 0.75% of the selling price or zonal value, whichever is higher.',
+      },
+    ],
+    office: {
+      name: 'City Assessor\'s Office',
+      location: 'City Hall, Ground Floor',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'City Assessor',
+        link: '/service-details/municipal-assessor',
+      },
+      {
+        title: 'City Treasurer',
+        link: '/service-details/city-treasurer',
+      },
+    ],
+  },
+
+  /**
+   * Social Services
+   */
+  {
+    id: 'cswdo-services',
+    title: 'CSWDO Services',
+    fullTitle: 'City Social Welfare & Development Office',
+    category: 'Social Services',
+    categoryLink: '/services/social-services',
+    badgeText: 'Social Services',
+    badgeIcon: 'bi-people',
+    description: 'Social welfare programs, IDs, and financial assistance',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: 'Varies' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Free' },
+      { icon: 'bi-telephone', label: 'Hotline', value: '0916 284 0885' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Identify Program',
+        description: 'Determine which social welfare program you need.',
+      },
+      {
+        title: 'Prepare Documents',
+        description: 'Gather required documents for the specific program.',
+      },
+      {
+        title: 'Visit CSWDO',
+        description: 'Go to CSWDO office at the City Hall.',
+      },
+      {
+        title: 'Submit Application',
+        description: 'Submit application and documents for assessment.',
+      },
+      {
+        title: 'Receive Assistance',
+        description:
+          'If approved, receive the corresponding benefit or service.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Senior Citizen ID',
+        icon: 'bi-person-vcard',
+        items: [
+          'Proof of age (birth certificate or valid ID)',
+          'Barangay certification',
+          '1x1 ID picture',
+        ],
+      },
+      {
+        title: 'For PWD ID',
+        icon: 'bi-universal-access',
+        items: [
+          'Medical certificate of disability',
+          'Barangay certification',
+          '1x1 ID picture',
+        ],
+      },
+      {
+        title: 'For Financial Assistance',
+        icon: 'bi-wallet2',
+        items: [
+          'Barangay certification of indigency',
+          'Valid ID',
+          'Case study/assessment by CSWDO',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What assistance programs are available?',
+        answer:
+          'Senior Citizen ID, PWD ID, Solo Parent ID, financial assistance, burial assistance, medical assistance, educational assistance, and various social welfare programs.',
+      },
+      {
+        question: 'Who can apply for financial assistance?',
+        answer: 'Indigent families and individuals in crisis situations.',
+      },
+    ],
+    office: {
+      name: 'CSWDO',
+      location: 'City Hall, Ground Floor',
+      phone: '0916 284 0885',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      { title: 'Senior Citizen Services', link: '/services/social-services' },
+      { title: 'PWD Services', link: '/services/social-services' },
+    ],
+  },
+  {
+    id: 'cswdo',
+    title: 'CSWDO',
+    fullTitle: 'City Social Welfare & Development Office',
+    category: 'Social Services',
+    categoryLink: '/services/social-services',
+    badgeText: 'Office',
+    badgeIcon: 'bi-building',
+    description: 'Social welfare programs and community development',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Hotline', value: '0916 284 0885' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'Ground Floor' },
+      { icon: 'bi-cash', label: 'Services', value: 'Free' },
+    ],
+    processSteps: [
+      {
+        title: 'Visit Office',
+        description: 'Go to CSWDO at City Hall ground floor.',
+      },
+      {
+        title: 'State Your Concern',
+        description: 'Inform staff of the assistance or service you need.',
+      },
+      {
+        title: 'Assessment',
+        description: 'CSWDO staff will assess your situation.',
+      },
+      {
+        title: 'Receive Assistance',
+        description: 'Get appropriate assistance based on assessment.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'General Requirements',
+        icon: 'bi-file-text',
+        items: [
+          'Valid ID',
+          'Barangay certification',
+          'Supporting documents based on program',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What are the office hours?',
+        answer: 'Monday to Thursday, 8:00 AM to 7:00 PM.',
+      },
+    ],
+    office: {
+      name: 'CSWDO',
+      location: 'City Hall, Ground Floor',
+      phone: '0916 284 0885',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      { title: 'CSWDO Services', link: '/service-details/cswdo-services' },
+    ],
+  },
+
+  /**
+   * Agriculture
+   */
+  {
+    id: 'city-agriculture',
+    title: 'City Agriculture Office',
+    fullTitle: 'City Agriculture Office (MAGRO)',
+    category: 'Agriculture',
+    categoryLink: '/services/agriculture',
+    badgeText: 'Agriculture',
+    badgeIcon: 'bi-tree',
+    description: 'Agricultural programs, farmer registration, and assistance',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '(078) 326-5001' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-cash', label: 'Programs', value: 'Free/Subsidized' },
+    ],
+    processSteps: [
+      {
+        title: 'Visit MAGRO',
+        description: 'Go to City Agriculture Office at City Hall.',
+      },
+      {
+        title: 'Farmer Registration',
+        description: 'Register under RSBSA if not yet registered.',
+      },
+      {
+        title: 'Identify Program',
+        description: 'Inquire about available programs and assistance.',
+      },
+      {
+        title: 'Submit Requirements',
+        description: 'Submit documents for the program you are applying for.',
+      },
+      {
+        title: 'Receive Assistance',
+        description: 'Get subsidized inputs, training, or other assistance.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For RSBSA Registration',
+        icon: 'bi-card-list',
+        items: [
+          'Valid ID',
+          'Barangay certification of farmer status',
+          'Proof of land ownership or tenant agreement',
+          '1x1 ID picture',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What is RSBSA?',
+        answer:
+          'Registry System for Basic Sectors in Agriculture - a prerequisite for accessing government agricultural programs.',
+      },
+      {
+        question: 'What assistance is available?',
+        answer:
+          'Fertilizer subsidy, seeds distribution, livestock dispersal, crop insurance, and technical training.',
+      },
+    ],
+    office: {
+      name: 'City Agriculture Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      { title: 'Fertilizer Assistance', link: '/services/agriculture' },
+      { title: 'Crop Insurance', link: '/services/agriculture' },
+    ],
+  },
+
+  /**
+   * Infrastructure
+   */
+  {
+    id: 'city-engineering',
+    title: 'City Engineering Office',
+    fullTitle: 'City Engineering Office',
+    category: 'Infrastructure',
+    categoryLink: '/services/infrastructure',
+    badgeText: 'Infrastructure',
+    badgeIcon: 'bi-building-gear',
+    description: 'Building permits, construction, and infrastructure projects',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '5-10 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Varies' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Secure Zoning Clearance',
+        description: 'Get zoning clearance from Planning Office.',
+      },
+      {
+        title: 'Prepare Plans',
+        description:
+          'Prepare building plans signed by licensed engineer/architect.',
+      },
+      {
+        title: 'Submit Application',
+        description: 'File building permit application with requirements.',
+      },
+      {
+        title: 'Site Inspection',
+        description: 'City engineer conducts site inspection.',
+      },
+      {
+        title: 'Pay Fees',
+        description: 'Pay permit fees at Treasurer\'s Office.',
+      },
+      {
+        title: 'Claim Permit',
+        description: 'Return to Engineering to claim building permit.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Building Permit',
+        icon: 'bi-building',
+        items: [
+          'Zoning clearance',
+          'Building plans (5 sets) signed by licensed professional',
+          'Land title or deed of sale',
+          'Barangay clearance',
+          'Fire safety evaluation clearance',
+          'Structural analysis (for 2+ storeys)',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'How long is a building permit valid?',
+        answer: 'Usually 1 year, extendable upon request.',
+      },
+      {
+        question: 'Do I need a permit for renovations?',
+        answer: 'Yes, any structural modification requires a building permit.',
+      },
+    ],
+    office: {
+      name: 'City Engineering Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Fri: 8AM - 5PM',
+    },
+    relatedServices: [
+      {
+        title: 'City Planning',
+        link: '/service-details/municipal-planning',
+      },
+      { title: 'Fire Safety Certificate', link: '/services/infrastructure' },
+    ],
+  },
+  {
+    id: 'city-planning',
+    title: 'City Planning & Development',
+    fullTitle: 'City Planning & Development Office',
+    category: 'Infrastructure',
+    categoryLink: '/services/infrastructure',
+    badgeText: 'Infrastructure',
+    badgeIcon: 'bi-clipboard-data',
+    description: 'Zoning, land use, and development planning',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Processing', value: '3-5 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: '₱100-500' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Submit Request',
+        description: 'File zoning clearance request with location details.',
+      },
+      {
+        title: 'Document Review',
+        description: 'Planning office reviews land use compatibility.',
+      },
+      {
+        title: 'Site Verification',
+        description: 'Staff may conduct site visit if needed.',
+      },
+      { title: 'Pay Fees', description: 'Pay at Treasurer\'s Office.' },
+      {
+        title: 'Claim Clearance',
+        description: 'Return to claim zoning clearance.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Zoning Clearance',
+        icon: 'bi-map',
+        items: [
+          'Tax declaration of property',
+          'Lot plan or sketch of location',
+          'Valid ID of applicant',
+          'Purpose of application',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What is zoning clearance?',
+        answer:
+          'A document certifying that your proposed use of the property is compatible with the zonal classification.',
+      },
+    ],
+    office: {
+      name: 'City Planning & Development Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'City Engineering',
+        link: '/service-details/municipal-engineering',
+      },
+    ],
+  },
+  {
+    id: 'city-general-services',
+    title: 'City General Services',
+    fullTitle: 'City General Services Office',
+    category: 'Infrastructure',
+    categoryLink: '/services/infrastructure',
+    badgeText: 'Services',
+    badgeIcon: 'bi-tools',
+    description: 'Equipment rental, vehicle use, and general services',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '(078) 326-5001' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-cash', label: 'Rental', value: 'Varies' },
+    ],
+    processSteps: [
+      {
+        title: 'Submit Request',
+        description: 'File equipment or vehicle use request.',
+      },
+      { title: 'Approval', description: 'Wait for approval from GSO.' },
+      { title: 'Pay Fees', description: 'Pay rental fees if applicable.' },
+      {
+        title: 'Use Equipment',
+        description: 'Use equipment/vehicle as scheduled.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'Equipment Request',
+        icon: 'bi-file-text',
+        items: [
+          'Request letter',
+          'Purpose of use',
+          'Valid ID',
+          'Payment (if applicable)',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What equipment is available?',
+        answer:
+          'Heavy equipment, service vehicles, and other municipal assets for public use.',
+      },
+    ],
+    office: {
+      name: 'General Services Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      { title: 'Infrastructure', link: '/services/infrastructure' },
+    ],
+  },
+
+  /**
+   * Budget
+   */
+  {
+    id: 'city-budget',
+    title: 'City Budget Office',
+    fullTitle: 'City Budget Office',
+    category: 'Budget',
+    categoryLink: '/budget',
+    badgeText: 'Budget',
+    badgeIcon: 'bi-wallet2',
+    description: 'Budget preparation, appropriation, and financial management',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '(078) 326-5001' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-file-text', label: 'Reports', value: 'Public Access' },
+    ],
+    processSteps: [
+      {
+        title: 'Public Inquiry',
+        description: 'For budget-related inquiries, visit the Budget Office.',
+      },
+      {
+        title: 'Submit Request',
+        description: 'Submit written request for specific budget information.',
+      },
+      {
+        title: 'Processing',
+        description: 'Office processes request and prepares information.',
+      },
+      {
+        title: 'Receive Information',
+        description: 'Receive requested budget documents.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Information Request',
+        icon: 'bi-info-circle',
+        items: ['Written request letter', 'Valid ID', 'Purpose of request'],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is budget information available to the public?',
+        answer:
+          'Yes, municipal budget documents are public records accessible under the Freedom of Information.',
+      },
+    ],
+    office: {
+      name: 'City Budget Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      {
+        title: 'City Accounting',
+        link: '/service-details/municipal-accounting',
+      },
+      { title: 'Budget Transparency', link: '/budget' },
+    ],
+  },
+  {
+    id: 'city-accounting',
+    title: 'City Accounting Office',
+    fullTitle: 'City Accounting Office',
+    category: 'Budget',
+    categoryLink: '/budget',
+    badgeText: 'Budget',
+    badgeIcon: 'bi-calculator',
+    description: 'Financial transactions, payroll, and accounting records',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '(078) 326-5001' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-file-text', label: 'Records', value: 'Financial' },
+    ],
+    processSteps: [
+      {
+        title: 'Identify Transaction',
+        description: 'Determine what accounting service you need.',
+      },
+      {
+        title: 'Submit Documents',
+        description: 'Submit required documents for processing.',
+      },
+      {
+        title: 'Verification',
+        description: 'Accounting staff verifies and processes documents.',
+      },
+      {
+        title: 'Completion',
+        description: 'Receive processed documents or certificates.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'General Requirements',
+        icon: 'bi-file-text',
+        items: ['Official request letter', 'Supporting documents', 'Valid ID'],
+      },
+    ],
+    faqs: [
+      {
+        question: 'What services are offered?',
+        answer:
+          'Financial statement verification, supplier payment processing, payroll services for LGU employees.',
+      },
+    ],
+    office: {
+      name: 'City Accounting Office',
+      location: 'City Hall',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [
+      { title: 'City Budget', link: '/service-details/municipal-budget' },
+      {
+        title: 'City Treasurer',
+        link: '/service-details/city-treasurer',
+      },
+    ],
+  },
+
+  /**
+   * Services
+   */
+  {
+    id: 'general-services',
+    title: 'General Services',
+    fullTitle: 'General City Services',
+    category: 'Services',
+    categoryLink: '/services',
+    badgeText: 'Services',
+    badgeIcon: 'bi-grid',
+    description: 'General public services and information',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '(078) 326-5001' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall' },
+      { icon: 'bi-info-circle', label: 'Info Desk', value: 'Ground Floor' },
+    ],
+    processSteps: [
+      {
+        title: 'Visit Information Desk',
+        description: 'Go to the ground floor information desk.',
+      },
+      {
+        title: 'State Your Concern',
+        description: 'Tell the staff what service you need.',
+      },
+      {
+        title: 'Get Directions',
+        description: 'Staff will direct you to the appropriate office.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'General Visit',
+        icon: 'bi-person',
+        items: ['Valid ID for most transactions'],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Where can I get information about services?',
+        answer:
+          'Visit the Information Desk at the ground floor of City Hall.',
+      },
+    ],
+    office: {
+      name: 'Information Desk',
+      location: 'City Hall, Ground Floor',
+      phone: '(078) 326-5001',
+      hours: 'Mon-Thu: 8AM - 7PM',
+    },
+    relatedServices: [{ title: 'All Services', link: '/services' }],
+  },
+
+  /**
+   * Health
+   */
+  {
+    id: 'city-health',
+    title: 'City Health Office',
+    fullTitle: 'City Health Office',
+    category: 'Health',
+    categoryLink: '/services/health',
+    badgeText: 'Health',
+    badgeIcon: 'bi-heart-pulse',
+    description: 'Public health services, vaccination, and medical assistance',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Office Hours', value: 'Mon-Fri 8AM-5PM' },
+      { icon: 'bi-telephone', label: 'Contact', value: '(02) 8776-7268' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'City Hall Compound' },
+      { icon: 'bi-heart', label: 'Services', value: 'Public Health' },
+    ],
+    processSteps: [
+      {
+        title: 'Visit CHO',
+        description: 'Go to the City Health Office.',
+      },
+      {
+        title: 'Triage/Assessment',
+        description: 'Medical staff will assess your needs.',
+      },
+      {
+        title: 'Receive Service',
+        description: 'Receive vaccination, consultation, or assistance.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'General',
+        icon: 'bi-file-text',
+        items: ['Valid ID', 'Medical records (if applicable)'],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is consultation free?',
+        answer: 'Yes, basic consultation at the health office is free.',
+      },
+    ],
+    office: {
+      name: 'City Health Office',
+      location: 'City Hall Compound',
+      phone: '(02) 8776-7268',
+      hours: 'Mon-Fri: 8AM - 5PM',
+    },
+    relatedServices: [
+      { title: 'Vaccination', link: '/service-details/vaccination' },
+    ],
+  },
+  {
+    id: 'vaccination',
+    title: 'Vaccination Programs',
+    fullTitle: 'Immunization & Vaccination Services',
+    category: 'Health',
+    categoryLink: '/services/health',
+    badgeText: 'Health',
+    badgeIcon: 'bi-shield-plus',
+    description: 'Free immunization for children, adults, and senior citizens',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Schedule', value: 'Mon-Fri' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Free' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'Health Centers' },
+      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Walk-in' },
+    ],
+    processSteps: [
+      {
+        title: 'Registration',
+        description: 'Register at the health center.',
+      },
+      {
+        title: 'Screening',
+        description: 'Health screening and vital signs check.',
+      },
+      {
+        title: 'Vaccination',
+        description: 'Administration of vaccine.',
+        isFinal: true,
+      },
+    ],
+    requirements: [
+      {
+        title: 'For Children',
+        icon: 'bi-person',
+        items: ['Baby book / Immunization card'],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Are vaccines safe?',
+        answer: 'Yes, all vaccines provided are DOH-approved and safe.',
+      },
+    ],
+    office: {
+      name: 'City Health Office',
+      location: 'City Hall Compound',
+      phone: '(02) 8776-7268',
+      hours: 'Mon-Fri: 8AM - 5PM',
+    },
+    relatedServices: [
+      { title: 'City Health Office', link: '/service-details/city-health' },
+    ],
+  },
+
+  /**
+   * Public Safety
+   */
+  {
+    id: 'cdrrmo',
+    title: 'CDRRMO',
+    fullTitle: 'City Disaster Risk Reduction and Management Office',
+    category: 'Public Safety',
+    categoryLink: '/services/public-safety',
+    badgeText: 'Safety',
+    badgeIcon: 'bi-shield-exclamation',
+    description: 'Emergency response, disaster management, and rescue services',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Operations', value: '24/7' },
+      { icon: 'bi-telephone', label: 'Emergency', value: '(02) 8290-6500' },
+      { icon: 'bi-geo-alt', label: 'Location', value: 'Command Center' },
+      { icon: 'bi-shield', label: 'Service', value: 'Rescue' },
+    ],
+    processSteps: [
+      {
+        title: 'Call Emergency Hotline',
+        description: 'Dial (02) 8290-6500 for emergencies.',
+      },
+      {
+        title: 'Dispatch',
+        description: 'Responders are dispatched to the location.',
+      },
+      {
+        title: 'Response / Rescue',
+        description: 'Emergency assistance is provided.',
+        isFinal: true,
+      },
+    ],
+    requirements: [],
+    faqs: [
+      {
+        question: 'What is the emergency hotline?',
+        answer: '(02) 8290-6500 or 911.',
+      },
+    ],
+    office: {
+      name: 'CDRRMO',
+      location: 'Command Center',
+      phone: '(02) 8290-6500',
+      hours: '24/7 Operations',
+    },
+    relatedServices: [
+      {
+        title: 'Emergency Response',
+        link: '/service-details/emergency-response',
+      },
+    ],
+  },
+  {
+    id: 'emergency-response',
+    title: 'Emergency Response',
+    fullTitle: 'Emergency Rescue & Response',
+    category: 'Public Safety',
+    categoryLink: '/services/public-safety',
+    badgeText: 'Safety',
+    badgeIcon: 'bi-ambulance',
+    description: '24/7 ambulance and rescue assistance',
+    quickStats: [
+      { icon: 'bi-clock', label: 'Response', value: 'Immediate' },
+      { icon: 'bi-telephone', label: 'Hotline', value: '(02) 8290-6500' },
+      { icon: 'bi-geo-alt', label: 'Coverage', value: 'Citywide' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Free' },
+    ],
+    processSteps: [
+      {
+        title: 'Call Hotline',
+        description: 'Call (02) 8290-6500 immediately.',
+      },
+      {
+        title: 'Provide Info',
+        description: 'State nature of emergency and exact location.',
+      },
+      {
+        title: 'Wait for Help',
+        description: 'Stay on the line if instructed. Responders are on the way.',
+        isFinal: true,
+      },
+    ],
+    requirements: [],
+    faqs: [
+      {
+        question: 'Is ambulance service free?',
+        answer: 'Yes, for emergency cases within the city.',
+      },
+    ],
+    office: {
+      name: 'CDRRMO',
+      location: 'Command Center',
+      phone: '(02) 8290-6500',
+      hours: '24/7 Operations',
+    },
+    relatedServices: [
+      { title: 'CDRRMO', link: '/service-details/cdrrmo' },
+    ],
+  },
+]
+
+export function getServiceDetail(slug: string): ServiceDetail | undefined {
+  const service = serviceDetailsContent.find(service => service.id === slug)
+
+  if (!service || service.hidden)
+    return undefined
+
+  return service
+}

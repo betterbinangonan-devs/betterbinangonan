@@ -1,0 +1,350 @@
+# Contributing to Better Las Piñas
+
+Thank you for your interest in contributing to Better Las Piñas! This document provides guidelines and instructions for contributing to this project.
+
+## 📋 Table of Contents
+
+- [Code of Conduct](#-code-of-conduct)
+- [How Can I Contribute?](#-how-can-i-contribute)
+  - [Finding Tasks](#-finding-tasks)
+- [Development Setup](#️-development-setup)
+- [Coding Standards](#-coding-standards)
+- [Commit Guidelines](#-commit-guidelines)
+- [Branching & Versioning](#-branching--versioning)
+- [Pull Request Process](#-pull-request-process)
+- [Testing Requirements](#-testing-requirements)
+
+## 📜 Code of Conduct
+
+This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
+## 🤝 How Can I Contribute?
+
+### 🔍 Finding Tasks
+
+We use a [GitHub Project Board](https://github.com/orgs/betterlaspinas/projects/3) to manage and track all active tasks. This is the best place to find something to work on.
+
+- **🌟 Start Here**: If you're new to the project, check this tab. It contains issues labeled `good first issue` or `help wanted`.
+- **📋 Triage**: A complete list of all active tasks, grouped by priority.
+- **⚡ Active Sprint**: See what's currently being worked on for the current development cycle.
+
+**How to claim a task:**
+
+1.  Browse the **Todo** column in the **🌟 Start Here** or **⚡ Active Sprint** tabs.
+2.  Open the issue you're interested in and read the description.
+3.  **Comment on the issue** stating you'd like to work on it.
+4.  Once a maintainer assigns it to you (or gives a thumbs up), you can start!
+
+### Reporting Bugs
+
+- **Check existing issues** - Search [GitHub Issues](https://github.com/betterlaspinas/betterlaspinas/issues) to avoid duplicates
+- **Use the bug report template** - Provide clear steps to reproduce
+- **Include environment details** - OS, Node version, browser, etc.
+
+### Suggesting Enhancements
+
+- **Check existing suggestions** - Look through issues and discussions
+- **Use the feature request template** - Explain the use case clearly
+- **Consider scope** - Keep suggestions relevant to LGU portals
+
+### Code Contributions
+
+#### For External Contributors (Forks)
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes following our [Coding Standards](#-coding-standards)
+4. Write tests for your changes
+5. Ensure all tests pass
+6. Commit with a descriptive message
+7. Push to your fork
+8. Open a Pull Request against the `main` branch
+
+#### For Core Team Members (Direct)
+
+1. Clone the repository directly
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Draft PRs**: Open a Draft PR early for visibility
+4. **Review**: Request review from at least one other core member
+5. **Merge**: Squash and merge into `main` once approved
+6. **Cleanup**: Delete the feature branch after merging
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+- Node.js 22.x or higher
+- pnpm 10.x or higher
+- Git
+
+### Setup Instructions
+
+```bash
+# Clone your fork
+git clone https://github.com/betterlaspinas/betterlaspinas.git
+cd betterlaspinas
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+```
+
+### Running Quality Checks
+
+```bash
+# Lint
+pnpm lint
+
+# Type check
+pnpm typecheck
+
+# Tests
+pnpm test
+
+# All checks (what pre-commit runs)
+pnpm lint && pnpm typecheck && pnpm test --run
+```
+
+## 📝 Coding Standards
+
+### TypeScript
+
+- **Strict mode enabled** - All type errors must be resolved
+- **Explicit types** - Avoid `any`, use proper typing
+- **No implicit any** - All parameters must be typed
+
+### Vue 3 / Nuxt
+
+- **Composition API** - Use `<script setup>` syntax
+- **TypeScript** - All `.vue` files must use `lang="ts"`
+- **Props** - Define with `defineProps<{ ... }>()`
+- **Emits** - Define with `defineEmits<{ ... }>()`
+
+### ESLint
+
+- Follow [@antfu/eslint-config](https://github.com/antfu/eslint-config)
+- Run `pnpm lint:fix` to auto-fix issues
+- Pre-commit hooks will enforce these rules
+
+### File Organization
+
+```text
+app/
+├── components/
+│   ├── charts/        # Chart components
+│   ├── home/          # Homepage-specific
+│   ├── layout/        # Layout components
+│   ├── services/      # Services page components
+│   └── ui/            # Reusable UI components
+├── composables/       # Composables (use prefix) — tests co-located here
+├── pages/             # Nuxt pages (file-based routing)
+├── types/             # TypeScript definitions
+└── utils/             # Helper functions — tests co-located here
+```
+
+> **Note on tests**: Test files (`.test.ts`) are co-located alongside the source files they test (e.g. `app/utils/configHelper.test.ts`, `app/composables/useSearch.test.ts`). There is no separate root-level `tests/` directory.
+
+### Naming Conventions
+
+- **Components**: PascalCase (`Header.vue`, `ServiceCard.vue`)
+- **Composables**: camelCase with `use` prefix (`useLanguage.ts`)
+- **Utils**: camelCase (`configHelper.ts`)
+- **Types**: PascalCase (`LGUConfig`, `ServiceItem`)
+- **CSS Classes**: kebab-case or Tailwind utilities
+
+## 🌿 Branching & Versioning
+
+This project adheres to professional standards for branching and versioning to ensure consistency and predictability.
+
+### Branching Strategy
+
+We use **GitHub Flow** for our development cycle:
+
+1.  **Main Branch**: The `main` branch always contains production-ready code.
+2.  **Feature Branches**: All new work (features, fixes, docs) must be done in a branch.
+3.  **Pull Requests**: Merge into `main` only via Pull Requests followed by successful CI checks and human review.
+
+### Versioning Strategy
+
+This project adheres to **[Semantic Versioning (SemVer)](https://semver.org/)** (`MAJOR.MINOR.PATCH`):
+
+- **MAJOR**: Breaking changes
+- **MINOR**: New functionality in a backwards-compatible manner
+- **PATCH**: Backwards-compatible bug fixes
+
+All releases are tagged in git and documented in the [CHANGELOG.md](CHANGELOG.md).
+
+## 🌿 Branch Naming
+
+We follow a convention that mirrors our commit types: `type/short-description`.
+
+- `feat/user-auth`
+- `fix/nav-typo`
+- `docs/update-readme`
+- `refactor/header-component`
+- `test/add-unit-tests`
+
+## 💬 Commit Guidelines
+
+### Format
+
+```text
+type(scope): subject
+
+body (optional)
+
+footer (optional)
+```
+
+### Types
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting)
+- `refactor`: Code refactoring
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks
+
+### Examples
+
+```bash
+feat(services): add service category filtering
+
+fix(search): resolve fuzzy search scoring issue
+
+docs(readme): update installation instructions
+
+test(composables): add tests for useLanguage
+```
+
+## 🔀 Pull Request Process
+
+### Before Submitting
+
+1. **Update from main** - Rebase on latest `main` branch
+2. **Run all checks** - Lint, typecheck, and tests must pass
+3. **Write tests** - Cover new functionality
+4. **Update docs** - README, comments, etc.
+5. **Test manually** - Verify changes work as expected
+
+### PR Template
+
+Use the provided PR template and fill out all sections:
+
+- Description of changes
+- Related issue(s)
+- Type of change (bugfix, feature, etc.)
+- Testing performed
+- Screenshots (if UI changes)
+
+### Review Process
+
+- **Automated checks** - Must pass CI/CD pipeline
+- **Code review** - At least one maintainer approval required
+- **Testing** - Reviewers will test functionality
+- **Feedback** - Address all review comments
+- **Merge Strategy**:
+  - **Squash and Merge** (Default): Keeps history clean by combining all PR commits into one.
+  - **Merge Commit**: Use only for long-lived branches or significant features where preserving individual commit history is crucial.
+  - **Rebase and Merge**: Avoid unless necessary to keep a linear history without squashing.
+
+## 🧪 Testing Requirements
+
+### Test Coverage
+
+- **All new features** must have tests
+- **Bug fixes** should include regression tests
+- **Existing tests** must continue to pass
+
+### Writing Tests
+
+**Component Test Example:**
+
+```typescript
+import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+
+import Header from './Header.vue'
+
+describe('Header', () => {
+  it('should render navigation', () => {
+    const wrapper = mount(Header)
+    expect(wrapper.find('nav').exists()).toBe(true)
+  })
+})
+```
+
+**Composable Test Example:**
+
+```typescript
+import { describe, expect, it } from 'vitest'
+
+import { useLanguage } from './useLanguage'
+
+describe('useLanguage', () => {
+  it('should translate keys correctly', () => {
+    const { translate } = useLanguage()
+    expect(translate('nav-home')).toBe('Home')
+  })
+})
+```
+
+### Running Tests
+
+```bash
+# Watch mode (development)
+pnpm test
+
+# Single run (CI)
+pnpm test --run
+
+# With coverage
+pnpm test:coverage
+```
+
+## 🐛 Debugging Tips
+
+### Common Issues
+
+**Module not found**
+
+```bash
+# Clear Nuxt cache
+rm -rf .nuxt
+pnpm dev
+```
+
+**Type errors**
+
+```bash
+# Regenerate types
+pnpm postinstall
+pnpm typecheck
+```
+
+**Test failures**
+
+```bash
+# Run specific test file
+pnpm test path/to/test.spec.ts
+```
+
+## 📞 Getting Help
+
+- **Documentation**: Check README.md and inline comments
+- **Issues**: Search existing [GitHub Issues](https://github.com/betterlaspinas/betterlaspinas/issues)
+- **Discussions**: Ask in [GitHub Discussions](https://github.com/betterlaspinas/betterlaspinas/discussions)
+- **Community**: Join our community channels (if available)
+
+## 🎉 Recognition
+
+Contributors will be:
+
+- Listed in CHANGELOG.md for their contributions
+- Credited in release notes
+- Recognized in project documentation
+
+Thank you for helping improve local government digital services! 🙏

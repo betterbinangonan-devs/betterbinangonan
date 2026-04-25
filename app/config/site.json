@@ -1,0 +1,36 @@
+{
+  "lguType": "Municipality",
+  "municipality": "Binangonan",
+  "province": "Rizal",
+  "region": "IV-A",
+  "siteId": "betterbinangonan",
+  "domain": "betterbinangonan.org",
+  "tagline": "Your digital gateway to Binangonan services",
+  "themeColor": "#0066eb",
+  "officialWebsite": "https://binangonan.gov.ph",
+  "version": "0.0.0",
+  "contact": {
+    "phone": "(02) 8871-4343",
+    "mobile": "",
+    "email": "binangonan@yahoo.com",
+    "address": "New Binangonan Municipal Hall, Barangay Calumpang, Binangonan, Rizal",
+    "postalCode": "1740"
+  },
+  "social": {
+    "facebook": "https://facebook.com/BetterBinangonan.org",
+    "twitter": "",
+    "linkedin": "",
+    "discord": "",
+    "github": "https://github.com/betterbinangonan/betterbinangonan"
+  },
+  "coordinates": {
+    "lat": 14.481667,
+    "lng": 121.188056
+  },
+  "logo": {
+    "main": "/assets/images/logo/better-binangonan-logo.svg",
+    "white": "/assets/images/logo/better-binangonan-logo-white.svg",
+    "whitePng": "/assets/images/logo/better-binangonan-logo-white.png",
+    "favicon": "/assets/images/logo/favicon.ico"
+  }
+}

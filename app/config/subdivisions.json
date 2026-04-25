@@ -1,0 +1,246 @@
+{
+  "type": "barangay",
+  "count": 40,
+  "items": [
+    {
+      "id": "bangad",
+      "name": "Bangad",
+      "leader": "Hon. Efren F. Francisco",
+      "phone": ""
+    },
+    {
+      "id": "batingan",
+      "name": "Batingan",
+      "leader": "Hon. Guillermo T. Anore",
+      "phone": ""
+    },
+    {
+      "id": "bilibiran",
+      "name": "Bilibiran",
+      "leader": "Hon. Leonard T. Mateo",
+      "phone": ""
+    },
+    {
+      "id": "binitagan",
+      "name": "Binitagan",
+      "leader": "Hon. Alfred G. Cerda",
+      "phone": ""
+    },
+    {
+      "id": "bombong",
+      "name": "Bombong",
+      "leader": "Hon. Orlando Ditablan",
+      "phone": ""
+    },
+    {
+      "id": "buhangin",
+      "name": "Buhangin",
+      "leader": "Hon. Virgilio O. Rivera",
+      "phone": ""
+    },
+    {
+      "id": "calumpang",
+      "name": "Calumpang",
+      "leader": "Hon. James Michael A. Paralejas",
+      "phone": ""
+    },
+    {
+      "id": "darangan",
+      "name": "Darangan",
+      "leader": "Hon. Longino L. Del Mundo Jr.",
+      "phone": ""
+    },
+    {
+      "id": "ginoong-sanay",
+      "name": "Ginoong Sanay",
+      "leader": "Hon. Roderick C. Lorena",
+      "phone": ""
+    },
+    {
+      "id": "gulod",
+      "name": "Gulod",
+      "leader": "Hon. Reynante M. Arambulo",
+      "phone": ""
+    },
+    {
+      "id": "habagatan",
+      "name": "Habagatan",
+      "leader": "Hon. Marzen Binaluyo",
+      "phone": ""
+    },
+    {
+      "id": "ithan",
+      "name": "Ithan",
+      "leader": "Hon. Roberto L. Bobotioc",
+      "phone": ""
+    },
+    {
+      "id": "janosa",
+      "name": "Janosa",
+      "leader": "Hon. Geronimo Mendoza",
+      "phone": ""
+    },
+    {
+      "id": "kalinawan",
+      "name": "Kalinawan",
+      "leader": "Hon. Normelito B. Cerda",
+      "phone": ""
+    },
+    {
+      "id": "kasile",
+      "name": "Kasile",
+      "leader": "Hon. Catalino C. Ceremonia",
+      "phone": ""
+    },
+    {
+      "id": "kaytome",
+      "name": "Kaytome",
+      "leader": "Hon. Florencio M. Dominguez",
+      "phone": ""
+    },
+    {
+      "id": "kinaboogan",
+      "name": "Kinaboogan",
+      "leader": "Hon. Alexander V. Paralejas",
+      "phone": ""
+    },
+    {
+      "id": "kinagatan",
+      "name": "Kinagatan",
+      "leader": "Hon. Arlene Villariña",
+      "phone": ""
+    },
+    {
+      "id": "layunan",
+      "name": "Layunan",
+      "leader": "Hon. Arnel V. Chulvo",
+      "phone": ""
+    },
+    {
+      "id": "libid",
+      "name": "Libid",
+      "leader": "Hon. Gil C. Anore",
+      "phone": ""
+    },
+    {
+      "id": "libis",
+      "name": "Libis",
+      "leader": "Hon. Vincent R. Pajarillo",
+      "phone": ""
+    },
+    {
+      "id": "limbon-limbon",
+      "name": "Limbon-limbon",
+      "leader": "Hon. Narciso A. Policarpio",
+      "phone": ""
+    },
+    {
+      "id": "lunsad",
+      "name": "Lunsad",
+      "leader": "Hon. Tiburcio U. Mesa",
+      "phone": ""
+    },
+    {
+      "id": "macamot",
+      "name": "Macamot",
+      "leader": "Hon. Edward F. Basa",
+      "phone": ""
+    },
+    {
+      "id": "mahabang-parang",
+      "name": "Mahabang Parang",
+      "leader": "Hon. Rodel A. Aran",
+      "phone": ""
+    },
+    {
+      "id": "malakaban",
+      "name": "Malakaban",
+      "leader": "Hon. Ofelia D. Villadiego",
+      "phone": ""
+    },
+    {
+      "id": "mambog",
+      "name": "Mambog",
+      "leader": "Hon. Leilani G. Pereira",
+      "phone": ""
+    },
+    {
+      "id": "pag-asa",
+      "name": "Pag-asa",
+      "leader": "Hon. Ma. Miriam C. Gatulayao",
+      "phone": ""
+    },
+    {
+      "id": "palangoy",
+      "name": "Palangoy",
+      "leader": "Hon. Cresencio M. Ojoy",
+      "phone": ""
+    },
+    {
+      "id": "pantok",
+      "name": "Pantok",
+      "leader": "Hon. Glenn B. Torres",
+      "phone": ""
+    },
+    {
+      "id": "pila-pila",
+      "name": "Pila-pila",
+      "leader": "Hon. Johann C. Nido",
+      "phone": ""
+    },
+    {
+      "id": "pinagdilawan",
+      "name": "Pinagdilawan",
+      "leader": "Hon. Ohgie O. Pundamiera",
+      "phone": ""
+    },
+    {
+      "id": "pipindan",
+      "name": "Pipindan",
+      "leader": "Hon. Vergel Anthony U. Celebre",
+      "phone": ""
+    },
+    {
+      "id": "rayap",
+      "name": "Rayap",
+      "leader": "Hon. Jaime B. Celones",
+      "phone": ""
+    },
+    {
+      "id": "sapang",
+      "name": "Sapang",
+      "leader": "Hon. Arvin M. Añain",
+      "phone": ""
+    },
+    {
+      "id": "san-carlos",
+      "name": "San Carlos",
+      "leader": "Hon. Anne M. De Leon",
+      "phone": ""
+    },
+    {
+      "id": "tabon",
+      "name": "Tabon",
+      "leader": "Hon. Conrado B. Mesa",
+      "phone": ""
+    },
+    {
+      "id": "tagpos",
+      "name": "Tagpos",
+      "leader": "Hon. Ricardo C. Dela Cuesta",
+      "phone": ""
+    },
+    {
+      "id": "tatala",
+      "name": "Tatala",
+      "leader": "Hon. Fermin B. Unida",
+      "phone": ""
+    },
+    {
+      "id": "tayuman",
+      "name": "Tayuman",
+      "leader": "Hon. Raymundo H. Villadiego",
+      "phone": ""
+    }
+  ]
+}

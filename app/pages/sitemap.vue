@@ -1,0 +1,233 @@
+<script setup lang="ts">
+const { lguName, labels, site } = useConfig()
+
+interface SitemapLink {
+  href: string
+  label: string
+  external?: boolean
+  hidden?: boolean
+}
+
+interface SitemapSection {
+  icon: string
+  title: string
+  cols?: number
+  links: SitemapLink[]
+}
+
+const sections = computed<SitemapSection[]>(() => [
+  {
+    icon: 'bi-house-door',
+    title: 'Main Navigation',
+    links: [
+      { href: '/', label: 'Home' },
+      { href: '/services', label: 'Services' },
+      { href: '/government', label: 'Government' },
+      { href: '/statistics', label: 'Statistics' },
+      { href: '/legislative', label: 'Legislative', hidden: true },
+      { href: '/budget', label: 'Transparency', hidden: true },
+      { href: '/contact', label: 'Contact' },
+      { href: '/news', label: 'News', hidden: true },
+      { href: '/faq', label: 'FAQ' },
+      { href: '/changelog', label: 'Changelog' },
+      { href: '/accessibility', label: 'Accessibility' },
+    ],
+  },
+  {
+    icon: 'bi-grid-3x3-gap',
+    title: 'Service Categories',
+    links: [
+      {
+        href: '/services/certificates',
+        label: 'Certificates & Vital Records',
+      },
+      { href: '/services/business', label: 'Business Services' },
+      { href: '/services/social-services', label: 'Social Services', hidden: true },
+      { href: '/services/health', label: 'Health & Wellness', hidden: true },
+      { href: '/services/tax-payments', label: 'Tax & Payments', hidden: true },
+      { href: '/services/agriculture', label: 'Agriculture', hidden: true },
+      { href: '/services/infrastructure', label: 'Infrastructure', hidden: true },
+      { href: '/services/education', label: 'Education', hidden: true },
+      { href: '/services/environment', label: 'Environment', hidden: true },
+      { href: '/services/public-safety', label: 'Public Safety', hidden: true },
+    ],
+  },
+  {
+    icon: 'bi-building',
+    title: `${labels.value.deptPrefix} Offices`,
+    cols: 4,
+    links: [
+      {
+        href: '/service-details/civil-registrar',
+        label: 'Local Civil Registrar',
+        hidden: true,
+      },
+      {
+        href: '/service-details/city-treasurer',
+        label: 'Treasurer\'s Office',
+        hidden: true,
+      },
+      {
+        href: '/service-details/municipal-assessor',
+        label: 'Assessor\'s Office',
+        hidden: true,
+      },
+      { href: '/service-details/municipal-budget', label: 'Budget Office', hidden: true },
+      {
+        href: '/service-details/municipal-accounting',
+        label: 'Accounting Office',
+        hidden: true,
+      },
+      {
+        href: '/service-details/municipal-engineering',
+        label: 'Engineering Office',
+        hidden: true,
+      },
+      {
+        href: '/service-details/municipal-planning',
+        label: 'Planning Office',
+        hidden: true,
+      },
+      {
+        href: '/service-details/municipal-agriculture',
+        label: 'Agriculture Office',
+        hidden: true,
+      },
+      { href: '/service-details/mswdo-services', label: 'MSWDO', hidden: true },
+      {
+        href: '/service-details/business-permit-new',
+        label: 'BPLS Office',
+      },
+      {
+        href: '/service-details/business-permit-renewal',
+        label: 'BPLS Office',
+      },
+      {
+        href: '/service-details/general-services',
+        label: 'General Services',
+        hidden: true,
+      },
+      {
+        href: '/service-details/human-resource-management',
+        label: 'HR Management',
+        hidden: true,
+      },
+    ],
+  },
+  {
+    icon: 'bi-bank',
+    title: 'Government & Legislative',
+    links: [
+      { href: '/government', label: 'Government Structure' },
+      { href: '/legislative', label: 'Legislative Documents', hidden: true },
+      {
+        href: '/legislative/ordinance-framework',
+        label: 'Ordinance Framework',
+        hidden: true,
+      },
+      {
+        href: '/legislative/resolution-framework',
+        label: 'Resolution Framework',
+        hidden: true,
+      },
+    ],
+  },
+  {
+    icon: 'bi-link-45deg',
+    title: 'Resources & Legal',
+    links: [
+      ...(site.value.social.facebook
+        ? [
+            {
+              href: site.value.social.facebook,
+              label: 'Facebook Page',
+              external: true,
+            },
+          ]
+        : []),
+      { href: '/terms', label: 'Terms of Use', external: false },
+      { href: '/privacy', label: 'Privacy Policy', external: false },
+    ],
+  },
+])
+</script>
+
+<template>
+  <div>
+    <UiBreadcrumbs :items="[{ label: 'Sitemap' }]" />
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-2xl mx-auto">
+          <span
+            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
+          >
+            <i class="bi bi-diagram-3-fill" /> Navigation
+          </span>
+          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            Sitemap
+          </h1>
+          <p class="text-lg text-white/90">
+            Navigate all pages and services of Better {{ lguName }}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sitemap Content -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="space-y-8">
+          <UiCard
+            v-for="section in sections.filter(section => section.links.some(link => !link.hidden))"
+            :key="section.title"
+            padding="p-0"
+            class="overflow-hidden"
+          >
+            <div
+              class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50"
+            >
+              <span
+                class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-600 rounded-lg"
+              >
+                <i :class="`bi ${section.icon} text-lg`" />
+              </span>
+              <h2 class="text-lg font-bold text-gray-900 m-0">
+                {{ section.title }}
+              </h2>
+            </div>
+            <div
+              class="p-6 grid gap-3"
+              :class="
+                section.cols === 4
+                  ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+                  : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+              "
+            >
+              <template v-for="link in section.links.filter(link => !link.hidden)" :key="link.href">
+                <a
+                  v-if="link.external"
+                  :href="link.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                >
+                  <i class="bi bi-box-arrow-up-right text-sm" />
+                  {{ link.label }}
+                </a>
+                <NuxtLink
+                  v-else
+                  :to="link.href"
+                  class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                >
+                  <i class="bi bi-arrow-right text-sm" /> {{ link.label }}
+                </NuxtLink>
+              </template>
+            </div>
+          </UiCard>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>

@@ -1,0 +1,58 @@
+{
+  "emergency": [
+    {
+      "id": "mdrrmo-rescue",
+      "name": "MDRRMO Rescue",
+      "number": "0965 623 8674",
+      "icon": "bi-exclamation-triangle-fill",
+      "category": "emergency"
+    },
+    {
+      "id": "police",
+      "name": "Binangonan PNP",
+      "number": "0963 473 3347",
+      "icon": "bi-shield-fill",
+      "category": "emergency"
+    },
+    {
+      "id": "fire",
+      "name": "Binangonan BFP",
+      "number": "0966 957 7505 / (02) 8652 5796",
+      "icon": "bi-fire",
+      "category": "emergency"
+    },
+    {
+      "id": "coast-guard",
+      "name": "Philippine Coast Guard",
+      "number": "(02) 8813 6889 / 0950 550 9418 / 0953 809 1351",
+      "icon": "bi-life-preserver",
+      "category": "emergency"
+    }
+  ],
+  "medical": [
+    {
+      "id": "health-service",
+      "name": "Health Service",
+      "number": "0950 717 1241",
+      "icon": "bi-hospital",
+      "category": "medical"
+    },
+    {
+      "id": "rphs-madmh",
+      "name": "RPHS MADMH",
+      "number": "(02) 8256 3000",
+      "icon": "bi-hospital-fill",
+      "category": "medical"
+    }
+  ],
+  "government": [
+    {
+      "id": "pio-email",
+      "name": "Public Information Office",
+      "email": "pio@binangonan.gov.ph",
+      "icon": "bi-envelope-fill",
+      "category": "government"
+    }
+  ],
+  "utilities": []
+}

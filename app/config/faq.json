@@ -1,0 +1,210 @@
+{
+  "categories": [
+    {
+      "id": "general",
+      "icon": "bi-info-circle-fill",
+      "titleKey": "faq-general",
+      "titleFallback": "General Questions",
+      "items": [
+        {
+          "id": "office-hours",
+          "question": "What are the office hours of the {{hallName}}?",
+          "answer": "The {{hallName}} is generally open Monday to Thursday, 8:00 AM to 7:00 PM. We are closed on weekends and national/local holidays. However, essential services and specific offices (City Health Office, Traffic Management Office, City Engineering Office, City Agriculture Office, and all emergency response/disaster management teams) remain operational on Fridays under regular or shifting schedules."
+        },
+        {
+          "id": "contact-office",
+          "question": "How can I contact a specific city office?",
+          "answer": "Visit our <a href=\"/government\">Government Directory</a> page to find contact information for all city offices and department heads."
+        },
+        {
+          "id": "online-services",
+          "question": "Can I request services online?",
+          "answer": "Currently, most services require in-person applications. However, we are working on implementing online services for select transactions. Check individual service pages for updates."
+        }
+      ]
+    },
+    {
+      "id": "certificates",
+      "icon": "bi-file-earmark-text-fill",
+      "titleKey": "faq-certificates",
+      "titleFallback": "Certificates & Documents",
+      "items": [
+        {
+          "id": "birth-certificate-time",
+          "question": "How long does it take to get a birth certificate?",
+          "answer": "For birth certificates registered in {{lguName}}, it typically takes 15-30 minutes while you wait, provided the record is readily available."
+        },
+        {
+          "id": "certificate-representative",
+          "question": "Can someone else request my certificate for me?",
+          "answer": "Yes, but they must bring: an authorization letter signed by you, valid ID of both you and the representative, and a photocopy of your valid ID."
+        },
+        {
+          "id": "psa-vs-local",
+          "question": "What is the difference between PSA and local civil registrar certificates?",
+          "answer": "Both are certified true copies. PSA certificates are the nationally-recognized version required for passport and visa applications. Local civil registrar certificates are accepted for most local transactions and are often processed faster."
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "icon": "bi-shop",
+      "titleKey": "faq-business",
+      "titleFallback": "Business & Permits",
+      "items": [
+        {
+          "id": "permit-renewal",
+          "question": "When should I renew my business permit?",
+          "answer": "Business permits must be renewed annually, preferably in January. The deadline for penalty-free renewal is typically January 20th of each year."
+        },
+        {
+          "id": "new-business",
+          "question": "What do I need to start a new business in {{lguName}}?",
+          "answer": "To start a new business, you'll need: DTI Registration (for sole proprietorship) or SEC Registration (for corporation), Barangay Clearance, Community Tax Certificate (Cedula), Location Sketch/Map, and Contract of Lease (if renting). Visit our <a href=\"/services/business\">Business Permit page</a> for complete details."
+        }
+      ]
+    },
+    {
+      "id": "payments",
+      "icon": "bi-cash-coin",
+      "titleKey": "faq-payments",
+      "titleFallback": "Payments & Fees",
+      "items": [
+        {
+          "id": "payment-methods",
+          "question": "What payment methods are accepted?",
+          "answer": "Currently, we accept cash payments at the City Treasurer's Office. We are working on implementing online payment options for taxes and fees."
+        },
+        {
+          "id": "property-tax",
+          "question": "How can I pay my real property tax?",
+          "answer": "Visit the City Treasurer's Office at the {{hallName}} with your Tax Declaration or latest Official Receipt. Payment is in cash. Property taxes are due quarterly, but you may pay annually to avail of discounts."
+        }
+      ]
+    },
+    {
+      "id": "social",
+      "icon": "bi-people-fill",
+      "titleKey": "faq-social",
+      "titleFallback": "Social Services",
+      "items": [
+        {
+          "id": "senior-citizen-id",
+          "question": "How do I apply for a Senior Citizen ID?",
+          "answer": "Go to the City Social Welfare and Development Office (MSWDO) with: Birth Certificate or any valid ID showing your age (60 and above), 1x1 ID photo, and Barangay Residence Certificate. The ID is issued for free."
+        },
+        {
+          "id": "senior-benefits",
+          "question": "What benefits do senior citizens receive?",
+          "answer": "Senior citizens enjoy 20% discount and VAT exemption on purchases (with a minimum purchase amount per establishment), priority lanes, and access to special programs and medical assistance from the city."
+        }
+      ]
+    },
+    {
+      "id": "technical",
+      "icon": "bi-gear-fill",
+      "titleKey": "faq-technical",
+      "titleFallback": "Technical Questions",
+      "items": [
+        {
+          "id": "report-issue",
+          "question": "I found a broken link or error on this website. How do I report it?",
+          "answer": "Thank you for helping us improve! Please send us message at <a href=\"mailto:{{volunteerEmail}}\">{{volunteerEmail}}</a> and write \"Website Issue\" as the subject. Describe the problem and include the page URL if possible."
+        },
+        {
+          "id": "mobile-friendly",
+          "question": "Is this website mobile-friendly?",
+          "answer": "Yes! Better {{lguName}} is fully responsive and optimized for mobile phones, tablets, and desktop computers."
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "icon": "bi-person-badge-fill",
+      "titleKey": "faq-about",
+      "titleFallback": "About This Project",
+      "items": [
+        {
+          "id": "who-developed",
+          "question": "Who developed this website?",
+          "answer": "The original concept and framework were created by the open-source community at <a href=\"https://bettergov.ph\" target=\"_blank\" rel=\"noopener noreferrer\">BetterGov.ph</a>. This specific platform was then developed by a local collective of volunteer developers who adapted the concept to serve our community."
+        },
+        {
+          "id": "who-maintains",
+          "question": "Who maintains the {{siteBrandName}} initiative?",
+          "answer": "{{siteBrandName}} is organized and maintained by an independent collective of local residents and volunteer developers. We operate as a non-partisan community project focused on improving local transparency."
+        },
+        {
+          "id": "political-stance",
+          "question": "What is {{siteBrandName}}'s political stance?",
+          "answer": "{{siteBrandName}} is strictly non-partisan and independent. We do not endorse any political party, candidate, or ideology. Our sole focus is to provide objective information and tools that empower residents to engage more effectively with their local government."
+        },
+        {
+          "id": "funding-sources",
+          "question": "How is {{siteBrandName}} funded?",
+          "answer": "{{siteBrandName}} is currently funded by a small group of dedicated volunteers and through community donations. We operate with minimal overhead, relying on open-source technology and volunteer time to keep our services free and accessible to everyone."
+        },
+        {
+          "id": "data-sources",
+          "question": "Where does the data on this website come from?",
+          "answer": "Our data comes from official sources including the {{lguName}} Local Government Unit (LGU), national government agencies, and publicly available records. We strive for accuracy and transparency in how we collect, process, and present information."
+        },
+        {
+          "id": "data-accuracy",
+          "question": "How do you ensure the accuracy of the information presented?",
+          "answer": "We prioritize data accuracy by sourcing information from official government channels and cross-referencing with reliable sources. While we strive for 100% accuracy, we encourage residents to verify critical information with the relevant government agencies for official purposes."
+        },
+        {
+          "id": "data-updates",
+          "question": "How often is the data on this website updated?",
+          "answer": "We update the data regularly, typically on a monthly basis or as new information becomes available from official sources. For time-sensitive information such as business hours or service requirements, we recommend verifying directly with the relevant government agency."
+        },
+        {
+          "id": "data-privacy",
+          "question": "How do you protect resident privacy and data?",
+          "answer": "Protecting resident privacy is a top priority. We only display publicly available information and do not collect or store sensitive personal data. All data displayed is anonymized and aggregated where appropriate to ensure privacy."
+        },
+        {
+          "id": "data-ownership",
+          "question": "Who owns the data presented on this website?",
+          "answer": "All data remains the property of the respective government agencies and organizations that created it. We are simply providing a user-friendly interface to access this information more easily."
+        },
+        {
+          "id": "data-correction",
+          "question": "What should I do if I find incorrect information on the website?",
+          "answer": "We appreciate you helping us maintain accuracy! Please contact us at <a href=\"mailto:{{volunteerEmail}}\">{{volunteerEmail}}</a> with the subject \"Data Correction\" and provide the details of the incorrect information and the correct details."
+        },
+        {
+          "id": "data-request",
+          "question": "Can I request additional data or features for the website?",
+          "answer": "Yes! We welcome suggestions for improving the website. Please send your ideas to <a href=\"mailto:{{volunteerEmail}}\">{{volunteerEmail}}</a> with the subject \"Feature Request\" and let us know what you'd like to see."
+        },
+        {
+          "id": "data-sharing",
+          "question": "Can I share or use the data from this website for my own purposes?",
+          "answer": "Yes, you are free to share and use the information presented on this website for personal or community purposes. We encourage transparency and the use of this data to promote civic engagement. When sharing, please provide proper attribution to the original data sources."
+        },
+        {
+          "id": "data-licensing",
+          "question": "What is the data licensing policy for this website?",
+          "answer": "All data presented on this website is for informational purposes only. While we encourage transparency and the use of this data for civic engagement, we do not claim ownership of the data. Users are responsible for complying with applicable data protection laws and regulations when using or sharing this information."
+        },
+        {
+          "id": "data-disclaimer",
+          "question": "Is the information on this website official government data?",
+          "answer": "The information presented on this website is compiled from various sources including official government agencies, public records, and community-sourced data. While we strive for accuracy, this website is intended for informational purposes only and should not be considered official government communication. For official purposes, please refer to the respective government agencies."
+        },
+        {
+          "id": "data-limitations",
+          "question": "What are the limitations of the data presented on this website?",
+          "answer": "While we strive for accuracy, the data presented on this website has certain limitations. Some data may be outdated, incomplete, or not fully representative of the entire community. Additionally, the website does not provide real-time data for all services and may have delays in updates. For the most accurate and up-to-date information, please refer to the respective government agencies."
+        },
+        {
+          "id": "data-verification",
+          "question": "How can I verify the accuracy of the information presented on this website?",
+          "answer": "To verify the accuracy of the information presented on this website, please refer to the original data sources which are cited where applicable. For official purposes, we recommend contacting the respective government agencies directly. You can also reach out to us at <a href=\"mailto:{{volunteerEmail}}\">{{volunteerEmail}}</a> with any questions or concerns about the data."
+        }
+      ]
+    }
+  ]
+}
