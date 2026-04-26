@@ -2,10 +2,15 @@ name: Build & Deploy to Github pages
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    inputs:
+      environment:
+        description: The environment to deploy to
+        required: true
+        type: choice
+        default: Production
+        options:
+          - Development
+          - Production
 
 permissions:
   contents: read
