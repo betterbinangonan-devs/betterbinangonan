@@ -11,6 +11,7 @@ on:
         options:
           - Development
           - Production
+          - Both
 
 permissions:
   pages: write
@@ -28,7 +29,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout to repository
+        uses: actions/checkout@v6
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
@@ -69,32 +71,43 @@ jobs:
         with:
           path: ./.output/public
 
-  deploy:
-    name: Deploy to ${{ github.event.inputs.environment }}
+  deployDev:
+    if: github.event.inputs.environment == 'Development' || github.event.inputs.environment == 'Both'
+    name: Deploy to Development
     runs-on: ubuntu-latest
 
     needs: build
 
     environment:
-      name: ${{ github.event.inputs.environment }}
-      url: ${{ steps.deployDev.outputs.pages-url || steps.deployProd.outputs.page_url }}
+      name: Development
+      url: ${{ steps.deployDev.outputs.pages-url }}
 
     steps:
-      - if: github.event.inputs.environment == 'Development'
-        name: Download artifact
+      - name: Checkout to repository
+        uses: actions/checkout@v6
+
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: preview-pages-dev-artifact
           path: ./.output/public
 
-      - if: github.event.inputs.environment == 'Development'
-        name: Deploy to Development
+      - name: Deploy to Development
         id: deployDev
         uses: rajyan/preview-pages@v1
         with:
-          source-dir: .
+          source-dir: ./.output/public
+  deployPrd:
+    if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Both'
+    name: Deploy to Production
 
-      - if: github.event.inputs.environment == 'Production'
-        name: Deploy to Production
+    needs: build
+
+    environment:
+      name: Production
+      url: ${{ steps.deployProd.outputs.page_url }}
+
+    steps:
+      - name: Deploy to Production
         id: deployProd
         uses: actions/deploy-pages@v4
