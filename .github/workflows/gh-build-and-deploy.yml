@@ -100,6 +100,7 @@ jobs:
   deployPrd:
     if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Both'
     name: Deploy to Production
+    runs-on: ubuntu-latest
 
     needs: build
 
