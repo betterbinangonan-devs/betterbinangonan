@@ -40,6 +40,8 @@ jobs:
 
       - name: Build application
         run: pnpm build --preset github_pages
+        env:
+          NUXT_APP_BASE_URL: ${{ inputs.environment == 'Development' && format('/betterbinangonan/dev/{0}/{1}/', github.ref_name, github.sha) || '/betterbinangonan/' }}
 
       - if: inputs.environment == 'Development'
         name: (dev) Upload Build Artifact
