@@ -13,10 +13,18 @@ on:
           - Production
 
 permissions:
-  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+  contents: write
+
+concurrency:
+  group: preview-pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
+    name: Build & Upload Artifact
     runs-on: ubuntu-latest
 
     steps:
@@ -54,19 +62,26 @@ jobs:
           path: ./.output/public
 
   deploy:
+    name: Deploy to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
 
     needs: build
 
-    permissions:
-      pages: write
-      id-token: write
-
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: ${{ github.event.inputs.environment }}
+      url: ${{ steps.deployDev.outputs.pages-url || steps.deployProd.outputs.page_url }}
 
     steps:
-      - name: Deploy to Github Pages
-        id: deployment
+      - name: Download artifact
+        uses: actions/download-pages-artifact@v3
+
+      - if: github.event.inputs.environment == "Development"
+        name: Deploy to Development
+        id: deployDev
+        uses: rajyan/preview-pages@v1
+        with:
+          source-dir: .
+      - if: github.event.inputs.environment == "Production"
+        name: Deploy to Production
+        id: deployProd
         uses: actions/deploy-pages@v4
