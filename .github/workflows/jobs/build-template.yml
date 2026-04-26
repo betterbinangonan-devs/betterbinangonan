@@ -1,0 +1,60 @@
+name: Build template
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+permissions:
+  pages: write
+  id-token: write
+  pull-requests: write
+  contents: write
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.29.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Lint
+        run: pnpm lint:fix
+
+      - name: Run Typecheck
+        run: pnpm typecheck
+
+      - name: Run Tests
+        run: pnpm test --run
+
+      - name: Build application
+        run: pnpm build --preset github_pages ${{ inputs.environment == 'Development' && '--mode dev' || '' }}
+
+      - if: inputs.environment == 'Development'
+        name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./.output/public
+
+      - if: inputs.environment == 'Production'
+        name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./.output/public

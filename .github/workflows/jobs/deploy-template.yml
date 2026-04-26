@@ -1,0 +1,43 @@
+name: Deploy template
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+permissions:
+  pages: write
+  id-token: write
+  pull-requests: write
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - if: inputs.environment == 'Development'
+        name: Checkout to repository
+        uses: actions/checkout@v6
+
+      - if: inputs.environment == 'Development'
+        name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-pages-dev-artifact
+          path: ./dev/.output/public
+
+      - if: inputs.environment == 'Development'
+        name: Deploy to Development
+        id: deployDev
+        uses: rajyan/preview-pages@v1
+        with:
+          source-dir: ./dev/.output/public
+
+      - if: inputs.environment == 'Production'
+        name: Deploy to Production
+        id: deployProd
+        uses: actions/deploy-pages@v4

@@ -13,109 +13,22 @@ on:
           - Production
 
 permissions:
-  pages: write
-  id-token: write
-  pull-requests: write
-  contents: write
+  contents: read
 
 concurrency:
   group: preview-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  buildDev:
-    name: (dev) Build & Upload Artifact
-    runs-on: ubuntu-latest
+  build:
+    name: Build & Upload Artifact
+    uses: ./.github/workflows/jobs/build-template.yml
+    with:
+      environment: ${{ github.event.inputs.environment}}
 
-    environment:
-      name: Development
-
-    steps:
-      - name: Checkout to repository
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 10.29.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run Lint
-        run: pnpm lint:fix
-
-      - name: Run Typecheck
-        run: pnpm typecheck
-
-      - name: Run Tests
-        run: pnpm test --run
-
-      - name: Build application
-        run: pnpm build --preset github_pages --mode dev
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: preview-pages-dev-artifact
-          path: ./.output/public
-  deployDev:
-    name: Deploy to Development
-    runs-on: ubuntu-latest
-    needs: [buildDev]
-
-    environment:
-      name: Development
-      url: ${{ steps.deployDev.outputs.pages-url }}
-
-    steps:
-      - name: Checkout to repository
-        uses: actions/checkout@v6
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: preview-pages-dev-artifact
-          path: ./.output/public
-
-      - name: Deploy to Development
-        id: deployDev
-        uses: rajyan/preview-pages@v1
-        with:
-          source-dir: ./.output/public
-  buildPrd:
-    if: github.event.inputs.environment == 'Production'
-    name: (prd) Build & Upload Artifact
-    runs-on: ubuntu-latest
-
-    needs: [buildDev, deployDev]
-
-    environment:
-      name: Production
-
-    steps:
-      - name: Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./.output/public
-  deployPrd:
-    if: github.event.inputs.environment == 'Production'
-
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: [buildPrd]
-
-    environment:
-      name: Production
-      url: ${{ steps.deployProd.outputs.page_url }}
-
-    steps:
-      - name: Deploy to Production
-        id: deployProd
-        uses: actions/deploy-pages@v4
+  deploy:
+    name: Deploy to ${{ github.event.inputs.environment}}
+    uses: ./.github/workflows/jobs/deploy-template.yml
+    with:
+      environment: ${{ github.event.inputs.environment}}
+      
