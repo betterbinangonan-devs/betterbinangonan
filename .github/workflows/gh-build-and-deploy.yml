@@ -22,13 +22,12 @@ concurrency:
 jobs:
   build:
     name: Build & Upload Artifact
-    uses: ./.github/workflows/jobs/build-template.yml
+    uses: ./.github/workflows/build-template.yml
     with:
       environment: ${{ github.event.inputs.environment}}
 
   deploy:
     name: Deploy to ${{ github.event.inputs.environment}}
-    uses: ./.github/workflows/jobs/deploy-template.yml
+    uses: ./.github/workflows/deploy-template.yml
     with:
       environment: ${{ github.event.inputs.environment}}
-      
