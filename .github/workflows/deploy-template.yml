@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  deploy:
+  execute_deploy_to_environment:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 

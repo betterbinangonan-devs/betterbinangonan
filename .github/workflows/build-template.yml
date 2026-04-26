@@ -8,7 +8,7 @@ on:
         type: string
   
 jobs:
-  build:
+  execute_build_&_upload_artifact:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
@@ -42,13 +42,14 @@ jobs:
         run: pnpm build --preset github_pages ${{ inputs.environment == 'Development' && '--mode dev' || '' }}
 
       - if: inputs.environment == 'Development'
-        name: Upload Build Artifact
+        name: (dev) Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          path: ./.output/public
+          name: preview-pages-dev-artifact
+          path: ./dev/.output/public
 
       - if: inputs.environment == 'Production'
-        name: Upload Build Artifact
+        name: (dev) Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./.output/public
