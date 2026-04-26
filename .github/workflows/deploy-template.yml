@@ -30,7 +30,7 @@ jobs:
         uses: rajyan/preview-pages@v1
         with:
           source-dir: ./.output/public
-          folder-name: dev
+          target-dir: dev
 
       - if: inputs.environment == 'Production'
         name: Deploy to Production
