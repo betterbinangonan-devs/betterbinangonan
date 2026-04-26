@@ -68,9 +68,7 @@ jobs:
   deployDev:
     name: Deploy to Development
     runs-on: ubuntu-latest
-
-    if: github.event.inputs.environment == 'Both'
-    needs: buildDev
+    needs: [buildDev]
 
     environment:
       name: Development
@@ -111,8 +109,7 @@ jobs:
 
     name: Deploy to Production
     runs-on: ubuntu-latest
-
-    needs: buildPrd
+    needs: [buildPrd]
 
     environment:
       name: Production
