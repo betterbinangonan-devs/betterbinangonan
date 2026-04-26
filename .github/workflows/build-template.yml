@@ -39,17 +39,17 @@ jobs:
         run: pnpm test --run
 
       - name: Build application
-        run: pnpm build --preset github_pages ${{ inputs.environment == 'Development' && '--mode dev' || '' }}
+        run: pnpm build --preset github_pages
 
       - if: inputs.environment == 'Development'
         name: (dev) Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: preview-pages-dev-artifact
-          path: ./dev/.output/public
+          path: ./.output/public
 
       - if: inputs.environment == 'Production'
-        name: (dev) Upload Build Artifact
+        name: (production) Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./.output/public

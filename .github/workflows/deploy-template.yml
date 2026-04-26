@@ -22,14 +22,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: preview-pages-dev-artifact
-          path: ./dev/.output/public
+          path: ./.output/public
 
       - if: inputs.environment == 'Development'
         name: Deploy to Development
         id: deployDev
         uses: rajyan/preview-pages@v1
         with:
-          source-dir: ./dev/.output/public
+          source-dir: ./.output/public
+          folder-name: dev
 
       - if: inputs.environment == 'Production'
         name: Deploy to Production
