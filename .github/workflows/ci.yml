@@ -45,6 +45,6 @@ jobs:
         run: pnpm build --preset github_pages
 
       - name: Upload build artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./.output/public
