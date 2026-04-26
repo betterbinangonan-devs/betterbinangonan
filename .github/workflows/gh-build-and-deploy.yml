@@ -7,11 +7,10 @@ on:
         description: The environment to deploy to
         required: true
         type: choice
-        default: Production
+        default: Development
         options:
           - Development
           - Production
-          - Both
 
 permissions:
   pages: write
@@ -24,9 +23,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build & Upload Artifact
+  buildDev:
+    name: (dev) Build & Upload Artifact
     runs-on: ubuntu-latest
+
+    environment:
+      name: Development
 
     steps:
       - name: Checkout to repository
@@ -56,27 +58,19 @@ jobs:
         run: pnpm test --run
 
       - name: Build application
-        run: pnpm build --preset github_pages
+        run: pnpm build --preset github_pages --mode dev
 
-      - if: github.event.inputs.environment == 'Development'
-        name: (dev) Upload Build Artifact
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: preview-pages-dev-artifact
           path: ./.output/public
-
-      - if: github.event.inputs.environment == 'Production'
-        name: (prd) Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./.output/public
-
   deployDev:
-    if: github.event.inputs.environment == 'Development' || github.event.inputs.environment == 'Both'
     name: Deploy to Development
     runs-on: ubuntu-latest
 
-    needs: build
+    if: github.event.inputs.environment == 'Both'
+    needs: buildDev
 
     environment:
       name: Development
@@ -97,12 +91,28 @@ jobs:
         uses: rajyan/preview-pages@v1
         with:
           source-dir: ./.output/public
+  buildPrd:
+    if: github.event.inputs.environment == 'Production'
+    name: (prd) Build & Upload Artifact
+    runs-on: ubuntu-latest
+
+    needs: [buildDev, deployDev]
+
+    environment:
+      name: Production
+
+    steps:
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./.output/public
   deployPrd:
-    if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Both'
+    if: github.event.inputs.environment == 'Production'
+
     name: Deploy to Production
     runs-on: ubuntu-latest
 
-    needs: build
+    needs: buildPrd
 
     environment:
       name: Production
