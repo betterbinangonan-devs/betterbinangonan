@@ -75,13 +75,13 @@ jobs:
       - name: Download artifact
         uses: actions/download-pages-artifact@v3
 
-      - if: github.event.inputs.environment == "Development"
+      - if: github.event.inputs.environment == 'Development'
         name: Deploy to Development
         id: deployDev
         uses: rajyan/preview-pages@v1
         with:
           source-dir: .
-      - if: github.event.inputs.environment == "Production"
+      - if: github.event.inputs.environment == 'Production'
         name: Deploy to Production
         id: deployProd
         uses: actions/deploy-pages@v4
