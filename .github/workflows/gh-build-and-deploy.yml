@@ -56,7 +56,15 @@ jobs:
       - name: Build application
         run: pnpm build --preset github_pages
 
-      - name: Upload build artifact
+      - if: github.event.inputs.environment == 'Development'
+        name: (dev) Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-pages-${{ github.ref }}-artifact
+          path: ./.output/public
+
+      - if: github.event.inputs.environment == 'Production'
+        name: (prd) Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./.output/public
@@ -72,8 +80,12 @@ jobs:
       url: ${{ steps.deployDev.outputs.pages-url || steps.deployProd.outputs.page_url }}
 
     steps:
-      - name: Download artifact
-        uses: actions/download-pages-artifact@v3
+      - if: github.event.inputs.environment == 'Development'
+        name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: preview-pages-${{ github.ref }}-artifact
+          path: ./.output/public
 
       - if: github.event.inputs.environment == 'Development'
         name: Deploy to Development
@@ -81,6 +93,7 @@ jobs:
         uses: rajyan/preview-pages@v1
         with:
           source-dir: .
+
       - if: github.event.inputs.environment == 'Production'
         name: Deploy to Production
         id: deployProd
