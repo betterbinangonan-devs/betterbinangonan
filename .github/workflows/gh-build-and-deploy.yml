@@ -13,7 +13,10 @@ on:
           - Production
 
 permissions:
-  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+  contents: write
 
 concurrency:
   group: preview-pages-${{ github.ref }}
@@ -28,6 +31,7 @@ jobs:
 
   deploy:
     name: Deploy to ${{ github.event.inputs.environment}}
+    needs: build
     uses: ./.github/workflows/deploy-template.yml
     with:
       environment: ${{ github.event.inputs.environment}}

@@ -6,12 +6,6 @@ on:
       environment:
         required: true
         type: string
-
-permissions:
-  pages: write
-  id-token: write
-  pull-requests: write
-  contents: write
   
 jobs:
   build:
