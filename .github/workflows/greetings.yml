@@ -1,6 +1,6 @@
 name: Greetings
 
-on: [pull_request_target, issues]
+on: [] # Disable temporarily
 
 permissions:
   issues: write
@@ -13,5 +13,5 @@ jobs:
       - uses: actions/first-interaction@v3
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          issue_message: "Welcome to Better Las Piñas! 👋\n\nThank you for opening your first issue. We are glad to have you contributing to the project! A maintainer will review your issue shortly.\n\nIn the meantime, please make sure you have provided enough context, such as reproduction steps or detailed expected behavior, so we can assist you better."
-          pr_message: "Welcome to Better Las Piñas! 🎉\n\nThank you for submitting your first pull request! We really appreciate your contribution to our open-source community.\n\nHere are some helpful tips for your pull request:\n- Make sure all tests are passing.\n- Ensure your code follows the project's style guidelines.\n- Check that your PR description clearly states what issue it is fixing or feature it is providing.\n\nA maintainer will review your PR soon!"
+          issue_message: "Welcome to Better Binangonan! 👋\n\nThank you for opening your first issue. We are glad to have you contributing to the project! A maintainer will review your issue shortly.\n\nIn the meantime, please make sure you have provided enough context, such as reproduction steps or detailed expected behavior, so we can assist you better."
+          pr_message: "Welcome to Better Binangonan! 🎉\n\nThank you for submitting your first pull request! We really appreciate your contribution to our open-source community.\n\nHere are some helpful tips for your pull request:\n- Make sure all tests are passing.\n- Ensure your code follows the project's style guidelines.\n- Check that your PR description clearly states what issue it is fixing or feature it is providing.\n\nA maintainer will review your PR soon!"

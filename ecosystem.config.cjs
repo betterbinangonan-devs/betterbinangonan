@@ -13,7 +13,7 @@
 module.exports = {
   apps: [
     {
-      name: 'betterlaspinas',
+      name: 'betterbinangonan',
 
       // Nuxt 4 server output entry point
       script: './.output/server/index.mjs',
