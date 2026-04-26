@@ -8,7 +8,7 @@ on:
         type: string
   
 jobs:
-  execute_build_&_upload_artifact:
+  execute_build_and_upload_artifact:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
