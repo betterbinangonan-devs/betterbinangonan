@@ -60,7 +60,7 @@ jobs:
         name: (dev) Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: preview-pages-${{ github.ref }}-artifact
+          name: preview-pages-dev-artifact
           path: ./.output/public
 
       - if: github.event.inputs.environment == 'Production'
