@@ -26,9 +26,9 @@ jobs:
   build:
     name: Build & Upload Artifact
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment }}
-    secrets: inherit
 
   deploy:
     name: Deploy to ${{ github.event.inputs.environment }}

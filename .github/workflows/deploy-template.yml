@@ -3,6 +3,11 @@ name: Deploy template
 on:
   workflow_call:
     inputs:
+      secrets:
+        CLOUDFLARE_API_TOKEN:
+          required: true
+        CLOUDFLARE_ACCOUNT_ID:
+          required: true
       environment:
         required: true
         type: string
