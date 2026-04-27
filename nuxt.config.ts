@@ -47,8 +47,9 @@ export default defineNuxtConfig({
       '/services/certificates',
     ],
   },
-  ssr: true,
+  ssr: false,
   nitro: {
+    preset: 'github-pages',
     prerender: {
       failOnError: false,
     },
@@ -81,6 +82,8 @@ export default defineNuxtConfig({
     },
   },
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL,
+    buildAssetsDir: 'assets',
     head: {
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
