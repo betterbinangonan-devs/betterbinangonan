@@ -1,0 +1,40 @@
+name: Deploy template
+
+on:
+  workflow_call:
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CLOUDFLARE_ACCOUNT_ID:
+        required: true
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  execute_deploy_to_environment:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.29.2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: betterbinangonan-build-artifact
+          path: ./dist
+
+      - name: (${{ inputs.environment }}) Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./dist --project-name=betterbinangonan --branch=${{ github.ref_name == 'main' && 'main' || 'betterbinangonan-preview' }}

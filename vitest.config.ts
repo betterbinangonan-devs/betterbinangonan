@@ -1,7 +1,6 @@
 import { defineVitestConfig } from '@nuxt/test-utils/config'
 
 export default defineVitestConfig({
-  base: '/betterbinangonan',
   test: {
     environment: 'happy-dom',
     exclude: ['legacy_backup/**', 'node_modules/**', '.nuxt/**', '.output/**'],
