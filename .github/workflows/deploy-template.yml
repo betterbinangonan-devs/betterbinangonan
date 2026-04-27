@@ -20,7 +20,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: betterbinangonan-build-artifact
-          path: ./.output/public
+          path: ./dist
 
       - name: (${{ inputs.environment }}) Deploy to Cloudflare Pages
         id: deploy
@@ -28,4 +28,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./.output/public --project-name=betterbinangonan --branch=${{ github.ref_name }}
+          command: pages deploy ./dist --project-name=betterbinangonan --branch=${{ github.ref_name }}
