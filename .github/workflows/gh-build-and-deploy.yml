@@ -26,13 +26,25 @@ jobs:
   build:
     name: Build & Upload Artifact
     uses: ./.github/workflows/build-template.yml
-    secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment }}
+      NUXT_PUBLIC_SITE_LGU_TYPE: ${{ vars.NUXT_PUBLIC_SITE_LGU_TYPE }}
+      NUXT_PUBLIC_SITE_MUNICIPALITY: ${{ vars.NUXT_PUBLIC_SITE_MUNICIPALITY }}
+      NUXT_PUBLIC_SITE_PROVINCE: ${{ vars.NUXT_PUBLIC_SITE_PROVINCE }}
+      NUXT_PUBLIC_SITE_REGION: ${{ vars.NUXT_PUBLIC_SITE_REGION }}
+      NUXT_PUBLIC_SITE_SITE_ID: ${{ vars.NUXT_PUBLIC_SITE_SITE_ID }}
+      NUXT_PUBLIC_SITE_DOMAIN: ${{ vars.NUXT_PUBLIC_SITE_DOMAIN }}
+      NUXT_PUBLIC_SITE_TAGLINE: ${{ vars.NUXT_PUBLIC_SITE_TAGLINE }}
+      NUXT_PUBLIC_SITE_THEME_COLOR: ${{ vars.NUXT_PUBLIC_SITE_THEME_COLOR }}
+      NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE: ${{ vars.NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE }}
+
 
   deploy:
     name: Deploy to ${{ github.event.inputs.environment }}
     needs: build
     uses: ./.github/workflows/deploy-template.yml
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     with:
       environment: ${{ github.event.inputs.environment }}

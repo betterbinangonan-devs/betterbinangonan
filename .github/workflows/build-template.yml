@@ -6,6 +6,33 @@ on:
       environment:
         required: true
         type: string
+      NUXT_PUBLIC_SITE_LGU_TYPE:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_MUNICIPALITY:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_PROVINCE:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_REGION:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_SITE_ID:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_DOMAIN:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_TAGLINE:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_THEME_COLOR:
+        required: true
+        type: string
+      NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE:
+        required: true
+        type: string
   
 jobs:
   execute_build_and_upload_artifact:
@@ -41,15 +68,15 @@ jobs:
       - name: Build application
         run: pnpm build --preset cloudflare_pages
         env:
-          NUXT_PUBLIC_SITE_LGU_TYPE: ${{ vars.NUXT_PUBLIC_SITE_LGU_TYPE }}
-          NUXT_PUBLIC_SITE_MUNICIPALITY: ${{ vars.NUXT_PUBLIC_SITE_MUNICIPALITY }}
-          NUXT_PUBLIC_SITE_PROVINCE: ${{ vars.NUXT_PUBLIC_SITE_PROVINCE }}
-          NUXT_PUBLIC_SITE_REGION: ${{ vars.NUXT_PUBLIC_SITE_REGION }}
-          NUXT_PUBLIC_SITE_SITE_ID: ${{ vars.NUXT_PUBLIC_SITE_SITE_ID }}
-          NUXT_PUBLIC_SITE_DOMAIN: ${{ vars.NUXT_PUBLIC_SITE_DOMAIN }}
-          NUXT_PUBLIC_SITE_TAGLINE: ${{ vars.NUXT_PUBLIC_SITE_TAGLINE }}
-          NUXT_PUBLIC_SITE_THEME_COLOR: ${{ vars.NUXT_PUBLIC_SITE_THEME_COLOR }}
-          NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE: ${{ vars.NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE }}
+          NUXT_PUBLIC_SITE_LGU_TYPE: ${{ inputs.NUXT_PUBLIC_SITE_LGU_TYPE }}
+          NUXT_PUBLIC_SITE_MUNICIPALITY: ${{ inputs.NUXT_PUBLIC_SITE_MUNICIPALITY }}
+          NUXT_PUBLIC_SITE_PROVINCE: ${{ inputs.NUXT_PUBLIC_SITE_PROVINCE }}
+          NUXT_PUBLIC_SITE_REGION: ${{ inputs.NUXT_PUBLIC_SITE_REGION }}
+          NUXT_PUBLIC_SITE_SITE_ID: ${{ inputs.NUXT_PUBLIC_SITE_SITE_ID }}
+          NUXT_PUBLIC_SITE_DOMAIN: ${{ inputs.NUXT_PUBLIC_SITE_DOMAIN }}
+          NUXT_PUBLIC_SITE_TAGLINE: ${{ inputs.NUXT_PUBLIC_SITE_TAGLINE }}
+          NUXT_PUBLIC_SITE_THEME_COLOR: ${{ inputs.NUXT_PUBLIC_SITE_THEME_COLOR }}
+          NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE: ${{ inputs.NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE }}
 
       - name: (${{ inputs.environment }}) Upload Build Artifact
         uses: actions/upload-artifact@v4
