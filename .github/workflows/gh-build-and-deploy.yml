@@ -28,6 +28,7 @@ jobs:
     uses: ./.github/workflows/build-template.yml
     with:
       environment: ${{ github.event.inputs.environment }}
+    secrets: inherit
 
   deploy:
     name: Deploy to ${{ github.event.inputs.environment }}

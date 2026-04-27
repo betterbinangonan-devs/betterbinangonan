@@ -40,6 +40,16 @@ jobs:
 
       - name: Build application
         run: pnpm build --preset cloudflare_pages
+        env:
+          NUXT_PUBLIC_SITE_LGU_TYPE: ${{ vars.NUXT_PUBLIC_SITE_LGU_TYPE }}
+          NUXT_PUBLIC_SITE_MUNICIPALITY: ${{ vars.NUXT_PUBLIC_SITE_MUNICIPALITY }}
+          NUXT_PUBLIC_SITE_PROVINCE: ${{ vars.NUXT_PUBLIC_SITE_PROVINCE }}
+          NUXT_PUBLIC_SITE_REGION: ${{ vars.NUXT_PUBLIC_SITE_REGION }}
+          NUXT_PUBLIC_SITE_SITE_ID: ${{ vars.NUXT_PUBLIC_SITE_SITE_ID }}
+          NUXT_PUBLIC_SITE_DOMAIN: ${{ vars.NUXT_PUBLIC_SITE_DOMAIN }}
+          NUXT_PUBLIC_SITE_TAGLINE: ${{ vars.NUXT_PUBLIC_SITE_TAGLINE }}
+          NUXT_PUBLIC_SITE_THEME_COLOR: ${{ vars.NUXT_PUBLIC_SITE_THEME_COLOR }}
+          NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE: ${{ vars.NUXT_PUBLIC_SITE_OFFICIAL_WEBSITE }}
 
       - name: (${{ inputs.environment }}) Upload Build Artifact
         uses: actions/upload-artifact@v4
