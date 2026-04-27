@@ -13,24 +13,24 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      - if: inputs.environment == 'Development'
-        name: Checkout to repository
-        uses: actions/checkout@v6
+      # - if: inputs.environment == 'Development'
+      #   name: Checkout to repository
+      #   uses: actions/checkout@v6
 
-      - if: inputs.environment == 'Development'
-        name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: preview-pages-dev-artifact
-          path: ./.output/public
+      # - if: inputs.environment == 'Development'
+      #   name: Download artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: preview-pages-dev-artifact
+      #     path: ./.output/public
 
-      - if: inputs.environment == 'Development'
-        name: Deploy to Development
-        id: deployDev
-        uses: rajyan/preview-pages@v1
-        with:
-          source-dir: ./.output/public
-          target-dir: dev
+      # - if: inputs.environment == 'Development'
+      #   name: Deploy to Development
+      #   id: deployDev
+      #   uses: rajyan/preview-pages@v1
+      #   with:
+      #     source-dir: ./.output/public
+      #     target-dir: dev
 
       - if: inputs.environment == 'Production'
         name: Deploy to Production

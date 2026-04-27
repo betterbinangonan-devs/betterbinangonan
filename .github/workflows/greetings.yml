@@ -1,6 +1,6 @@
 name: Greetings
 
-on: [] # Disable temporarily
+on: [pull_request_target, issues]
 
 permissions:
   issues: write
