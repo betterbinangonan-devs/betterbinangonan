@@ -12,12 +12,6 @@ on:
           - Production
           - Staging
 
-permissions:
-  pages: write
-  id-token: write
-  pull-requests: write
-  contents: write
-
 concurrency:
   group: preview-pages-${{ github.ref }}
   cancel-in-progress: true
@@ -25,12 +19,16 @@ concurrency:
 jobs:
   build:
     name: Build & Upload Artifact
+    permissions:
+      contents: write
     uses: ./.github/workflows/build-template.yml
     with:
       environment: ${{ github.event.inputs.environment }}
 
   deploy:
     name: Deploy to ${{ github.event.inputs.environment }}
+    permissions:
+      contents: write
     needs: build
     uses: ./.github/workflows/deploy-template.yml
     secrets:
