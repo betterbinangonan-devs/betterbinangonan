@@ -55,7 +55,7 @@ export default defineNuxtConfig({
     },
   },
   ogImage: {
-    enabled: true,
+    enabled: false,
   },
   css: ['~/assets/css/main.css'],
   modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image'],
