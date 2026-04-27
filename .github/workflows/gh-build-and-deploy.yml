@@ -1,4 +1,4 @@
-name: Build & Deploy to Github pages
+name: Build & Deploy Better Binangonan
 
 on:
   workflow_dispatch:
@@ -26,6 +26,7 @@ jobs:
   build:
     name: Build & Upload Artifact
     uses: ./.github/workflows/build-template.yml
+    environment: ${{ github.event.inputs.environment }}
     with:
       environment: ${{ github.event.inputs.environment }}
       NUXT_PUBLIC_SITE_LGU_TYPE: ${{ vars.NUXT_PUBLIC_SITE_LGU_TYPE }}
