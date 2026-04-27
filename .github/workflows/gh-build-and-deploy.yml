@@ -7,10 +7,10 @@ on:
         description: The environment to deploy to
         required: true
         type: choice
-        default: Production
+        default: Staging
         options:
-          - Development (disabled)
           - Production
+          - Staging
 
 permissions:
   pages: write
@@ -27,11 +27,11 @@ jobs:
     name: Build & Upload Artifact
     uses: ./.github/workflows/build-template.yml
     with:
-      environment: ${{ github.event.inputs.environment}}
+      environment: ${{ github.event.inputs.environment }}
 
   deploy:
-    name: Deploy to ${{ github.event.inputs.environment}}
+    name: Deploy to ${{ github.event.inputs.environment }}
     needs: build
     uses: ./.github/workflows/deploy-template.yml
     with:
-      environment: ${{ github.event.inputs.environment}}
+      environment: ${{ github.event.inputs.environment }}

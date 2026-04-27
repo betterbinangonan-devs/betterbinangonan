@@ -13,26 +13,20 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      # - if: inputs.environment == 'Development'
-      #   name: Checkout to repository
-      #   uses: actions/checkout@v6
+      - name: Checkout to repository
+        uses: actions/checkout@v6
 
-      # - if: inputs.environment == 'Development'
-      #   name: Download artifact
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: preview-pages-dev-artifact
-      #     path: ./.output/public
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: betterbinangonan-build-artifact
+          path: ./.output/public
 
-      # - if: inputs.environment == 'Development'
-      #   name: Deploy to Development
-      #   id: deployDev
-      #   uses: rajyan/preview-pages@v1
-      #   with:
-      #     source-dir: ./.output/public
-      #     target-dir: dev
-
-      - if: inputs.environment == 'Production'
-        name: Deploy to Production
-        id: deployProd
-        uses: actions/deploy-pages@v4
+      - name: (${{ inputs.environment }}) Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflate/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: './output/public'
+          command: pages deploy ./.output/public --project-name=betterbinangonan --branch=${{ github.ref_name }}

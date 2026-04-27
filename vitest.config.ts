@@ -2,7 +2,6 @@ import process from 'node:process'
 import { defineVitestConfig } from '@nuxt/test-utils/config'
 
 export default defineVitestConfig({
-  base: process.env.NUXT_APP_BASE_URL,
   test: {
     environment: 'happy-dom',
     exclude: ['legacy_backup/**', 'node_modules/**', '.nuxt/**', '.output/**'],

@@ -39,17 +39,10 @@ jobs:
         run: pnpm test --run
 
       - name: Build application
-        run: pnpm build --preset github_pages
+        run: pnpm build --preset cloudflare_pages
 
-      # - if: inputs.environment == 'Development'
-      #   name: (dev) Upload Build Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: preview-pages-dev-artifact
-      #     path: ./.output/public
-
-      - if: inputs.environment == 'Production'
-        name: (production) Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: (${{ inputs.environment }}) Upload Build Artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: betterbinangonan-build-artifact
           path: ./.output/public
