@@ -61,6 +61,8 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image'],
   runtimeConfig: {
     public: {
+      maintenanceMode: true,
+
       site: {
         lguType: '',
         municipality: '',

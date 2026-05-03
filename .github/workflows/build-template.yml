@@ -6,7 +6,7 @@ on:
       environment:
         required: true
         type: string
-  
+
 jobs:
   execute_build_and_upload_artifact:
     runs-on: ubuntu-latest
