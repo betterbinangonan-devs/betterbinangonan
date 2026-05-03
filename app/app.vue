@@ -1,13 +1,18 @@
 <script setup lang="ts">
-const config = useConfig()
+import MaintenancePage from '@/components/home/MaintenancePage.vue'
+
+const appConfig = useConfig()
+const runtimeConfig = useRuntimeConfig()
 
 defineOgImage('DefaultBranding.takumi', {
-  title: config.siteBrandName.value,
+  title: appConfig.siteBrandName.value,
 })
 </script>
 
 <template>
-  <NuxtLayout>
+  <MaintenancePage v-if="runtimeConfig.public.maintenanceMode" />
+
+  <NuxtLayout v-else>
     <NuxtPage />
   </NuxtLayout>
 </template>
