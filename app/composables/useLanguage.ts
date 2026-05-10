@@ -17,9 +17,9 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-sitemap': 'Sitemap',
 
     // Hero Section
-    'hero-welcome': 'Welcome to Better{{lguNameDomain}}.org',
+    'hero-welcome': 'with Better{{lguNameDomain}}.org',
     'hero-subtitle':
-      'Access government services, information, and resources for the people of {{municipality}}, {{province}}.',
+      'A community portal to find services, hotlines, information, and resources for the people of {{municipality}}, {{province}}.',
     'hero-find-service': 'Find a Service',
 
     // Popular Services

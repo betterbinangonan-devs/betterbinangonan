@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import { useConfig } from '@/composables/useConfig'
 import { DEPT_PREFIX_PLACEHOLDER_REGEX, LGU_NAME_PLACEHOLDER_REGEX } from '@/utils/regexConstants'
 
@@ -30,30 +29,15 @@ const newsItems = computed(() => news.articles.map((article: any) => ({
 
 <template>
   <div>
-    <Breadcrumbs :items="[{ label: 'News & Announcements' }]" />
-
-    <UiPageHero
-      badge-icon="bi-newspaper"
-      badge-text="News"
-      title="News & Announcements"
-      :description="`Stay updated with the latest news and announcements from the ${labels.lguTypeLabel} of ${lguName}`"
-    />
+    <UiPageHero badge-icon="bi-newspaper" badge-text="News" title="News & Announcements" :description="`Stay updated with the latest news and announcements from the ${labels.lguTypeLabel} of ${lguName}`" :breadcrumbs="[{ label: 'News & Announcements' }]" />
 
     <!-- News List -->
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto space-y-6">
-          <UiCard
-            v-for="item in newsItems"
-            :key="item.id"
-            interactive
-            class="border-transparent hover:border-primary-500"
-          >
+          <UiCard v-for="item in newsItems" :key="item.id" interactive class="border-transparent hover:border-primary-500">
             <div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-semibold px-3 py-1 rounded-full"
-                :class="item.badgeColorClass"
-              >
+              <span class="text-xs font-semibold px-3 py-1 rounded-full" :class="item.badgeColorClass">
                 {{ item.badge }}
               </span>
               <span class="text-gray-400 text-sm flex items-center gap-1">
@@ -66,10 +50,7 @@ const newsItems = computed(() => news.articles.map((article: any) => ({
             <p class="text-gray-600 mb-4 leading-relaxed">
               {{ item.description }}
             </p>
-            <NuxtLink
-              :to="`/news/${item.slug}`"
-              class="text-primary-600 font-medium flex items-center gap-1 hover:gap-2 transition-all"
-            >
+            <NuxtLink :to="`/news/${item.slug}`" class="text-primary-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
               Read More <i class="bi bi-arrow-right" />
             </NuxtLink>
           </UiCard>

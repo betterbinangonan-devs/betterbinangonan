@@ -1,3 +1,5 @@
+<!-- app\pages\about.vue -->
+
 <script setup lang="ts">
 import { useConfig } from '@/composables/useConfig'
 
@@ -6,14 +8,7 @@ const { siteBrandName, lguName } = useConfig()
 
 <template>
   <div>
-    <UiBreadcrumbs :items="[{ label: 'About' }]" />
-
-    <UiPageHero
-      badge-icon="bi-info-circle-fill"
-      badge-text="About Us"
-      :title="`About ${siteBrandName}`"
-      description="Learn about our mission, history, and the community we serve."
-    />
+    <UiPageHero badge-icon="bi-info-circle-fill" badge-text="About Us" :title="`About ${siteBrandName}`" description="Learn about our mission, history, and the community we serve." :breadcrumbs="[{ label: 'About' }]" />
 
     <!-- Project Mission & Vision -->
     <section class="py-16 bg-white border-b border-gray-100 relative overflow-hidden">
@@ -127,12 +122,7 @@ const { siteBrandName, lguName } = useConfig()
     <!-- Quick Links Grid -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          title="Explore More"
-          badge-icon="bi-compass"
-          badge-text="Navigate"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader title="Explore More" badge-icon="bi-compass" badge-text="Navigate" badge-class="bg-primary-600 text-white" />
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <NuxtLink to="/government" class="group bg-white p-8 rounded-xl border border-gray-200 hover:border-primary-500 hover:shadow-lg transition-all text-center no-underline">

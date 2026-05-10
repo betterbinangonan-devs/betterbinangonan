@@ -1,3 +1,5 @@
+<!-- app\pages\sitemap.vue -->
+
 <script setup lang="ts">
 const { lguName, labels, site } = useConfig()
 
@@ -154,43 +156,15 @@ const sections = computed<SitemapSection[]>(() => [
 
 <template>
   <div>
-    <UiBreadcrumbs :items="[{ label: 'Sitemap' }]" />
-
-    <!-- Page Header -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-diagram-3-fill" /> Navigation
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Sitemap
-          </h1>
-          <p class="text-lg text-white/90">
-            Navigate all pages and services of Better {{ lguName }}
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-diagram-3-fill" badge-text="Navigation" title="Sitemap" :description="`Navigate all pages and services of Better ${lguName}`" :breadcrumbs="[{ label: 'Sitemap' }]" />
 
     <!-- Sitemap Content -->
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="space-y-8">
-          <UiCard
-            v-for="section in sections.filter(section => section.links.some(link => !link.hidden))"
-            :key="section.title"
-            padding="p-0"
-            class="overflow-hidden"
-          >
-            <div
-              class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50"
-            >
-              <span
-                class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-600 rounded-lg"
-              >
+          <UiCard v-for="section in sections.filter(section => section.links.some(link => !link.hidden))" :key="section.title" padding="p-0" class="overflow-hidden">
+            <div class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
+              <span class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-600 rounded-lg">
                 <i :class="`bi ${section.icon} text-lg`" />
               </span>
               <h2 class="text-lg font-bold text-gray-900 m-0">
@@ -198,29 +172,17 @@ const sections = computed<SitemapSection[]>(() => [
               </h2>
             </div>
             <div
-              class="p-6 grid gap-3"
-              :class="
-                section.cols === 4
-                  ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-                  : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+              class="p-6 grid gap-3" :class="section.cols === 4
+                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+                : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
               "
             >
               <template v-for="link in section.links.filter(link => !link.hidden)" :key="link.href">
-                <a
-                  v-if="link.external"
-                  :href="link.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-                >
+                <a v-if="link.external" :href="link.href" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
                   <i class="bi bi-box-arrow-up-right text-sm" />
                   {{ link.label }}
                 </a>
-                <NuxtLink
-                  v-else
-                  :to="link.href"
-                  class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-                >
+                <NuxtLink v-else :to="link.href" class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
                   <i class="bi bi-arrow-right text-sm" /> {{ link.label }}
                 </NuxtLink>
               </template>

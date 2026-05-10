@@ -1,5 +1,6 @@
+<!-- app\pages\government\index.vue -->
+
 <script setup lang="ts">
-import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import { useConfig } from '@/composables/useConfig'
 
 const { lguName, labels, officials, subdivisions, formatPhoneLink } = useConfig()
@@ -27,25 +28,12 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
 
 <template>
   <div>
-    <Breadcrumbs :items="[{ label: 'Government' }]" />
-
-    <UiPageHero
-      badge-icon="bi-building-fill"
-      badge-text="Government"
-      title="Government Structure & Officials"
-      :description="`Meet the leadership and offices serving ${lguName}`"
-    />
+    <UiPageHero badge-icon="bi-building-fill" badge-text="Government" title="Government Structure & Officials" :description="`Meet the leadership and offices serving ${lguName}`" :breadcrumbs="[{ label: 'Government' }]" />
 
     <!-- Executive Branch -->
     <section class="py-12 bg-gray-50">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          :title="`${labels.lguTypeLabel} Leadership`"
-          :description="`The executive officials leading ${lguName}'s governance`"
-          badge-icon="bi-star-fill"
-          badge-text="Executive Branch"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader :title="`${labels.lguTypeLabel} Leadership`" :description="`The executive officials leading ${lguName}'s governance`" badge-icon="bi-star-fill" badge-text="Executive Branch" badge-class="bg-primary-600 text-white" />
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           <!-- Leader -->
@@ -59,19 +47,11 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
               </h3>
             </div>
             <div class="p-6 space-y-3">
-              <a
-                v-if="leader?.email"
-                :href="`mailto:${leader.email}`"
-                class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-              >
+              <a v-if="leader?.email" :href="`mailto:${leader.email}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
                 <i class="bi bi-envelope text-primary-600" />
                 {{ leader.email }}
               </a>
-              <a
-                v-if="leader?.phone"
-                :href="`tel:${formatPhoneLink(leader.phone)}`"
-                class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-              >
+              <a v-if="leader?.phone" :href="`tel:${formatPhoneLink(leader.phone)}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
                 <i class="bi bi-telephone text-primary-600" />
                 {{ leader.phone }}
               </a>
@@ -92,19 +72,11 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
               </h3>
             </div>
             <div class="p-6 space-y-3">
-              <a
-                v-if="viceLeader?.email"
-                :href="`mailto:${viceLeader.email}`"
-                class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-              >
+              <a v-if="viceLeader?.email" :href="`mailto:${viceLeader.email}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
                 <i class="bi bi-envelope text-primary-600" />
                 {{ viceLeader.email }}
               </a>
-              <a
-                v-if="viceLeader?.phone"
-                :href="`tel:${formatPhoneLink(viceLeader.phone)}`"
-                class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-              >
+              <a v-if="viceLeader?.phone" :href="`tel:${formatPhoneLink(viceLeader.phone)}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
                 <i class="bi bi-telephone text-primary-600" />
                 {{ viceLeader.phone }}
               </a>
@@ -120,20 +92,10 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
     <!-- Legislative Branch -->
     <section class="py-12">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          :title="`${labels.legislativeBody} Members`"
-          :description="`${labels.legislativeMembers} serving the people of ${lguName}`"
-          badge-icon="bi-people-fill"
-          badge-text="Legislative Branch"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader :title="`${labels.legislativeBody} Members`" :description="`${labels.legislativeMembers} serving the people of ${lguName}`" badge-icon="bi-people-fill" badge-text="Legislative Branch" badge-class="bg-primary-600 text-white" />
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <UiCard
-            v-for="member in sbMembers"
-            :key="member.id"
-            interactive
-          >
+          <UiCard v-for="member in sbMembers" :key="member.id" interactive>
             <h4 class="text-lg font-semibold text-gray-900 mb-2">
               {{ member.name ? `Hon. ${member.name}` : 'To be updated' }}
             </h4>
@@ -187,13 +149,7 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
     <!-- Department Heads -->
     <section class="py-12 bg-gray-50">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          title="Department Heads & Key Offices"
-          :description="`${labels.deptPrefix} offices providing services to citizens`"
-          badge-icon="bi-building-fill"
-          :badge-text="`${labels.deptPrefix} Offices`"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader title="Department Heads & Key Offices" :description="`${labels.deptPrefix} offices providing services to citizens`" badge-icon="bi-building-fill" :badge-text="`${labels.deptPrefix} Offices`" badge-class="bg-primary-600 text-white" />
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- TODO: Add back when available -->
@@ -230,12 +186,7 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
           </NuxtLink> -->
 
           <!-- Current active block with links temporarily removed -->
-          <UiCard
-            v-for="dept in officials.departments"
-            :key="dept.id"
-            interactive
-            class="group"
-          >
+          <UiCard v-for="dept in officials.departments" :key="dept.id" interactive class="group">
             <div class="flex items-start gap-4">
               <div class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl shrink-0 transition-all duration-200">
                 <i class="bi" :class="[dept.icon]" />
@@ -266,22 +217,10 @@ const ipmr = computed(() => officials.legislative.find(official => official.posi
     <!-- Subdivisions -->
     <section class="py-12">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          :title="`${labels.subdivisionTypePlural} of ${lguName}`"
-          :description="`${subdivisions.count} ${labels.subdivisionTypePlural} serving our community`"
-          badge-icon="bi-geo-alt-fill"
-          :badge-text="labels.subdivisionTypePlural"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader :title="`${labels.subdivisionTypePlural} of ${lguName}`" :description="`${subdivisions.count} ${labels.subdivisionTypePlural} serving our community`" badge-icon="bi-geo-alt-fill" :badge-text="labels.subdivisionTypePlural" badge-class="bg-primary-600 text-white" />
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <UiCard
-            v-for="item in subdivisions.items"
-            :key="item.id"
-            :href="item.phone ? `tel:${formatPhoneLink(item.phone)}` : '#'"
-            padding="p-4"
-            interactive
-          >
+          <UiCard v-for="item in subdivisions.items" :key="item.id" :href="item.phone ? `tel:${formatPhoneLink(item.phone)}` : '#'" padding="p-4" interactive>
             <div class="flex items-center gap-3 mb-2">
               <i class="bi bi-geo-alt-fill text-primary-600" />
               <span class="font-semibold text-gray-900">

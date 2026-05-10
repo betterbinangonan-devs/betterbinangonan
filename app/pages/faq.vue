@@ -1,3 +1,5 @@
+<!-- app\pages\faq.vue -->
+
 <script setup lang="ts">
 const { translate } = useLanguage()
 const { lguName, labels, faq, getSiteTitle, getVolunteerEmail, siteBrandName } = useConfig()
@@ -40,57 +42,21 @@ const faqCategories = computed(() =>
 
 <template>
   <div>
-    <UiBreadcrumbs :items="[{ label: 'FAQ' }]" />
-
-    <!-- Page Header -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-question-circle-fill" /> FAQ
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            {{ translate('faq-title') || 'Frequently Asked Questions' }}
-          </h1>
-          <p class="text-lg text-white/90">
-            {{
-              translate('faq-subtitle')
-                || 'Find answers to common questions about city services'
-            }}
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-question-circle-fill" badge-text="FAQ" :title="translate('faq-title') || 'Frequently Asked Questions'" :description="translate('faq-subtitle') || 'Find answers to common questions about city services'" :breadcrumbs="[{ label: 'FAQ' }]" />
 
     <!-- FAQ Content -->
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto space-y-8">
-          <UiCard
-            v-for="category in faqCategories"
-            :key="category.id"
-            padding="p-0"
-            class="overflow-hidden mb-8 last:mb-0"
-          >
-            <div
-              class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50"
-            >
-              <i
-                :class="`bi ${category.icon} text-2xl text-primary-600`"
-              />
+          <UiCard v-for="category in faqCategories" :key="category.id" padding="p-0" class="overflow-hidden mb-8 last:mb-0">
+            <div class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
+              <i :class="`bi ${category.icon} text-2xl text-primary-600`" />
               <h2 class="text-xl font-bold text-gray-900 m-0">
                 {{ category.title }}
               </h2>
             </div>
             <div class="divide-y divide-gray-100">
-              <UiAccordion
-                v-for="item in category.items"
-                :key="item.id"
-                :title="item.q"
-                class="border-0 rounded-none border-b last:border-b-0"
-              >
+              <UiAccordion v-for="item in category.items" :key="item.id" :title="item.q" class="border-0 rounded-none border-b last:border-b-0">
                 <div class="text-gray-600 leading-relaxed">
                   <div v-html="item.a" />
                 </div>
@@ -99,11 +65,7 @@ const faqCategories = computed(() =>
           </UiCard>
 
           <!-- Still Have Questions -->
-          <UiAlert
-            variant="primary"
-            layout="col"
-            icon="bi-chat-dots-fill"
-          >
+          <UiAlert variant="primary" layout="col" icon="bi-chat-dots-fill">
             <template #title>
               {{ translate('faq-still-questions') || 'Still have questions?' }}
             </template>

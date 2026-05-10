@@ -1,6 +1,6 @@
-<script setup lang="ts">
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+<!-- app\pages\legislative\resolution-framework.vue -->
 
+<script setup lang="ts">
 const { lguName, labels, legislative } = useConfig()
 
 // Get resolution types and items from config
@@ -16,41 +16,19 @@ const sampleResolutions = computed(() =>
 
 <template>
   <div>
-    <Breadcrumbs
-      :items="[
+    <UiPageHero
+      badge-icon="bi-file-earmark-text" badge-text="Legislative" title="Resolution Framework" :description="`Resolutions passed by the ${labels.legislativeBody} ng ${lguName}`" :breadcrumbs="[
         { label: 'Legislative', href: '/legislative' },
         { label: 'Resolution Framework' },
       ]"
     />
-
-    <!-- Page Header -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-file-earmark-text" /> Legislative
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Resolution Framework
-          </h1>
-          <p class="text-lg text-white/90">
-            Resolutions passed by the {{ labels.legislativeBody }} ng
-            {{ lguName }}
-          </p>
-        </div>
-      </div>
-    </section>
 
     <!-- About Resolutions -->
     <section class="py-12">
       <div class="container mx-auto px-4">
         <UiCard padding="p-8" class="max-w-3xl mx-auto">
           <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl shrink-0"
-            >
+            <div class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl shrink-0">
               <i class="bi bi-info-circle" />
             </div>
             <div>
@@ -83,14 +61,8 @@ const sampleResolutions = computed(() =>
             Types of Resolutions
           </h2>
         </div>
-        <div
-          class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto"
-        >
-          <div
-            v-for="type in resolutionTypes"
-            :key="type.id"
-            class="flex items-center gap-2 px-5 py-3 bg-white border border-gray-200 rounded-full"
-          >
+        <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+          <div v-for="type in resolutionTypes" :key="type.id" class="flex items-center gap-2 px-5 py-3 bg-white border border-gray-200 rounded-full">
             <i :class="`bi ${type.icon} text-primary-600`" />
             <span class="text-sm font-medium text-gray-700">
               {{ type.label }}
@@ -116,37 +88,20 @@ const sampleResolutions = computed(() =>
           <table class="w-full min-w-[600px]">
             <thead class="bg-gray-50">
               <tr>
-                <th
-                  scope="col"
-                  class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
-                  style="width: 130px"
-                >
+                <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-900" style="width: 130px">
                   Resolution No.
                 </th>
-                <th
-                  scope="col"
-                  class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
-                >
+                <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                   Title
                 </th>
-                <th
-                  scope="col"
-                  class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
-                  style="width: 120px"
-                >
+                <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-900" style="width: 120px">
                   Session Date
                 </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              <tr
-                v-for="res in sampleResolutions"
-                :key="res.no"
-                class="hover:bg-gray-50"
-              >
-                <td
-                  class="px-6 py-4 text-sm text-gray-900 font-medium"
-                >
+              <tr v-for="res in sampleResolutions" :key="res.no" class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm text-gray-900 font-medium">
                   {{ res.no }}
                 </td>
                 <td class="px-6 py-4 text-sm text-gray-600">
@@ -160,9 +115,7 @@ const sampleResolutions = computed(() =>
           </table>
         </UiCard>
         <div class="text-center mt-6">
-          <p
-            class="text-sm text-gray-500 flex items-center justify-center gap-2"
-          >
+          <p class="text-sm text-gray-500 flex items-center justify-center gap-2">
             <i class="bi bi-info-circle" /> Update this section with
             actual resolutions from your LGU's
             {{ labels.legislativeBody }}

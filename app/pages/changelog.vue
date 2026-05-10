@@ -1,30 +1,12 @@
+<!-- app\pages\changelog.vue -->
+
 <script setup lang="ts">
 const { entries, getSectionBadgeColor, getSectionIcon, getPrefixColorClass } = useChangelog()
 </script>
 
 <template>
   <div>
-    <!-- Breadcrumbs -->
-    <UiBreadcrumbs :items="[{ label: 'Changelog' }]" />
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-clock-history" /> History
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Changelog
-          </h1>
-          <p class="text-lg text-white/90">
-            Keep track of the latest updates and improvements
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-clock-history" badge-text="History" title="Changelog" description="Keep track of the latest updates and improvements" :breadcrumbs="[{ label: 'Changelog' }]" />
 
     <!-- Content -->
     <section class="py-12 bg-gray-50/50">
@@ -37,11 +19,7 @@ const { entries, getSectionBadgeColor, getSectionIcon, getPrefixColorClass } = u
 
             <!-- Entries -->
             <div class="space-y-12">
-              <div
-                v-for="(entry, index) in entries"
-                :key="entry.version"
-                class="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
-              >
+              <div v-for="(entry, index) in entries" :key="entry.version" class="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <!-- Central Indicator (Absolute) -->
                 <div class="hidden md:flex absolute left-1/2 top-6 -translate-x-1/2 z-20 items-center justify-center w-8 h-8 rounded-full border-4 border-white bg-white text-primary-600 shadow-sm overflow-hidden group-hover:bg-primary-600 group-hover:text-white transition-colors">
                   <div class="w-full h-full flex items-center justify-center bg-gray-50 group-hover:bg-primary-600 transition-colors">
@@ -50,10 +28,7 @@ const { entries, getSectionBadgeColor, getSectionIcon, getPrefixColorClass } = u
                 </div>
 
                 <!-- Date Area (Visible on opposite side on desktop) -->
-                <div
-                  class="hidden md:flex flex-col mt-7"
-                  :class="index % 2 === 0 ? 'text-right items-end pr-12 order-1' : 'text-left items-start pl-12 order-2'"
-                >
+                <div class="hidden md:flex flex-col mt-7" :class="index % 2 === 0 ? 'text-right items-end pr-12 order-1' : 'text-left items-start pl-12 order-2'">
                   <div v-if="entry.date" class="flex flex-col" :class="index % 2 === 0 ? 'items-end' : 'items-start'">
                     <span class="text-sm font-bold text-gray-900">{{ entry.date }}</span>
                     <span class="text-xs text-gray-400 font-medium uppercase tracking-tighter mt-1">Release Date</span>
@@ -61,10 +36,7 @@ const { entries, getSectionBadgeColor, getSectionIcon, getPrefixColorClass } = u
                 </div>
 
                 <!-- Content Card Area -->
-                <div
-                  class="relative group"
-                  :class="index % 2 === 0 ? 'md:pl-12 order-2' : 'md:pr-12 order-1'"
-                >
+                <div class="relative group" :class="index % 2 === 0 ? 'md:pl-12 order-2' : 'md:pr-12 order-1'">
                   <!-- Mobile Indicator -->
                   <div class="md:hidden absolute -left-7 top-6 w-4 h-4 rounded-full border-2 border-white bg-primary-600 shadow-sm z-10" />
 
@@ -75,13 +47,7 @@ const { entries, getSectionBadgeColor, getSectionIcon, getPrefixColorClass } = u
                         {{ entry.version === 'Unreleased' ? 'Recent Updates' : `v${entry.version}` }}
                       </UiBadge>
 
-                      <a
-                        v-if="entry.githubUrl"
-                        :href="entry.githubUrl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-primary-600 transition-colors bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-sm"
-                      >
+                      <a v-if="entry.githubUrl" :href="entry.githubUrl" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-primary-600 transition-colors bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-sm">
                         <i class="bi bi-github" />
                         <span>Source</span>
                       </a>
@@ -105,10 +71,7 @@ const { entries, getSectionBadgeColor, getSectionIcon, getPrefixColorClass } = u
                           <span class="mt-2 w-1.5 h-1.5 rounded-full bg-primary-500 shrink-0 group-hover/item:scale-125 transition-transform" />
                           <div class="flex flex-col gap-1.5">
                             <div v-if="item.prefix" class="flex">
-                              <span
-                                class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border leading-none"
-                                :class="getPrefixColorClass(item.prefix)"
-                              >
+                              <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border leading-none" :class="getPrefixColorClass(item.prefix)">
                                 {{ item.prefix }}
                               </span>
                             </div>

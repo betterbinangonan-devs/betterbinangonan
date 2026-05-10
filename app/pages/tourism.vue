@@ -1,3 +1,5 @@
+<!-- app\pages\tourism.vue -->
+
 <script setup lang="ts">
 const { lguName, tourism, labels } = useConfig()
 
@@ -15,43 +17,17 @@ const filteredAttractions = computed(() => {
 
 <template>
   <div>
-    <UiBreadcrumbs :items="[{ label: 'Tourism' }]" />
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-geo-alt-fill" /> Explore
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Discover {{ lguName }}
-          </h1>
-          <p class="text-lg text-white/90">
-            Explore the beauty, culture, and hospitality of our
-            {{ labels.lguTypeLabel.toLowerCase() }}
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-geo-alt-fill" badge-text="Explore" :title="`Discover ${lguName}`" :description="`Explore the beauty, culture, and hospitality of our ${labels.lguTypeLabel.toLowerCase()}`" :breadcrumbs="[{ label: 'Tourism' }]" />
 
     <!-- Category Filter -->
     <section class="py-8 bg-gray-50 border-b border-gray-200">
       <div class="container mx-auto px-4">
         <div class="flex flex-wrap justify-center gap-3">
           <button
-            v-for="category in tourism.categories"
-            :key="category.id"
-            type="button"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all"
-            :class="
-              activeCategory === category.id
-                ? 'bg-primary-600 text-white'
-                : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'
-            "
-            @click="activeCategory = category.id"
+            v-for="category in tourism.categories" :key="category.id" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all" :class="activeCategory === category.id
+              ? 'bg-primary-600 text-white'
+              : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'
+            " @click="activeCategory = category.id"
           >
             <i :class="`bi ${category.icon}`" />
             {{ category.label }}
@@ -64,9 +40,7 @@ const filteredAttractions = computed(() => {
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="text-center mb-10">
-          <span
-            class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2"
-          >
+          <span class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
             <i class="bi bi-pin-map-fill" /> Places to Visit
           </span>
           <h2 class="text-2xl font-bold text-gray-900">
@@ -74,38 +48,18 @@ const filteredAttractions = computed(() => {
           </h2>
         </div>
 
-        <div
-          v-if="filteredAttractions.length === 0"
-          class="text-center py-12 text-gray-500"
-        >
+        <div v-if="filteredAttractions.length === 0" class="text-center py-12 text-gray-500">
           <i class="bi bi-geo-alt text-4xl mb-4 block opacity-50" />
           <p>No attractions found in this category.</p>
         </div>
 
-        <div
-          v-else
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <div
-            v-for="attraction in filteredAttractions"
-            :key="attraction.id"
-            class="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-primary-500 hover:shadow-lg"
-          >
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-for="attraction in filteredAttractions" :key="attraction.id" class="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-primary-500 hover:shadow-lg">
             <!-- Image or Placeholder -->
-            <div
-              class="h-48 bg-gray-100 flex items-center justify-center"
-            >
-              <img
-                v-if="attraction.image"
-                :src="attraction.image"
-                :alt="attraction.name"
-                class="w-full h-full object-cover"
-              >
+            <div class="h-48 bg-gray-100 flex items-center justify-center">
+              <img v-if="attraction.image" :src="attraction.image" :alt="attraction.name" class="w-full h-full object-cover">
               <div v-else class="text-center text-gray-400">
-                <i
-                  class="text-5xl"
-                  :class="`bi ${tourism.categories.find(category => category.id === attraction.category)?.icon || 'bi-image'}`"
-                />
+                <i class="text-5xl" :class="`bi ${tourism.categories.find(category => category.id === attraction.category)?.icon || 'bi-image'}`" />
                 <p class="text-sm mt-2">
                   No image
                 </p>
@@ -113,12 +67,8 @@ const filteredAttractions = computed(() => {
             </div>
             <div class="p-6">
               <div class="flex items-center gap-2 mb-3">
-                <span
-                  class="inline-flex items-center gap-1 bg-primary-50 text-primary-700 px-2 py-1 rounded text-xs font-medium"
-                >
-                  <i
-                    :class="`bi ${tourism.categories.find(category => category.id === attraction.category)?.icon || 'bi-geo'}`"
-                  />
+                <span class="inline-flex items-center gap-1 bg-primary-50 text-primary-700 px-2 py-1 rounded text-xs font-medium">
+                  <i :class="`bi ${tourism.categories.find(category => category.id === attraction.category)?.icon || 'bi-geo'}`" />
                   {{
                     tourism.categories.find(category => category.id === attraction.category)
                       ?.label || 'Other'
@@ -144,9 +94,7 @@ const filteredAttractions = computed(() => {
     <section class="py-12 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="text-center mb-10">
-          <span
-            class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2"
-          >
+          <span class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
             <i class="bi bi-calendar-event-fill" /> Celebrations
           </span>
           <h2 class="text-2xl font-bold text-gray-900">
@@ -157,17 +105,9 @@ const filteredAttractions = computed(() => {
           </p>
         </div>
 
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
-        >
-          <div
-            v-for="event in tourism.events"
-            :key="event.id"
-            class="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:border-primary-500 hover:shadow-md"
-          >
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-xl mb-4"
-            >
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div v-for="event in tourism.events" :key="event.id" class="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:border-primary-500 hover:shadow-md">
+            <div class="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-xl mb-4">
               <i class="bi bi-calendar-heart" />
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-2">
@@ -191,9 +131,7 @@ const filteredAttractions = computed(() => {
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="text-center mb-10">
-          <span
-            class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2"
-          >
+          <span class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
             <i class="bi bi-info-circle-fill" /> Plan Your Visit
           </span>
           <h2 class="text-2xl font-bold text-gray-900">
@@ -201,14 +139,10 @@ const filteredAttractions = computed(() => {
           </h2>
         </div>
 
-        <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
-        >
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <!-- How to Get There -->
           <div class="bg-white border border-gray-200 rounded-xl p-6">
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-blue-50 text-blue-600 rounded-xl text-xl mb-4"
-            >
+            <div class="w-12 h-12 flex items-center justify-center bg-blue-50 text-blue-600 rounded-xl text-xl mb-4">
               <i class="bi bi-signpost-split" />
             </div>
             <h3 class="text-lg font-semibold text-gray-900 mb-3">
@@ -221,9 +155,7 @@ const filteredAttractions = computed(() => {
 
           <!-- Best Time to Visit -->
           <div class="bg-white border border-gray-200 rounded-xl p-6">
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-green-50 text-green-600 rounded-xl text-xl mb-4"
-            >
+            <div class="w-12 h-12 flex items-center justify-center bg-green-50 text-green-600 rounded-xl text-xl mb-4">
               <i class="bi bi-sun" />
             </div>
             <h3 class="text-lg font-semibold text-gray-900 mb-3">
@@ -236,23 +168,15 @@ const filteredAttractions = computed(() => {
 
           <!-- Travel Tips -->
           <div class="bg-white border border-gray-200 rounded-xl p-6">
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-yellow-50 text-yellow-600 rounded-xl text-xl mb-4"
-            >
+            <div class="w-12 h-12 flex items-center justify-center bg-yellow-50 text-yellow-600 rounded-xl text-xl mb-4">
               <i class="bi bi-lightbulb" />
             </div>
             <h3 class="text-lg font-semibold text-gray-900 mb-3">
               Travel Tips
             </h3>
             <ul class="text-gray-600 text-sm space-y-2">
-              <li
-                v-for="tip in tourism.travelInfo.tips"
-                :key="tip"
-                class="flex items-start gap-2"
-              >
-                <i
-                  class="bi bi-check-circle-fill text-green-500 mt-0.5"
-                />
+              <li v-for="tip in tourism.travelInfo.tips" :key="tip" class="flex items-start gap-2">
+                <i class="bi bi-check-circle-fill text-green-500 mt-0.5" />
                 <span>{{ tip }}</span>
               </li>
             </ul>
