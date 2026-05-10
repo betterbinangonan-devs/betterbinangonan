@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Footer from '@/components/layout/Footer.vue'
 import Header from '@/components/layout/Header.vue'
-import HotlineBar from '@/components/layout/HotlineBar.vue'
-import InfoBar from '@/components/layout/InfoBar.vue'
 </script>
 
 <template>
@@ -10,9 +8,9 @@ import InfoBar from '@/components/layout/InfoBar.vue'
     <a href="#main-content" class="skip-link">
       Skip to main content
     </a>
-    <HotlineBar />
+    <!-- <HotlineBar /> -->
+    <!-- <InfoBar /> -->
     <Header />
-    <InfoBar />
     <main id="main-content">
       <slot />
     </main>

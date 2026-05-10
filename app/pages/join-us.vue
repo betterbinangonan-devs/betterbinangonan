@@ -1,5 +1,6 @@
+<!-- app\pages\join-us.vue -->
+
 <script setup lang="ts">
-import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import { useConfig } from '@/composables/useConfig'
 
 const { getVolunteerEmail, lguName, site } = useConfig()
@@ -8,14 +9,7 @@ const volunteerEmail = computed(() => getVolunteerEmail())
 
 <template>
   <div>
-    <Breadcrumbs :items="[{ label: 'Join Us' }]" />
-
-    <UiPageHero
-      badge-icon="bi-people-fill"
-      badge-text="Volunteer"
-      :title="`Join the Better ${lguName} Team`"
-      description="Be part of the movement for transparent and accessible governance data."
-    />
+    <UiPageHero badge-icon="bi-people-fill" badge-text="Volunteer" :title="`Join the Better ${lguName} Team`" description="Be part of the movement for transparent and accessible governance data." :breadcrumbs="[{ label: 'Join Us' }]" />
 
     <!-- Content -->
     <section class="py-12">
@@ -34,23 +28,12 @@ const volunteerEmail = computed(() => getVolunteerEmail())
           </p>
 
           <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <UiButton
-              :href="`mailto:${volunteerEmail}`"
-              variant="solid"
-              color="primary"
-              size="lg"
-            >
+            <UiButton :href="`mailto:${volunteerEmail}`" variant="solid" color="primary" size="lg">
               <i class="bi bi-envelope-fill" />
               Email Us to Join
             </UiButton>
 
-            <UiButton
-              :href="site.social.github"
-              target="_blank"
-              variant="soft"
-              color="gray"
-              size="lg"
-            >
+            <UiButton :href="site.social.github" target="_blank" variant="soft" color="gray" size="lg">
               <i class="bi bi-github" />
               Contribute on GitHub
             </UiButton>

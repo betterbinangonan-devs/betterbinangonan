@@ -1,5 +1,8 @@
+<!-- app\pages\contact\index.vue -->
+
 <script setup lang="ts">
-import type { EmailHotlineItem, PhoneHotlineItem } from '@/types/config'
+import type { EmailHotlineItem, HotlineSection, LinkHotlineItem, PhoneHotlineItem } from '@/types/config'
+import { unref } from 'vue'
 import { useConfig } from '@/composables/useConfig'
 
 function isPhoneHotline(hotline: unknown): hotline is PhoneHotlineItem {
@@ -8,10 +11,9 @@ function isPhoneHotline(hotline: unknown): hotline is PhoneHotlineItem {
     && hotline !== null
     && 'number' in hotline
     && typeof hotline.number === 'string'
-    && 'icon' in hotline
-    && typeof hotline.icon === 'string'
   )
 }
+
 function isEmailHotline(hotline: unknown): hotline is EmailHotlineItem {
   return (
     typeof hotline === 'object'
@@ -21,250 +23,286 @@ function isEmailHotline(hotline: unknown): hotline is EmailHotlineItem {
   )
 }
 
-const { site, hotlines, formatPhoneLink } = useConfig()
-const officeHours = [
-  { day: 'Monday - Thursday', time: '8:00 AM - 7:00 PM', status: 'Open', icon: 'bi-check-circle-fill', textClass: 'text-green-600', bgClass: 'bg-green-50' },
-  { day: 'Friday', time: '8:00 AM - 5:00 PM (Essential Services: CHO, Traffic, Emergency Teams)', status: 'Partial', icon: 'bi-info-circle-fill', textClass: 'text-blue-600', bgClass: 'bg-blue-50' },
-  { day: 'Saturday & Sunday', time: 'Closed', status: 'Closed', icon: 'bi-x-circle-fill', textClass: 'text-red-600', bgClass: 'bg-red-50' },
-  { day: 'National & Local Holidays', time: 'Closed', status: 'Closed', icon: 'bi-x-circle-fill', textClass: 'text-red-600', bgClass: 'bg-red-50' },
-]
+function isLinkHotline(hotline: unknown): hotline is LinkHotlineItem {
+  return (
+    typeof hotline === 'object'
+    && hotline !== null
+    && 'url' in hotline
+    && typeof hotline.url === 'string'
+  )
+}
+
+const {
+  // site,
+  hotlines,
+  formatPhoneLink,
+} = useConfig()
+
+const contactTocItems = computed(() => {
+  // const siteConfig = unref(site)
+  const hotlineConfig = unref(hotlines)
+
+  return [
+    // {
+    //   id: 'contact-information',
+    //   label: 'Contact Information',
+    //   icon: 'bi-person-lines-fill',
+    //   visible: Boolean(
+    //     siteConfig.contact.email
+    //     || siteConfig.contact.mobile
+    //     || siteConfig.contact.phone,
+    //   ),
+    // },
+    ...hotlineConfig.sections.map(section => ({
+      id: `${section.id}-hotlines`,
+      label: section.title,
+      icon: section.icon,
+      visible: section.items.some(item =>
+        isPhoneHotline(item)
+        || isEmailHotline(item)
+        || isLinkHotline(item),
+      ),
+    })),
+  ]
+})
+
+function toneText(tone: HotlineSection['tone']) {
+  return {
+    red: 'text-red-600',
+    green: 'text-green-600',
+    blue: 'text-blue-600',
+    gray: 'text-gray-700',
+  }[tone]
+}
+
+function toneIconBg(tone: HotlineSection['tone']) {
+  return {
+    red: 'bg-red-50',
+    green: 'bg-green-50',
+    blue: 'bg-blue-50',
+    gray: 'bg-gray-100',
+  }[tone]
+}
+
+function toneHoverBorder(tone: HotlineSection['tone']) {
+  return {
+    red: 'hover:border-red-300',
+    green: 'hover:border-green-300',
+    blue: 'hover:border-blue-300',
+    gray: 'hover:border-gray-300',
+  }[tone]
+}
+
+function toneHoverText(tone: HotlineSection['tone']) {
+  return {
+    red: 'group-hover:text-red-600',
+    green: 'group-hover:text-green-600',
+    blue: 'group-hover:text-blue-600',
+    gray: 'group-hover:text-gray-700',
+  }[tone]
+}
+
+function hotlineHref(hotline: PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem) {
+  if (isPhoneHotline(hotline)) {
+    return `tel:${formatPhoneLink(hotline.number)}`
+  }
+
+  if (isEmailHotline(hotline)) {
+    return `mailto:${hotline.email}`
+  }
+
+  return hotline.url
+}
+
+function hotlineValue(hotline: PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem) {
+  if (isPhoneHotline(hotline)) {
+    return hotline.number
+  }
+
+  if (isEmailHotline(hotline)) {
+    return hotline.email
+  }
+
+  return hotline.url.replace(/^https?:\/\//, '')
+}
+
+function hotlineTarget(hotline: PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem) {
+  return isLinkHotline(hotline) ? '_blank' : undefined
+}
+
+function hotlineRel(hotline: PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem) {
+  return isLinkHotline(hotline) ? 'noopener noreferrer' : undefined
+}
+
+function hotlineActionIcon(hotline: PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem) {
+  return isPhoneHotline(hotline) ? 'bi-telephone-outbound' : 'bi-arrow-up-right'
+}
+
+function hotlineDescription(
+  hotline: PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem,
+  section: Pick<HotlineSection, 'callDescription' | 'emailDescription'>,
+) {
+  if (isPhoneHotline(hotline)) {
+    return section.callDescription || 'Tap to call this hotline.'
+  }
+
+  if (isEmailHotline(hotline)) {
+    return section.emailDescription || 'Send an email inquiry.'
+  }
+
+  return 'Open official page.'
+}
 </script>
 
 <template>
   <div>
-    <UiBreadcrumbs :items="[{ label: 'Contact' }]" />
+    <!-- ? MARK: SECTION HEADER -->
+    <UiPageHero badge-icon="bi-envelope-fill" badge-text="Contact" title="Contact Us" description="We're here to help. Reach out to us through any of these channels." :breadcrumbs="[{ label: 'Contact' }]" />
 
-    <UiPageHero
-      badge-icon="bi-envelope-fill"
-      badge-text="Contact"
-      title="Contact Us"
-      description="We're here to help. Reach out to us through any of these channels."
-    />
-
-    <!-- Contact Information -->
-    <section class="py-12">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <UiCard
-            v-if="site.contact.email"
-            :href="`mailto:${site.contact.email}`"
-            interactive
-            class="group flex items-start gap-4 text-gray-800 hover:border-primary-500"
-          >
-            <div class="w-12 h-12 flex items-center justify-center bg-primary-600 text-white rounded-xl text-xl shrink-0">
-              <i class="bi bi-envelope-fill" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
-                Email
-              </h3>
-              <p class="text-lg font-semibold text-gray-900 mb-1">
-                {{ site.contact.email }}
+    <!-- ? MARK: PAGE TOC -->
+    <UiPageWithToc :items="contactTocItems">
+      <!-- ? MARK: Contact Information -->
+      <!-- <section id="contact-information" class="scroll-mt-28 py-12">
+        <div class="px-0">
+          <div class="mx-auto max-w-3xl">
+            <div class="mb-8">
+              <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+                Get in touch
               </p>
-              <span class="text-sm text-gray-500">
-                We'll respond within 24 hours
-              </span>
-            </div>
-          </UiCard>
 
-          <UiCard
-            v-if="site.contact.mobile"
-            :href="`tel:${formatPhoneLink(site.contact.mobile)}`"
-            interactive
-            class="group flex items-start gap-4 text-gray-800 hover:border-primary-500"
-          >
-            <div class="w-12 h-12 flex items-center justify-center bg-primary-600 text-white rounded-xl text-xl shrink-0">
-              <i class="bi bi-phone-fill" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
-                Mobile
-              </h3>
-              <p class="text-lg font-semibold text-gray-900 mb-1">
-                {{ site.contact.mobile }}
-              </p>
-              <span class="text-sm text-gray-500">
-                Mon-Thu: 8:00 AM - 7:00 PM
-              </span>
-            </div>
-          </UiCard>
+              <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                Contact Information
+              </h2>
 
-          <UiCard
-            v-if="site.contact.phone"
-            :href="`tel:${formatPhoneLink(site.contact.phone)}`"
-            interactive
-            class="group flex items-start gap-4 text-gray-800 hover:border-primary-500"
-          >
-            <div class="w-12 h-12 flex items-center justify-center bg-primary-600 text-white rounded-xl text-xl shrink-0">
-              <i class="bi bi-telephone-fill" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
-                Phone
-              </h3>
-              <p class="text-lg font-semibold text-gray-900 mb-1">
-                {{ site.contact.phone }}
+              <p class="mt-3 text-base leading-relaxed text-gray-600">
+                Reach us through the available contact channels below.
               </p>
-              <span class="text-sm text-gray-500">
-                Mon-Thu: 8:00 AM - 7:00 PM
-              </span>
             </div>
-          </UiCard>
+
+            <div class="grid grid-cols-1 gap-4">
+              <UiCard v-if="site.contact.email" :href="`mailto:${site.contact.email}`" interactive class="group flex items-start gap-4 border-gray-200 text-gray-800 transition hover:border-primary-500">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-xl text-white transition group-hover:scale-105">
+                  <i class="bi bi-envelope-fill" />
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="mb-1 flex items-center justify-between gap-3">
+                    <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                      Email
+                    </h3>
+
+                    <i class="bi bi-arrow-up-right text-sm text-gray-300 transition group-hover:text-primary-600" />
+                  </div>
+
+                  <p class="break-all text-lg font-semibold text-gray-900">
+                    {{ site.contact.email }}
+                  </p>
+
+                  <p class="mt-1 text-sm text-gray-500">
+                    Send us your questions, reports, or feedback.
+                  </p>
+                </div>
+              </UiCard>
+
+              <UiCard v-if="site.contact.mobile" :href="`tel:${formatPhoneLink(site.contact.mobile)}`" interactive class="group flex items-start gap-4 border-gray-200 text-gray-800 transition hover:border-primary-500">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-xl text-white transition group-hover:scale-105">
+                  <i class="bi bi-phone-fill" />
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="mb-1 flex items-center justify-between gap-3">
+                    <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                      Mobile
+                    </h3>
+
+                    <i class="bi bi-telephone-outbound text-sm text-gray-300 transition group-hover:text-primary-600" />
+                  </div>
+
+                  <p class="break-all text-lg font-semibold text-gray-900">
+                    {{ site.contact.mobile }}
+                  </p>
+
+                  <p class="mt-1 text-sm text-gray-500">
+                    Tap to call using your mobile device.
+                  </p>
+                </div>
+              </UiCard>
+
+              <UiCard v-if="site.contact.phone" :href="`tel:${formatPhoneLink(site.contact.phone)}`" interactive class="group flex items-start gap-4 border-gray-200 text-gray-800 transition hover:border-primary-500">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-xl text-white transition group-hover:scale-105">
+                  <i class="bi bi-telephone-fill" />
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="mb-1 flex items-center justify-between gap-3">
+                    <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                      Phone
+                    </h3>
+
+                    <i class="bi bi-telephone-outbound text-sm text-gray-300 transition group-hover:text-primary-600" />
+                  </div>
+
+                  <p class="break-all text-lg font-semibold text-gray-900">
+                    {{ site.contact.phone }}
+                  </p>
+
+                  <p class="mt-1 text-sm text-gray-500">
+                    Call for general inquiries and assistance.
+                  </p>
+                </div>
+              </UiCard>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section> -->
 
-    <!-- Office Hours -->
-    <section class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="max-w-2xl mx-auto bg-white rounded-2xl border border-gray-200 overflow-hidden">
-          <div class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
-            <i class="bi bi-clock-fill text-2xl text-primary-600" />
-            <h2 class="text-xl font-bold text-gray-900 m-0">
-              Office Hours
+      <!-- ? MARK: Hotline Sections -->
+      <section v-for="section in hotlines.sections" v-show="section.items.some((item) => isPhoneHotline(item) || isEmailHotline(item) || isLinkHotline(item))" :id="`${section.id}-hotlines`" :key="section.id" class="scroll-mt-28 py-12">
+        <div class="mx-auto max-w-3xl">
+          <div class="mb-8">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide" :class="toneText(section.tone)">
+              {{ section.label }}
+            </p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              {{ section.title }}
             </h2>
+
+            <p class="mt-3 text-base leading-relaxed text-gray-600">
+              {{ section.description }}
+            </p>
           </div>
-          <div class="divide-y divide-gray-100">
-            <div
-              v-for="hours in officeHours"
-              :key="hours.day"
-              class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-6 items-center p-4 sm:px-8"
-              :class="hours.bgClass"
-            >
-              <span class="font-medium text-gray-900">
-                {{ hours.day }}
-              </span>
-              <span class="text-gray-600">{{ hours.time }}</span>
-              <span
-                class="inline-flex items-center gap-1 text-sm font-medium"
-                :class="hours.textClass"
-              >
-                <i class="bi" :class="hours.icon" /> {{ hours.status }}
-              </span>
-            </div>
+
+          <div class="grid grid-cols-1 gap-4">
+            <template v-for="hotline in section.items" :key="hotline.id">
+              <a v-if="isPhoneHotline(hotline) || isEmailHotline(hotline) || isLinkHotline(hotline)" :href="hotlineHref(hotline)" :target="hotlineTarget(hotline)" :rel="hotlineRel(hotline)" class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 text-gray-800 no-underline transition hover:bg-gray-50" :class="toneHoverBorder(section.tone)">
+
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl transition group-hover:scale-105" :class="[toneIconBg(section.tone), toneText(section.tone)]">
+                  <i class="bi" :class="[hotline.icon || 'bi-envelope-fill']" />
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="mb-1 flex items-center justify-between gap-3">
+                    <h3 class="font-semibold text-gray-900">
+                      {{ hotline.name }}
+                    </h3>
+
+                    <i class="bi text-sm text-gray-300 transition" :class="[hotlineActionIcon(hotline), toneHoverText(section.tone)]" />
+                  </div>
+
+                  <p class="break-all text-lg font-bold text-gray-900 sm:text-xl">
+                    {{ hotlineValue(hotline) }}
+                  </p>
+
+                  <p class="mt-1 text-sm text-gray-500">
+                    {{ hotlineDescription(hotline, section) }}
+                  </p>
+                </div>
+              </a>
+            </template>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Emergency Hotlines -->
-    <section v-if="hotlines.emergency.some((h) => h.number)" class="py-12">
-      <div class="container mx-auto px-4">
-        <UiSectionHeader
-          title="Emergency Hotlines"
-          description="For emergencies and inquiries, contact these numbers anytime."
-          badge-icon="bi-exclamation-triangle-fill"
-          badge-text="Emergency"
-          badge-class="bg-red-600 text-white"
-        />
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <template v-for="hotline in hotlines.emergency" :key="hotline.id">
-            <a
-              v-if="hotline.number"
-              :href="`tel:${formatPhoneLink(hotline.number)}`"
-              class="flex flex-col items-center gap-2 p-6 bg-red-50 border border-red-200 rounded-xl no-underline text-center transition-all duration-200 hover:border-red-400 hover:shadow-md"
-            >
-              <i class="bi text-3xl text-red-600" :class="[hotline.icon]" />
-              <span class="text-sm font-medium text-gray-700">
-                {{ hotline.name }}
-              </span>
-              <span class="text-lg font-bold text-red-600">
-                {{ hotline.number }}
-              </span>
-            </a>
-          </template>
-
-          <template v-for="hotline in hotlines.government" :key="hotline.id">
-            <a
-              v-if="isPhoneHotline(hotline)"
-              :href="`tel:${formatPhoneLink(hotline.number)}`"
-              class="flex flex-col items-center gap-2 p-6 bg-blue-50 border border-blue-200 rounded-xl no-underline text-center transition-all duration-200 hover:border-blue-400 hover:shadow-md"
-            >
-              <i class="bi text-3xl text-blue-600" :class="[hotline.icon]" />
-              <span class="text-sm font-medium text-gray-700">
-                {{ hotline.name }}
-              </span>
-              <span class="text-lg font-bold text-blue-600">
-                {{ hotline.number }}
-              </span>
-            </a>
-
-            <a
-              v-else-if="isEmailHotline(hotline)"
-              :href="`mailto:${hotline.email}`"
-              class="flex flex-col items-center gap-2 p-6 bg-blue-50 border border-blue-200 rounded-xl no-underline text-center transition-all duration-200 hover:border-blue-400 hover:shadow-md"
-            >
-              <i class="bi text-3xl text-blue-600" :class="[hotline.icon || 'bi-envelope-fill']" />
-              <span class="text-sm font-medium text-gray-700">
-                {{ hotline.name }}
-              </span>
-              <span class="text-lg font-bold text-blue-600">
-                {{ hotline.email }}
-              </span>
-            </a>
-          </template>
-
-          <template v-for="hotline in hotlines.utilities" :key="hotline.id">
-            <a
-              v-if="isPhoneHotline(hotline)"
-              :href="`tel:${formatPhoneLink(hotline.number)}`"
-              class="flex flex-col items-center gap-2 p-6 bg-gray-50 border border-gray-200 rounded-xl no-underline text-center transition-all duration-200 hover:border-gray-400 hover:shadow-md"
-            >
-              <i class="bi text-3xl text-gray-600" :class="[hotline.icon]" />
-              <span class="text-sm font-medium text-gray-700">
-                {{ hotline.name }}
-              </span>
-              <span class="text-lg font-bold text-gray-600">
-                {{ hotline.number }}
-              </span>
-            </a>
-
-            <a
-              v-else-if="isEmailHotline(hotline)"
-              :href="`mailto:${hotline.email}`"
-              class="flex flex-col items-center gap-2 p-6 bg-gray-50 border border-gray-200 rounded-xl no-underline text-center transition-all duration-200 hover:border-gray-400 hover:shadow-md"
-            >
-              <i class="bi text-3xl text-gray-600" :class="[hotline.icon || 'bi-envelope-fill']" />
-              <span class="text-sm font-medium text-gray-700">
-                {{ hotline.name }}
-              </span>
-              <span class="text-lg font-bold text-gray-600">
-                {{ hotline.email }}
-              </span>
-            </a>
-          </template>
-        </div>
-      </div>
-    </section>
-
-    <!-- Medical Emergency Hotlines -->
-    <section v-if="hotlines.medical.some((h) => h.number)" class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <UiSectionHeader
-          title="Medical Emergency Hotlines"
-          description="For medical emergencies and hospital inquiries."
-          badge-icon="bi-hospital-fill"
-          badge-text="Medical"
-          badge-class="bg-green-600 text-white"
-        />
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <template v-for="hotline in hotlines.medical" :key="hotline.id">
-            <a
-              v-if="hotline.number"
-              :href="`tel:${formatPhoneLink(hotline.number)}`"
-              class="flex flex-col items-center gap-2 p-6 bg-green-50 border border-green-200 rounded-xl no-underline text-center transition-all duration-200 hover:border-green-400 hover:shadow-md"
-            >
-              <i class="bi text-3xl text-green-600" :class="[hotline.icon]" />
-              <span class="text-sm font-medium text-gray-700">
-                {{ hotline.name }}
-              </span>
-              <span class="text-lg font-bold text-green-600">
-                {{ hotline.number }}
-              </span>
-            </a>
-          </template>
-        </div>
-      </div>
-    </section>
+      </section>
+    </UiPageWithToc>
   </div>
 </template>

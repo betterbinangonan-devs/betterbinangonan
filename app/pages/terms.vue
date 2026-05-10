@@ -1,3 +1,5 @@
+<!-- app\pages\terms.vue -->
+
 <script setup lang="ts">
 const { lguName, getSiteTitle, getVolunteerEmail } = useConfig()
 const siteTitle = computed(() => getSiteTitle())
@@ -21,27 +23,7 @@ const sections = [
 
 <template>
   <div>
-    <!-- Breadcrumbs -->
-    <UiBreadcrumbs :items="[{ label: 'Terms of Use' }]" />
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-file-earmark-text" /> Legal
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Terms of Use
-          </h1>
-          <p class="text-lg text-white/90">
-            Guidelines for using {{ siteTitle }}
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-file-earmark-text" badge-text="Legal" title="Terms of Use" :description="`Guidelines for using ${siteTitle}`" :breadcrumbs="[{ label: 'Terms of Use' }]" />
 
     <!-- Content -->
     <section class="py-12">
@@ -50,18 +32,11 @@ const sections = [
           <!-- Table of Contents -->
           <aside class="lg:w-64 shrink-0">
             <UiCard class="sticky top-24" padding="p-6">
-              <h4
-                class="font-semibold text-gray-900 mb-4 flex items-center gap-2"
-              >
+              <h4 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <i class="bi bi-list-ul" /> Contents
               </h4>
               <nav class="space-y-2 text-sm">
-                <a
-                  v-for="section in sections"
-                  :key="section.id"
-                  :href="`#${section.id}`"
-                  class="block text-gray-600 hover:text-primary-600 transition-colors"
-                >
+                <a v-for="section in sections" :key="section.id" :href="`#${section.id}`" class="block text-gray-600 hover:text-primary-600 transition-colors">
                   {{ section.title }}
                 </a>
               </nav>
@@ -81,12 +56,8 @@ const sections = [
                   transparent access to the services, programs, and public
                   funds of LGU {{ lguName }}.
                 </p>
-                <div
-                  class="flex items-center gap-3 p-4 bg-pink-50 border border-pink-200 rounded-lg"
-                >
-                  <i
-                    class="bi bi-heart-fill text-2xl text-pink-600"
-                  />
+                <div class="flex items-center gap-3 p-4 bg-pink-50 border border-pink-200 rounded-lg">
+                  <i class="bi bi-heart-fill text-2xl text-pink-600" />
                   <span class="text-pink-800">
                     This platform is provided
                     <strong>free of charge</strong> as a public service.
@@ -116,12 +87,8 @@ const sections = [
                   All information, data, documents, and materials on this
                   website are in the public domain unless otherwise stated.
                 </p>
-                <div
-                  class="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-lg"
-                >
-                  <i
-                    class="bi bi-info-circle text-blue-600 mt-0.5"
-                  />
+                <div class="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <i class="bi bi-info-circle text-blue-600 mt-0.5" />
                   <p class="text-blue-800 text-sm">
                     As a volunteer-run initiative, this website does not
                     replace official government channels. Residents are
@@ -231,10 +198,7 @@ const sections = [
                   For questions about these terms or feedback on civic
                   information, please contact:
                 </p>
-                <a
-                  :href="`mailto:${volunteerEmail}`"
-                  class="inline-flex items-center gap-3 p-4 bg-primary-50 border border-primary-200 rounded-xl text-primary-700 font-medium hover:bg-primary-100 transition-colors"
-                >
+                <a :href="`mailto:${volunteerEmail}`" class="inline-flex items-center gap-3 p-4 bg-primary-50 border border-primary-200 rounded-xl text-primary-700 font-medium hover:bg-primary-100 transition-colors">
                   <i class="bi bi-envelope-fill text-xl" />
                   <span>{{ volunteerEmail }}</span>
                 </a>

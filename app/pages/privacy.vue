@@ -1,3 +1,5 @@
+<!-- app\pages\privacy.vue -->
+
 <script setup lang="ts">
 const { getSiteTitle, getVolunteerEmail } = useConfig()
 const siteTitle = computed(() => getSiteTitle())
@@ -22,27 +24,7 @@ const sections = [
 
 <template>
   <div>
-    <!-- Breadcrumbs -->
-    <UiBreadcrumbs :items="[{ label: 'Privacy Policy' }]" />
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-shield-lock" /> Privacy
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Privacy Policy
-          </h1>
-          <p class="text-lg text-white/90">
-            How we collect, use, and protect your information
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-shield-lock" badge-text="Privacy" title="Privacy Policy" description="How we collect, use, and protect your information" :breadcrumbs="[{ label: 'Privacy Policy' }]" />
 
     <!-- Content -->
     <section class="py-12">
@@ -51,18 +33,11 @@ const sections = [
           <!-- Table of Contents -->
           <aside class="lg:w-64 shrink-0">
             <UiCard class="sticky top-24" padding="p-6">
-              <h4
-                class="font-semibold text-gray-900 mb-4 flex items-center gap-2"
-              >
+              <h4 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <i class="bi bi-list-ul" /> Contents
               </h4>
               <nav class="space-y-2 text-sm">
-                <a
-                  v-for="section in sections"
-                  :key="section.id"
-                  :href="`#${section.id}`"
-                  class="block text-gray-600 hover:text-primary-600 transition-colors"
-                >
+                <a v-for="section in sections" :key="section.id" :href="`#${section.id}`" class="block text-gray-600 hover:text-primary-600 transition-colors">
                   {{ section.title }}
                 </a>
               </nav>
@@ -91,12 +66,8 @@ const sections = [
                   of the Philippines and its Implementing Rules and
                   Regulations (IRR).
                 </p>
-                <div
-                  class="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg"
-                >
-                  <i
-                    class="bi bi-shield-check text-2xl text-green-600"
-                  />
+                <div class="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <i class="bi bi-shield-check text-2xl text-green-600" />
                   <span class="text-green-800">
                     We are committed to <strong>transparency</strong> and
                     <strong>data minimization</strong> — we only collect
@@ -142,9 +113,7 @@ const sections = [
                 <h3 class="font-semibold text-gray-800 mt-4 mb-2">
                   Information You Provide Voluntarily
                 </h3>
-                <ul
-                  class="list-disc list-inside space-y-1 text-gray-600 mb-4"
-                >
+                <ul class="list-disc list-inside space-y-1 text-gray-600 mb-4">
                   <li>
                     Email address (when you contact us or submit feedback)
                   </li>
@@ -228,9 +197,7 @@ const sections = [
                 <h2 class="text-xl font-bold text-gray-900 mb-4">
                   Your Rights Under the Data Privacy Act
                 </h2>
-                <ul
-                  class="list-disc list-inside space-y-1 text-gray-600 mb-4"
-                >
+                <ul class="list-disc list-inside space-y-1 text-gray-600 mb-4">
                   <li>
                     <strong>Right to Be Informed</strong>
                   </li>
@@ -255,10 +222,7 @@ const sections = [
                 </ul>
                 <p class="text-gray-600">
                   To exercise any of these rights, please contact us at
-                  <a
-                    :href="`mailto:${volunteerEmail}`"
-                    class="text-primary-600 hover:underline"
-                  >
+                  <a :href="`mailto:${volunteerEmail}`" class="text-primary-600 hover:underline">
                     {{ volunteerEmail }}
                   </a>
                   .
@@ -305,10 +269,7 @@ const sections = [
                   If you have questions about this Privacy Policy, please
                   contact us:
                 </p>
-                <a
-                  :href="`mailto:${volunteerEmail}`"
-                  class="inline-flex items-center gap-3 p-4 bg-primary-50 border border-primary-200 rounded-xl text-primary-700 font-medium hover:bg-primary-100 transition-colors"
-                >
+                <a :href="`mailto:${volunteerEmail}`" class="inline-flex items-center gap-3 p-4 bg-primary-50 border border-primary-200 rounded-xl text-primary-700 font-medium hover:bg-primary-100 transition-colors">
                   <i class="bi bi-envelope-fill text-xl" />
                   <span>{{ volunteerEmail }}</span>
                 </a>

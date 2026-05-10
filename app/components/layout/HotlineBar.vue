@@ -1,5 +1,8 @@
+<!-- app\components\layout\HotlineBar.vue -->
+
 <script setup lang="ts">
-import type { PhoneHotlineItem } from '@/types/config'
+import type { HotlineSection, PhoneHotlineItem } from '@/types/config'
+import { unref } from 'vue'
 
 const { hotlines, formatPhoneLink } = useConfig()
 
@@ -9,26 +12,43 @@ function isPhoneHotline(hotline: unknown): hotline is PhoneHotlineItem {
     && hotline !== null
     && 'number' in hotline
     && typeof hotline.number === 'string'
-    && 'icon' in hotline
-    && typeof hotline.icon === 'string'
   )
 }
 
+function getHotlineSection(id: string): HotlineSection | undefined {
+  return unref(hotlines).sections.find(section => section.id === id)
+}
+
 const displayHotlines = computed(() => {
+  const emergency = getHotlineSection('emergency')
+    ?.items
+    .filter(isPhoneHotline)
+    .slice(0, 4) || []
+
+  const medical = getHotlineSection('medical')
+    ?.items
+    .filter(isPhoneHotline)
+    .slice(0, 1) || []
+
+  const government = getHotlineSection('government')
+    ?.items
+    .filter(isPhoneHotline)
+    .slice(0, 1) || []
+
   return [
-    ...hotlines.emergency.slice(0, 4),
-    ...hotlines.medical.slice(0, 1),
-    ...hotlines.government.slice(0, 1),
-  ].filter(isPhoneHotline)
+    ...emergency,
+    ...medical,
+    ...government,
+  ]
 })
 </script>
 
 <template>
-  <div class="bg-linear-to-br from-red-600 to-red-700 text-white py-2 text-[0.8125rem] overflow-hidden">
+  <div class="overflow-hidden bg-[#00184d] py-2 text-[0.8125rem] text-white">
     <div class="container mx-auto px-4">
       <template v-if="displayHotlines.length === 0">
         <div class="flex justify-center">
-          <span class="inline-flex items-center gap-1 text-white bg-white/15 px-2.5 py-1 rounded-full whitespace-nowrap">
+          <span class="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-white whitespace-nowrap">
             <i class="bi bi-telephone-fill text-xs" />
             <span>Emergency hotlines coming soon</span>
           </span>
@@ -46,9 +66,9 @@ const displayHotlines = computed(() => {
             v-for="hotline in displayHotlines"
             :key="hotline.id"
             :href="`tel:${formatPhoneLink(hotline.number)}`"
-            class="inline-flex items-center gap-1 text-white bg-white/15 px-2.5 py-1 rounded-full whitespace-nowrap hover-btn-premium hover:bg-white/30 mx-2"
+            class="hover-btn-premium mx-2 inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-white whitespace-nowrap hover:bg-white/30"
           >
-            <i :class="`bi ${hotline.icon} text-xs`" />
+            <i class="bi text-xs" :class="hotline.icon || 'bi-telephone-fill'" />
             <span>{{ hotline.name }}: {{ hotline.number }}</span>
           </a>
         </Vue3Marquee>
