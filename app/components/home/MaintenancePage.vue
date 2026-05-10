@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import { useConfig } from '@/composables/useConfig'
+
+const { site, siteBrandName } = useConfig()
+const pageTitle = computed(() => `Coming Soon | ${siteBrandName.value}`)
+const pageDescription = computed(() => `${siteBrandName.value} is launching soon.`)
+const siteUrl = computed(() => `https://${site.value.domain}`)
+const facebookUrl = computed(() => site.value.social.facebook || 'https://www.facebook.com/BetterBinangonan.org')
+const betterGovUrl = 'https://bettergov.ph'
+const mobileLogoPath = '/assets/images/logo/better-binangonan-logo-text-white-1.webp'
+const desktopLogoPath = '/assets/images/logo/better-binangonan-logo-text-white-2.webp'
+
 useHead({
-  title: 'Coming Soon | BetterBinangonan.org',
+  title: pageTitle,
   meta: [
     {
       name: 'description',
-      content: 'BetterBinangonan.org is launching soon.',
+      content: pageDescription,
     },
   ],
 })
@@ -20,10 +31,10 @@ useHead({
           <!-- Left: Logo -->
           <div class="flex justify-center md:justify-start" oncontextmenu="return false">
             <!-- Mobile logo -->
-            <img src="/assets/images/logo/better-binangonan-logo-text-white-1.webp" alt="BetterBinangonan.org" draggable="false" oncontextmenu="return false" class="pointer-events-none h-auto w-full max-w-[280px] select-none md:hidden">
+            <img :src="mobileLogoPath" :alt="`${siteBrandName} Logo`" draggable="false" oncontextmenu="return false" class="pointer-events-none h-auto w-full max-w-[280px] select-none md:hidden">
 
             <!-- Desktop logo -->
-            <img src="/assets/images/logo/better-binangonan-logo-text-white-2.webp" alt="BetterBinangonan.org" draggable="false" oncontextmenu="return false" class="pointer-events-none hidden h-auto w-full max-w-[420px] select-none md:block">
+            <img :src="desktopLogoPath" :alt="`${siteBrandName} Logo`" draggable="false" oncontextmenu="return false" class="pointer-events-none hidden h-auto w-full max-w-[420px] select-none md:block">
           </div>
 
           <!-- Right: Text -->
@@ -33,18 +44,18 @@ useHead({
             </h1>
 
             <p class="mt-6 max-w-xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8 md:text-xl">
-              <a href="https://betterbinangonan.org" target="_blank" rel="noopener noreferrer" class="font-semibold text-white underline decoration-white/40 underline-offset-4 transition hover:decoration-white">
-                BetterBinangonan.org
+              <a :href="siteUrl" target="_blank" rel="noopener noreferrer" class="font-semibold text-white underline decoration-white/40 underline-offset-4 transition hover:decoration-white">
+                {{ siteBrandName }}
               </a>
               is an independent civic website under
-              <a href="https://bettergov.ph" target="_blank" rel="noopener noreferrer" class="font-semibold text-white underline decoration-white/40 underline-offset-4 transition hover:decoration-white">
+              <a :href="betterGovUrl" target="_blank" rel="noopener noreferrer" class="font-semibold text-white underline decoration-white/40 underline-offset-4 transition hover:decoration-white">
                 BetterGov.PH
               </a>.
               We help you find official gov't services easily. Not affiliated with or representing the Binangonan LGU. 100% volunteer-run &amp; community-based.
             </p>
 
             <div class="mt-8 flex justify-center md:justify-start">
-              <a href="https://www.facebook.com/BetterBinangonan.org" target="_blank" rel="noopener noreferrer" aria-label="Follow BetterBinangonan.org on Facebook for updates" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-950">
+              <a :href="facebookUrl" target="_blank" rel="noopener noreferrer" :aria-label="`Follow ${siteBrandName} on Facebook for updates`" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-950">
                 Follow us on Facebook for updates
               </a>
             </div>
