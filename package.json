@@ -46,7 +46,7 @@
     "@takumi-rs/core": "^1.0.9",
     "@takumi-rs/wasm": "^1.1.2",
     "@vitest/coverage-v8": "^4.1.5",
-    "@vue/test-utils": "^2.4.9",
+    "@vue/test-utils": "^2.4.10",
     "autoprefixer": "^10.4.27",
     "commander": "^13.1.0",
     "eslint": "^10.2.0",
