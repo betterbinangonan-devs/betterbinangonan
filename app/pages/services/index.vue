@@ -130,45 +130,99 @@ const lifeEvents = [
 <template>
   <div>
     <UiPageHero badge-icon="bi-grid-fill" :badge-text="translate('nav-services')" :title="translate('services-title')" :description="translate('services-subtitle')" :breadcrumbs="[{ label: translate('nav-services') }]">
-      <!-- Search Box -->
+      <!-- ? MARK: Search Box -->
       <div class="mx-auto mt-8 max-w-xl">
         <ServicesSearch placeholder="Search other services..." class="[&_input]:pl-10 [&_input]:pr-4 [&_input]:py-3 [&_input]:border [&_input]:border-white/25 [&_input]:rounded-full [&_input]:shadow-none [&_input]:bg-transparent [&_input]:text-white [&_input]:placeholder:text-white/50 hover:[&_input]:bg-white/10 hover:[&_input]:border-white/45 focus:[&_input]:bg-white/10 focus:[&_input]:border-white/70 focus:[&_input]:ring-4 focus:[&_input]:ring-white/10" :initial-query="initialQuery" />
       </div>
     </UiPageHero>
 
-    <!-- Service Categories -->
+    <!-- ? MARK: Service Categories -->
     <section class="py-12">
       <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <UiCard v-for="category in categories.filter(category => !category.hidden)" :key="category.href" :to="category.href" interactive class="group flex items-start gap-4 text-gray-800">
-            <div class="w-14 h-14 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-2xl shrink-0 transition-all duration-200 group-hover:bg-primary-600 group-hover:text-white">
-              <i class="bi" :class="[category.icon]" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="text-lg font-semibold text-gray-900 mb-1">
-                {{ translate(category.titleKey) }}
-              </h3>
-              <p class="text-sm text-gray-500 mb-3">
-                {{ translate(category.descKey) }}
-              </p>
-              <span class="text-primary-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                View Services <i class="bi bi-arrow-right" />
-              </span>
-            </div>
-          </UiCard>
+        <div class="mx-auto max-w-3xl">
+          <div class="mb-8 text-center">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+              Services
+            </p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              Browse by Category
+            </h2>
+
+            <p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-gray-600">
+              Find services based on what you need from the municipality.
+            </p>
+          </div>
+
+          <div class="mx-auto max-w-2xl overflow-hidden rounded-2xl border border-gray-200 bg-white">
+            <NuxtLink v-for="category in categories.filter(category => !category.hidden)" :key="category.href" :to="category.href" class="group block border-b border-gray-100 p-5 transition last:border-b-0 hover:bg-primary-50/50">
+              <div class="flex items-start gap-4">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-xl text-primary-600 transition group-hover:scale-105 group-hover:bg-primary-600 group-hover:text-white">
+                  <i class="bi" :class="[category.icon]" />
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                      <h3 class="font-semibold text-gray-900 transition group-hover:text-primary-700">
+                        {{ translate(category.titleKey) }}
+                      </h3>
+
+                      <p class="mt-1 text-sm leading-relaxed text-gray-600">
+                        {{ translate(category.descKey) }}
+                      </p>
+                    </div>
+
+                    <!-- <i class="bi bi-arrow-right shrink-0 text-sm text-gray-300 transition group-hover:text-primary-600" /> -->
+                  </div>
+
+                  <div class="mt-4">
+                    <span class="inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
+                      Browse services
+                      <i class="bi bi-arrow-right text-xs" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Browse by Life Event -->
-    <section class="py-12 bg-gray-50">
+    <!-- ? MARK: Browse by Life Event -->
+    <section class="bg-gray-50 py-12">
       <div class="container mx-auto px-4">
-        <UiSectionHeader :title="translate('life-events-title')" :description="translate('life-events-subtitle')" badge-icon="" badge-text="" badge-class="hidden" />
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <UiCard v-for="event in lifeEvents.filter(event => !event.hidden)" :key="event.labelKey" :to="event.href" interactive class="flex flex-col items-center gap-3 text-gray-800 text-center">
-            <i class="bi text-3xl text-primary-600" :class="[event.icon]" />
-            <span class="text-sm font-medium">{{ translate(event.labelKey) }}</span>
-          </UiCard>
+        <div class="mx-auto max-w-3xl">
+          <div class="mb-8 text-center">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+              Quick Guide
+            </p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              {{ translate('life-events-title') }}
+            </h2>
+
+            <p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-gray-600">
+              {{ translate('life-events-subtitle') }}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <NuxtLink v-for="event in lifeEvents.filter(event => !event.hidden)" :key="event.labelKey" :to="event.href" class="group flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-primary-300 hover:bg-primary-50/50">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-lg text-primary-600 transition group-hover:scale-105 group-hover:bg-primary-600 group-hover:text-white">
+                <i class="bi" :class="[event.icon]" />
+              </div>
+
+              <div class="min-w-0 flex-1">
+                <p class="font-medium text-gray-900 transition group-hover:text-primary-700">
+                  {{ translate(event.labelKey) }}
+                </p>
+              </div>
+
+              <i class="bi bi-arrow-right shrink-0 text-sm text-gray-300 transition group-hover:text-primary-600" />
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
