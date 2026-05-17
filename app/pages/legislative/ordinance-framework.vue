@@ -1,6 +1,6 @@
-<script setup lang="ts">
-import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+<!-- app\pages\legislative\ordinance-framework.vue -->
 
+<script setup lang="ts">
 const { lguName, labels, legislative } = useConfig()
 
 // Get ordinance categories and items from config
@@ -18,41 +18,19 @@ const sampleOrdinances = computed(() =>
 
 <template>
   <div>
-    <Breadcrumbs
-      :items="[
+    <UiPageHero
+      badge-icon="bi-journal-text" badge-text="Legislative" title="Ordinance Framework" :description="`${labels.deptPrefix} ordinances enacted by the ${labels.legislativeBody} ng ${lguName}`" :breadcrumbs="[
         { label: 'Legislative', href: '/legislative' },
         { label: 'Ordinance Framework' },
       ]"
     />
-
-    <!-- Page Header -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-journal-text" /> Legislative
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ordinance Framework
-          </h1>
-          <p class="text-lg text-white/90">
-            {{ labels.deptPrefix }} ordinances enacted by the
-            {{ labels.legislativeBody }} ng {{ lguName }}
-          </p>
-        </div>
-      </div>
-    </section>
 
     <!-- About Ordinances -->
     <section class="py-12">
       <div class="container mx-auto px-4">
         <UiCard padding="p-8" class="max-w-3xl mx-auto">
           <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl shrink-0"
-            >
+            <div class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl shrink-0">
               <i class="bi bi-info-circle" />
             </div>
             <div>
@@ -87,15 +65,8 @@ const sampleOrdinances = computed(() =>
             Ordinance Categories
           </h2>
         </div>
-        <div
-          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto"
-        >
-          <UiCard
-            v-for="cat in ordinanceCategories"
-            :key="cat.id"
-            padding="p-4"
-            class="flex items-center gap-2 text-center justify-center"
-          >
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
+          <UiCard v-for="cat in ordinanceCategories" :key="cat.id" padding="p-4" class="flex items-center gap-2 text-center justify-center">
             <i :class="`bi ${cat.icon} text-primary-600`" />
             <span class="text-sm font-medium text-gray-700">
               {{ cat.label }}
@@ -121,37 +92,20 @@ const sampleOrdinances = computed(() =>
           <table class="w-full min-w-[600px]">
             <thead class="bg-gray-50">
               <tr>
-                <th
-                  scope="col"
-                  class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
-                  style="width: 120px"
-                >
+                <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-900" style="width: 120px">
                   Ordinance No.
                 </th>
-                <th
-                  scope="col"
-                  class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
-                >
+                <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                   Title
                 </th>
-                <th
-                  scope="col"
-                  class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
-                  style="width: 120px"
-                >
+                <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-900" style="width: 120px">
                   Session Date
                 </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              <tr
-                v-for="ord in sampleOrdinances"
-                :key="ord.no"
-                class="hover:bg-gray-50"
-              >
-                <td
-                  class="px-6 py-4 text-sm text-gray-900 font-medium"
-                >
+              <tr v-for="ord in sampleOrdinances" :key="ord.no" class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm text-gray-900 font-medium">
                   {{ ord.no }}
                 </td>
                 <td class="px-6 py-4 text-sm text-gray-600">
@@ -165,9 +119,7 @@ const sampleOrdinances = computed(() =>
           </table>
         </UiCard>
         <div class="text-center mt-6">
-          <p
-            class="text-sm text-gray-500 flex items-center justify-center gap-2"
-          >
+          <p class="text-sm text-gray-500 flex items-center justify-center gap-2">
             <i class="bi bi-info-circle" /> Update this section with
             actual ordinances from your LGU's
             {{ labels.legislativeBody }}

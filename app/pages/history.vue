@@ -1,5 +1,6 @@
+<!-- app\pages\history.vue -->
+
 <script setup lang="ts">
-import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import { useConfig } from '@/composables/useConfig'
 
 const { history, lguName } = useConfig()
@@ -7,14 +8,7 @@ const { history, lguName } = useConfig()
 
 <template>
   <div>
-    <Breadcrumbs :items="[{ label: 'History' }]" />
-
-    <UiPageHero
-      badge-icon="bi-clock-history"
-      badge-text="Heritage"
-      :title="`History of ${lguName}`"
-      description="Tracing the roots and evolution of our community"
-    />
+    <UiPageHero badge-icon="bi-clock-history" badge-text="Heritage" :title="`History of ${lguName}`" description="Tracing the roots and evolution of our community" :breadcrumbs="[{ label: 'History' }]" />
 
     <!-- Main Content -->
     <section class="py-12">
@@ -22,11 +16,7 @@ const { history, lguName } = useConfig()
         <UiCard padding="p-0" class="max-w-4xl mx-auto overflow-hidden shadow-sm">
           <!-- Featured Image -->
           <div v-if="history.imageUrl" class="h-64 sm:h-96 w-full relative">
-            <img
-              :src="history.imageUrl"
-              :alt="`Historical image of ${lguName}`"
-              class="w-full h-full object-cover"
-            >
+            <img :src="history.imageUrl" :alt="`Historical image of ${lguName}`" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
               <span class="text-white text-sm font-medium opacity-90">Historical Archive</span>
             </div>

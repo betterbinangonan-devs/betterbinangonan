@@ -1,3 +1,5 @@
+<!-- app\pages\legislative\index.vue -->
+
 <script setup lang="ts">
 const { lguName, labels } = useConfig()
 
@@ -145,43 +147,14 @@ const steps = computed(() =>
 
 <template>
   <div>
-    <UiBreadcrumbs :items="[{ label: 'Legislative' }]" />
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto">
-          <span
-            class="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-          >
-            <i class="bi bi-bank2" /> {{ labels.legislativeBody }}
-          </span>
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Legislative Documents
-          </h1>
-          <p class="text-lg text-white/90">
-            Ordinances and resolutions of the
-            {{ labels.legislativeBody }} ng {{ lguName }}
-          </p>
-        </div>
-      </div>
-    </section>
+    <UiPageHero badge-icon="bi-bank2" :badge-text="labels.legislativeBody" title="Legislative Documents" :description="`Ordinances and resolutions of the ${labels.legislativeBody} ng ${lguName}`" :breadcrumbs="[{ label: 'Legislative' }]" />
 
     <!-- Document Categories -->
     <section class="py-12">
       <div class="container mx-auto px-4">
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
-        >
-          <UiCard
-            to="/legislative/ordinance-framework"
-            padding="p-8"
-            interactive
-            class="group"
-          >
-            <div
-              class="w-14 h-14 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-2xl mb-4 transition-all duration-200 group-hover:bg-primary-600 group-hover:text-white"
-            >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <UiCard to="/legislative/ordinance-framework" padding="p-8" interactive class="group">
+            <div class="w-14 h-14 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-2xl mb-4 transition-all duration-200 group-hover:bg-primary-600 group-hover:text-white">
               <i class="bi bi-journal-bookmark-fill" />
             </div>
             <h2 class="text-xl font-bold text-gray-900 mb-2">
@@ -192,21 +165,12 @@ const steps = computed(() =>
               {{ labels.legislativeBody }} — local laws that govern the
               {{ labels.lguTypeLabel.toLowerCase() }} and its residents.
             </p>
-            <span
-              class="text-primary-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all"
-            >
+            <span class="text-primary-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
               Browse Ordinances <i class="bi bi-arrow-right" />
             </span>
           </UiCard>
-          <UiCard
-            to="/legislative/resolution-framework"
-            padding="p-8"
-            interactive
-            class="group"
-          >
-            <div
-              class="w-14 h-14 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-2xl mb-4 transition-all duration-200 group-hover:bg-primary-600 group-hover:text-white"
-            >
+          <UiCard to="/legislative/resolution-framework" padding="p-8" interactive class="group">
+            <div class="w-14 h-14 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-2xl mb-4 transition-all duration-200 group-hover:bg-primary-600 group-hover:text-white">
               <i class="bi bi-file-earmark-ruled-fill" />
             </div>
             <h2 class="text-xl font-bold text-gray-900 mb-2">
@@ -217,9 +181,7 @@ const steps = computed(() =>
               {{ labels.legislativeBody }} expressing the will or opinion of
               the legislative body on various matters.
             </p>
-            <span
-              class="text-primary-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all"
-            >
+            <span class="text-primary-600 font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
               Browse Resolutions <i class="bi bi-arrow-right" />
             </span>
           </UiCard>
@@ -230,39 +192,25 @@ const steps = computed(() =>
     <!-- Legislative Process -->
     <section class="py-12 bg-gray-50">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          title="Flowchart for Legislative Proposal"
-          description="Step-by-step process for enacting ordinances and resolutions"
-          badge-icon="bi-diagram-3-fill"
-          badge-text="Process Flow"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader title="Flowchart for Legislative Proposal" description="Step-by-step process for enacting ordinances and resolutions" badge-icon="bi-diagram-3-fill" badge-text="Process Flow" badge-class="bg-primary-600 text-white" />
 
         <!-- Tabs -->
         <div class="flex justify-center gap-4 mb-8">
           <button
-            type="button"
-            class="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all"
-            :class="
-              activeTab === 'ordinances'
-                ? 'bg-primary-600 text-white shadow-lg'
-                : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'
-            "
-            @click="activeTab = 'ordinances'"
+            type="button" class="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all" :class="activeTab === 'ordinances'
+              ? 'bg-primary-600 text-white shadow-lg'
+              : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'
+            " @click="activeTab = 'ordinances'"
           >
             <i class="bi bi-journal-bookmark-fill" />
             <span>For Ordinances</span>
             <small class="opacity-75">11 Steps</small>
           </button>
           <button
-            type="button"
-            class="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all"
-            :class="
-              activeTab === 'resolutions'
-                ? 'bg-primary-600 text-white shadow-lg'
-                : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'
-            "
-            @click="activeTab = 'resolutions'"
+            type="button" class="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all" :class="activeTab === 'resolutions'
+              ? 'bg-primary-600 text-white shadow-lg'
+              : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'
+            " @click="activeTab = 'resolutions'"
           >
             <i class="bi bi-file-earmark-ruled-fill" />
             <span>For Resolutions</span>
@@ -271,33 +219,23 @@ const steps = computed(() =>
         </div>
 
         <!-- Steps -->
-        <div
-          class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div
-            v-for="step in steps"
-            :key="step.num"
-            class="bg-white border rounded-xl p-6 relative"
-            :class="
-              step.final ? 'border-green-300 bg-green-50' : 'border-gray-200'
+            v-for="step in steps" :key="step.num" class="bg-white border rounded-xl p-6 relative" :class="step.final ? 'border-green-300 bg-green-50' : 'border-gray-200'
             "
           >
             <span
-              class="absolute -top-3 -left-3 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold"
-              :class="
-                step.final
-                  ? 'bg-green-600 text-white'
-                  : 'bg-primary-600 text-white'
+              class="absolute -top-3 -left-3 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold" :class="step.final
+                ? 'bg-green-600 text-white'
+                : 'bg-primary-600 text-white'
               "
             >
               {{ step.num }}
             </span>
             <div
-              class="w-10 h-10 flex items-center justify-center rounded-lg mb-3"
-              :class="
-                step.final
-                  ? 'bg-green-100 text-green-600'
-                  : 'bg-primary-50 text-primary-600'
+              class="w-10 h-10 flex items-center justify-center rounded-lg mb-3" :class="step.final
+                ? 'bg-green-100 text-green-600'
+                : 'bg-primary-50 text-primary-600'
               "
             >
               <i :class="`bi ${step.icon}`" />
@@ -316,25 +254,11 @@ const steps = computed(() =>
     <!-- Info Section -->
     <section class="py-12">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          title="Understanding Local Legislation"
-          :description="`Learn about the legislative process of the ${labels.legislativeBody}`"
-          badge-icon="bi-info-circle-fill"
-          badge-text="About"
-          badge-class="bg-primary-600 text-white"
-        />
+        <UiSectionHeader title="Understanding Local Legislation" :description="`Learn about the legislative process of the ${labels.legislativeBody}`" badge-icon="bi-info-circle-fill" badge-text="About" badge-class="bg-primary-600 text-white" />
 
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          <UiCard
-            v-for="card in infoCards"
-            :key="card.title"
-            class="text-center"
-          >
-            <div
-              class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl mx-auto mb-4"
-            >
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <UiCard v-for="card in infoCards" :key="card.title" class="text-center">
+            <div class="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl mx-auto mb-4">
               <i :class="`bi ${card.icon}`" />
             </div>
             <h3 class="font-semibold text-gray-900 mb-2">

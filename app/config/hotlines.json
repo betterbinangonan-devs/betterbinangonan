@@ -1,58 +1,124 @@
 {
-  "emergency": [
+  "sections": [
     {
-      "id": "mdrrmo-rescue",
-      "name": "MDRRMO Rescue",
-      "number": "0965 623 8674",
+      "id": "emergency",
+      "label": "Emergency",
+      "title": "Emergency Hotlines",
+      "description": "For urgent concerns, emergencies, and important public assistance inquiries.",
+      "callDescription": "Tap to call this emergency hotline.",
+      "emailDescription": "Send an email inquiry.",
+      "tone": "red",
       "icon": "bi-exclamation-triangle-fill",
-      "category": "emergency"
+      "items": [
+        {
+          "id": "mdrrmo-rescue",
+          "name": "MDRRMO Rescue",
+          "number": "0965 623 8674",
+          "icon": "bi-exclamation-triangle-fill"
+        },
+        {
+          "id": "police",
+          "name": "Binangonan PNP",
+          "number": "0963 473 3347",
+          "icon": "bi-shield-fill"
+        },
+        {
+          "id": "fire",
+          "name": "Binangonan BFP",
+          "number": "0966 957 7505 / (02) 8652 5796",
+          "icon": "bi-fire"
+        },
+        {
+          "id": "coast-guard",
+          "name": "Philippine Coast Guard",
+          "number": "(02) 8813 6889 / 0950 550 9418 / 0953 809 1351",
+          "icon": "bi-life-preserver"
+        }
+      ]
     },
     {
-      "id": "police",
-      "name": "Binangonan PNP",
-      "number": "0963 473 3347",
-      "icon": "bi-shield-fill",
-      "category": "emergency"
-    },
-    {
-      "id": "fire",
-      "name": "Binangonan BFP",
-      "number": "0966 957 7505 / (02) 8652 5796",
-      "icon": "bi-fire",
-      "category": "emergency"
-    },
-    {
-      "id": "coast-guard",
-      "name": "Philippine Coast Guard",
-      "number": "(02) 8813 6889 / 0950 550 9418 / 0953 809 1351",
-      "icon": "bi-life-preserver",
-      "category": "emergency"
-    }
-  ],
-  "medical": [
-    {
-      "id": "health-service",
-      "name": "Health Service",
-      "number": "0950 717 1241",
-      "icon": "bi-hospital",
-      "category": "medical"
-    },
-    {
-      "id": "rphs-madmh",
-      "name": "RPHS MADMH",
-      "number": "(02) 8256 3000",
+      "id": "medical",
+      "label": "Medical",
+      "title": "Medical Emergency Hotlines",
+      "description": "For medical emergencies, hospital assistance, and health-related inquiries.",
+      "callDescription": "Tap to call this medical hotline.",
+      "emailDescription": "Send an email inquiry.",
+      "tone": "green",
       "icon": "bi-hospital-fill",
-      "category": "medical"
-    }
-  ],
-  "government": [
+      "items": [
+        {
+          "id": "health-service",
+          "name": "Health Service",
+          "number": "0950 717 1241",
+          "icon": "bi-hospital"
+        },
+        {
+          "id": "rphs-madmh",
+          "name": "RPHS MADMH",
+          "number": "(02) 8256 3000",
+          "icon": "bi-hospital-fill"
+        }
+      ]
+    },
     {
-      "id": "pio-email",
-      "name": "Public Information Office",
-      "email": "pio@binangonan.gov.ph",
-      "icon": "bi-envelope-fill",
-      "category": "government"
+      "id": "government",
+      "label": "Government",
+      "title": "Government Contacts",
+      "description": "For public information and government assistance inquiries.",
+      "callDescription": "Government assistance contact.",
+      "emailDescription": "Send an email inquiry.",
+      "tone": "blue",
+      "icon": "bi-building-fill",
+      "items": [
+        {
+          "id": "pio-email",
+          "name": "Public Information Office",
+          "email": "pio@binangonan.gov.ph",
+          "icon": "bi-envelope-fill"
+        },
+        {
+          "id": "pio-facebook",
+          "name": "PIO Binangonan Facebook Page",
+          "url": "https://www.facebook.com/mahalkongbinangonan",
+          "icon": "bi-facebook"
+        }
+      ]
+    },
+    {
+      "id": "utilities",
+      "label": "Utilities",
+      "title": "Utility Contacts",
+      "description": "For utility and public service concerns.",
+      "callDescription": "Utility and service contact.",
+      "emailDescription": "Send an email inquiry.",
+      "tone": "gray",
+      "icon": "bi-lightning-charge-fill",
+      "items": [
+        {
+          "id": "meralco-hotline",
+          "name": "Meralco Hotline",
+          "number": "(02) 16211",
+          "icon": "bi-lightning-charge-fill"
+        },
+        {
+          "id": "meralco-email",
+          "name": "Meralco Customer Care",
+          "email": "customercare@meralco.com.ph",
+          "icon": "bi-envelope-fill"
+        },
+        {
+          "id": "manila-water-hotline",
+          "name": "Manila Water Hotline",
+          "number": "1627",
+          "icon": "bi-droplet-fill"
+        },
+        {
+          "id": "manila-water-email",
+          "name": "Manila Water Email",
+          "email": "info@manilawater.com",
+          "icon": "bi-envelope-fill"
+        }
+      ]
     }
-  ],
-  "utilities": []
+  ]
 }

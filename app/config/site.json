@@ -6,7 +6,7 @@
   "siteId": "betterbinangonan",
   "domain": "betterbinangonan.org",
   "tagline": "Your digital gateway to Binangonan services",
-  "themeColor": "#0066eb",
+  "themeColor": "#190090",
   "officialWebsite": "https://binangonan.gov.ph",
   "version": "0.0.0",
   "contact": {
@@ -21,7 +21,9 @@
     "twitter": "",
     "linkedin": "",
     "discord": "",
-    "github": "https://github.com/betterbinangonan/betterbinangonan"
+    "github": "https://github.com/betterbinangonan/betterbinangonan",
+    "instagram": "",
+    "youtube": ""
   },
   "coordinates": {
     "lat": 14.481667,
@@ -31,6 +33,9 @@
     "main": "/assets/images/logo/better-binangonan-logo.svg",
     "white": "/assets/images/logo/better-binangonan-logo-white.svg",
     "whitePng": "/assets/images/logo/better-binangonan-logo-white.png",
-    "favicon": "/assets/images/logo/favicon.ico"
+    "favicon": "/assets/images/logo/favicon.ico",
+    "logo_landscape_white": "/assets/images/logo/better-binangonan-logo-text-white-2.webp",
+    "logo_landscape_blue": "/assets/images/logo/better-binangonan-logo-text-white-3.svg",
+    "logo_map_white": "/assets/images/map/binangonan-map-white.svg"
   }
 }

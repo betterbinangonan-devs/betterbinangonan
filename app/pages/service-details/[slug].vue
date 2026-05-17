@@ -1,3 +1,5 @@
+<!-- app\pages\service-details\[slug].vue -->
+
 <script setup lang="ts">
 const route = useRoute()
 const slug = route.params.slug as string
@@ -22,28 +24,15 @@ function toggleFaq(index: number) {
 
 <template>
   <div v-if="service">
-    <UiBreadcrumbs
-      :items="[
+    <UiPageHero
+      :badge-icon="service.badgeIcon" :badge-text="service.badgeText" :title="service.fullTitle" :description="service.description" :breadcrumbs="[
         { label: 'Services', href: '/services' },
         { label: service.category, href: service.categoryLink },
         { label: service.title },
       ]"
-    />
-
-    <UiPageHero
-      :badge-icon="service.badgeIcon"
-      :badge-text="service.badgeText"
-      :title="service.fullTitle"
-      :description="service.description"
     >
-      <div class="max-w-xl mx-auto mt-8">
-        <div class="relative flex items-center">
-          <i class="bi bi-search absolute left-4 text-gray-400 z-10 pointer-events-none" />
-          <ServicesSearch
-            placeholder="Search services (e.g., birth certificate, marriage certificate)"
-            class="w-full [&_input]:pl-12 [&_input]:pr-4 [&_input]:py-4 [&_input]:rounded-xl [&_input]:text-base [&_input]:border-0 [&_input]:shadow-lg"
-          />
-        </div>
+      <div class="mx-auto mt-8 max-w-xl">
+        <ServicesSearch placeholder="Search services, permits..." class="[&_input]:pl-10 [&_input]:pr-4 [&_input]:py-3 [&_input]:border [&_input]:border-white/25 [&_input]:rounded-full [&_input]:shadow-none [&_input]:bg-transparent [&_input]:text-white [&_input]:placeholder:text-white/50 hover:[&_input]:bg-white/10 hover:[&_input]:border-white/45 focus:[&_input]:bg-white/10 focus:[&_input]:border-white/70 focus:[&_input]:ring-4 focus:[&_input]:ring-white/10" />
       </div>
     </UiPageHero>
 
@@ -51,15 +40,8 @@ function toggleFaq(index: number) {
     <section class="py-8 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <UiCard
-            v-for="stat in service.quickStats"
-            :key="stat.label"
-            padding="p-4"
-            class="text-center"
-          >
-            <i
-              :class="`bi ${stat.icon} text-2xl text-primary-600 mb-2 block`"
-            />
+          <UiCard v-for="stat in service.quickStats" :key="stat.label" padding="p-4" class="text-center">
+            <i :class="`bi ${stat.icon} text-2xl text-primary-600 mb-2 block`" />
             <h4 class="text-xs text-gray-500 uppercase tracking-wide mb-1">
               {{ stat.label }}
             </h4>
@@ -97,15 +79,7 @@ function toggleFaq(index: number) {
                   Avoid queues and process your {{ service.title }} through the official {{ lguName }} eBPLS portal. This digital service is available 24/7 for your convenience.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                  <UiButton
-                    :href="service.onlineLink"
-                    variant="solid"
-                    color="primary"
-                    size="lg"
-                    class="flex items-center justify-center gap-2 px-10"
-                    external
-                    target="_blank"
-                  >
+                  <UiButton :href="service.onlineLink" variant="solid" color="primary" size="lg" class="flex items-center justify-center gap-2 px-10" external target="_blank">
                     Start Online Application <i class="bi bi-box-arrow-up-right" />
                   </UiButton>
                 </div>
@@ -136,9 +110,7 @@ function toggleFaq(index: number) {
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
           <UiCard
-            v-for="(step, stepIndex) in service.processSteps"
-            :key="step.title"
-            class="relative" :class="[
+            v-for="(step, stepIndex) in service.processSteps" :key="step.title" class="relative" :class="[
               step.isFinal ? 'border-green-300 bg-green-50' : 'bg-white',
             ]"
           >
@@ -170,21 +142,12 @@ function toggleFaq(index: number) {
               <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <i class="bi bi-clipboard-check text-primary-600" /> Requirements
               </h2>
-              <UiCard
-                v-for="requirement in service.requirements"
-                :key="requirement.title"
-                padding="p-4"
-                class="mb-4"
-              >
+              <UiCard v-for="requirement in service.requirements" :key="requirement.title" padding="p-4" class="mb-4">
                 <h4 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <i :class="`bi ${requirement.icon} text-primary-600`" /> {{ requirement.title }}
                 </h4>
                 <ul class="space-y-2">
-                  <li
-                    v-for="item in requirement.items"
-                    :key="item"
-                    class="flex items-start gap-2 text-sm text-gray-900"
-                  >
+                  <li v-for="item in requirement.items" :key="item" class="flex items-start gap-2 text-sm text-gray-900">
                     <i class="bi bi-check-circle-fill text-primary-600 mt-0.5" />
                     {{ item }}
                   </li>
@@ -198,17 +161,8 @@ function toggleFaq(index: number) {
                 <i class="bi bi-question-circle text-primary-600" /> Frequently Asked Questions
               </h2>
               <div class="space-y-2">
-                <UiCard
-                  v-for="(faq, faqIndex) in service.faqs"
-                  :key="faq.question"
-                  padding="p-0"
-                  class="overflow-hidden"
-                >
-                  <button
-                    type="button"
-                    class="w-full p-4 text-left font-medium text-gray-900 flex items-center justify-between hover:bg-gray-50"
-                    @click="toggleFaq(faqIndex)"
-                  >
+                <UiCard v-for="(faq, faqIndex) in service.faqs" :key="faq.question" padding="p-0" class="overflow-hidden">
+                  <button type="button" class="w-full p-4 text-left font-medium text-gray-900 flex items-center justify-between hover:bg-gray-50" @click="toggleFaq(faqIndex)">
                     <span>{{ faq.question }}</span>
                     <i
                       class="bi bi-chevron-down transition-transform" :class="[
@@ -216,10 +170,7 @@ function toggleFaq(index: number) {
                       ]"
                     />
                   </button>
-                  <div
-                    v-if="openFaq === faqIndex"
-                    class="px-4 pb-4 text-sm text-gray-900"
-                  >
+                  <div v-if="openFaq === faqIndex" class="px-4 pb-4 text-sm text-gray-900">
                     {{ faq.answer }}
                   </div>
                 </UiCard>
@@ -247,18 +198,13 @@ function toggleFaq(index: number) {
               </p>
             </UiCard>
 
-            <UiCard
-              v-if="service.relatedServices.length > 0"
-            >
+            <UiCard v-if="service.relatedServices.length > 0">
               <h4 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <i class="bi bi-link-45deg text-primary-600" /> Related Services
               </h4>
               <ul class="space-y-2">
                 <li v-for="related in service.relatedServices" :key="related.title">
-                  <NuxtLink
-                    :to="related.link"
-                    class="text-primary-600 hover:underline text-sm"
-                  >
+                  <NuxtLink :to="related.link" class="text-primary-600 hover:underline text-sm">
                     {{ related.title }}
                   </NuxtLink>
                 </li>
@@ -272,32 +218,19 @@ function toggleFaq(index: number) {
               <p class="text-sm text-gray-600 mb-4">
                 Contact us for assistance with this service.
               </p>
-              <UiButton
-                to="/contact"
-                variant="solid"
-                color="primary"
-                class="w-full"
-                no-prefetch
-              >
+              <UiButton to="/contact" variant="solid" color="primary" class="w-full" no-prefetch>
                 Contact Us
               </UiButton>
             </UiCard>
 
-            <UiCard
-              v-if="service.sourceUrl"
-            >
+            <UiCard v-if="service.sourceUrl">
               <h4 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <i class="bi bi-patch-check text-primary-600" /> Verified Source
               </h4>
               <p class="text-sm text-gray-600 mb-4">
                 This information is sourced directly from the official city documentation.
               </p>
-              <a
-                :href="service.sourceUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
-              >
+              <a :href="service.sourceUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">
                 {{ service.sourceName || 'Citizen\'s Charter' }}
                 <i class="bi bi-box-arrow-up-right text-xs" />
               </a>

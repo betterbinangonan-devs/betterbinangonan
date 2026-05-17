@@ -38,8 +38,8 @@ export interface SiteConfig {
   social: {
     facebook: string
     twitter: string
-    instagram: string
-    youtube: string
+    instagram?: string
+    youtube?: string
     linkedin: string
     discord: string
     github: string
@@ -53,6 +53,9 @@ export interface SiteConfig {
     white: string
     whitePng: string
     favicon: string
+    logo_landscape_white?: string
+    logo_landscape_blue?: string
+    logo_map_white?: string
   }
 }
 
@@ -99,25 +102,34 @@ export interface PhoneHotlineItem {
   id: string
   name: string
   number: string
-  icon: string
-  category: string
+  icon?: string
 }
-
 export interface EmailHotlineItem {
   id: string
   name: string
   email: string
   icon?: string
-  category: string
 }
-
-export type HotlineItem = PhoneHotlineItem | EmailHotlineItem
-
+export interface LinkHotlineItem {
+  id: string
+  name: string
+  url: string
+  icon?: string
+}
+export type HotlineItem = PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem
+export interface HotlineSection {
+  id: string
+  label: string
+  title: string
+  description: string
+  callDescription?: string
+  emailDescription?: string
+  tone: 'red' | 'green' | 'blue' | 'gray'
+  icon: string
+  items: HotlineItem[]
+}
 export interface HotlinesConfig {
-  emergency: PhoneHotlineItem[]
-  medical: PhoneHotlineItem[]
-  government: HotlineItem[]
-  utilities: HotlineItem[]
+  sections: HotlineSection[]
 }
 
 export interface HistoryConfig {

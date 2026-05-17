@@ -1,3 +1,5 @@
+<!-- app\pages\services\index.vue -->
+
 <script setup lang="ts">
 import { useLanguage } from '@/composables/useLanguage'
 
@@ -127,25 +129,10 @@ const lifeEvents = [
 
 <template>
   <div>
-    <!-- Breadcrumbs -->
-    <UiBreadcrumbs :items="[{ label: translate('nav-services') }]" />
-
-    <UiPageHero
-      badge-icon="bi-grid-fill"
-      :badge-text="translate('nav-services')"
-      :title="translate('services-title')"
-      :description="translate('services-subtitle')"
-    >
+    <UiPageHero badge-icon="bi-grid-fill" :badge-text="translate('nav-services')" :title="translate('services-title')" :description="translate('services-subtitle')" :breadcrumbs="[{ label: translate('nav-services') }]">
       <!-- Search Box -->
-      <div class="max-w-xl mx-auto">
-        <div class="relative flex items-center">
-          <i class="bi bi-search absolute left-4 text-gray-400 z-10 pointer-events-none" />
-          <ServicesSearch
-            placeholder="Search other services..."
-            class="w-full [&_input]:pl-12 [&_input]:pr-4 [&_input]:py-4 [&_input]:rounded-xl [&_input]:text-base [&_input]:border-0 [&_input]:shadow-lg"
-            :initial-query="initialQuery"
-          />
-        </div>
+      <div class="mx-auto mt-8 max-w-xl">
+        <ServicesSearch placeholder="Search other services..." class="[&_input]:pl-10 [&_input]:pr-4 [&_input]:py-3 [&_input]:border [&_input]:border-white/25 [&_input]:rounded-full [&_input]:shadow-none [&_input]:bg-transparent [&_input]:text-white [&_input]:placeholder:text-white/50 hover:[&_input]:bg-white/10 hover:[&_input]:border-white/45 focus:[&_input]:bg-white/10 focus:[&_input]:border-white/70 focus:[&_input]:ring-4 focus:[&_input]:ring-white/10" :initial-query="initialQuery" />
       </div>
     </UiPageHero>
 
@@ -153,13 +140,7 @@ const lifeEvents = [
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <UiCard
-            v-for="category in categories.filter(category => !category.hidden)"
-            :key="category.href"
-            :to="category.href"
-            interactive
-            class="group flex items-start gap-4 text-gray-800"
-          >
+          <UiCard v-for="category in categories.filter(category => !category.hidden)" :key="category.href" :to="category.href" interactive class="group flex items-start gap-4 text-gray-800">
             <div class="w-14 h-14 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-2xl shrink-0 transition-all duration-200 group-hover:bg-primary-600 group-hover:text-white">
               <i class="bi" :class="[category.icon]" />
             </div>
@@ -182,21 +163,9 @@ const lifeEvents = [
     <!-- Browse by Life Event -->
     <section class="py-12 bg-gray-50">
       <div class="container mx-auto px-4">
-        <UiSectionHeader
-          :title="translate('life-events-title')"
-          :description="translate('life-events-subtitle')"
-          badge-icon=""
-          badge-text=""
-          badge-class="hidden"
-        />
+        <UiSectionHeader :title="translate('life-events-title')" :description="translate('life-events-subtitle')" badge-icon="" badge-text="" badge-class="hidden" />
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <UiCard
-            v-for="event in lifeEvents.filter(event => !event.hidden)"
-            :key="event.labelKey"
-            :to="event.href"
-            interactive
-            class="flex flex-col items-center gap-3 text-gray-800 text-center"
-          >
+          <UiCard v-for="event in lifeEvents.filter(event => !event.hidden)" :key="event.labelKey" :to="event.href" interactive class="flex flex-col items-center gap-3 text-gray-800 text-center">
             <i class="bi text-3xl text-primary-600" :class="[event.icon]" />
             <span class="text-sm font-medium">{{ translate(event.labelKey) }}</span>
           </UiCard>
