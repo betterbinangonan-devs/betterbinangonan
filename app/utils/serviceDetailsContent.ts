@@ -24,7 +24,8 @@ export interface FAQ {
 export interface OfficeInfo {
   name: string
   location: string
-  phone: string
+  phone?: string
+  email?: string
   hours: string
 }
 
@@ -49,6 +50,8 @@ export interface ServiceDetail {
   office: OfficeInfo
   relatedServices: RelatedService[]
   onlineLink?: string
+  formLink?: string
+  applicationMethod?: 'Online' | 'Walk-in' | 'Download Form'
   sourceUrl?: string
   sourceName?: string
   hidden?: boolean
@@ -525,222 +528,210 @@ export const serviceDetailsContent: ServiceDetail[] = [
   },
 
   /**
-   * Business, Trade & Investment
+   * ? MARK: Business Permit NEW
    */
   {
     id: 'business-permit-new',
     title: 'Business Permit (New)',
-    fullTitle: 'Issuance of New Business License and Mayor’s Permit',
+    fullTitle: 'New Business Permit Application',
     category: 'Business',
     categoryLink: '/services/business',
     badgeText: 'Business',
     badgeIcon: 'bi-shop',
-    description: 'Apply for a new mayor\'s permit to operate a business within the city as per City Ordinance No: 1373-16',
+    description: 'Start your new business in Binangonan by securing your official Mayor\'s Permit through the Business One-Stop-Shop (BOSS).',
     quickStats: [
-      { icon: 'bi-clock', label: 'Processing', value: '1 Day' },
-      { icon: 'bi-cash', label: 'Fee', value: 'Varies on Assessment' },
+      { icon: 'bi-clock', label: 'Processing', value: 'Usually 1-3 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Base Fee + Capital Tax' },
       {
         icon: 'bi-person-check',
         label: 'Who Can Apply',
-        value: 'Stakeholders and Business Owners',
+        value: 'Business Owners or Authorized Reps',
       },
-      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Online / Walk-in' },
+      { icon: 'bi-calendar-check', label: 'Application', value: 'Walk-in' },
     ],
     processSteps: [
       {
-        title: 'Submit Application',
+        title: 'Submit & Assessment',
         description:
-          'Submit duly accomplished Unified Application Form together with complete requirements to BPLO.',
+          'Submit your printed application form and documents to the BPLO at the Ground Floor. Inspectors will verify your clearances and compute your exact fees based on your capital.',
       },
       {
-        title: 'Planning & Engineering Evaluation',
+        title: 'Pay Fees',
         description:
-          'Personnel from Planning (Zoning/Locational Clearance) and Engineering (Occupancy) evaluate the application at the BPLO office.',
+          'Proceed to the Municipal Treasurer\'s Office. Pay your computed local taxes and regulatory fees, and make sure to secure your Official Receipt.',
       },
       {
-        title: 'Data Verification',
+        title: 'Claim Permit',
         description:
-          'Verification of accounts and issuance of a Business Account Number at the Electronic Data Processing (EDP) division.',
-      },
-      {
-        title: 'Approval',
-        description:
-          'The application is forwarded for approval by the Chief of BPLO or their authorized representative.',
-      },
-      {
-        title: 'Generate Payment Order',
-        description:
-          'Release of the signed Tax Order of Payment (TOP) covering consolidated taxes, fees, and regulatory charges.',
-      },
-      {
-        title: 'Pay Taxes and Fees',
-        description:
-          'Present TOP to the Business License Tax Division, Treasury Department and pay assessed fees. An Official Receipt and Cedula will be issued.',
-      },
-      {
-        title: 'Claim Permit & Clearances',
-        description:
-          'Claim your Business License, Mayor\'s Permit, Sanitary Permit, and other clearances at BPLO.',
+          'Return to the BPLO releasing area with your receipt to claim your approved Mayor\'s Permit and Business Plate.',
         isFinal: true,
       },
     ],
     requirements: [
       {
-        title: 'Documentary Requirements',
+        title: 'Core Documents',
         icon: 'bi-file-text',
         items: [
-          'Unified Application Form',
-          'Business Name Registration (DTI / SEC / CDA)',
-          'Proof of Legal Ownership (Tax Dec, TCT) or Notarized Contract of Lease',
-          'Picture of Business Establishment (3R Size Colored, 1pc)',
-          'Picture of Owner/President/Treasurer (2x2 Size, 1pc)',
-          'Homeowners/Subdivision/Villages Clearance or Condominium Approval',
-          'Undertaking (BPLO)',
-          'Special Requirements based on line of business (if applicable)',
+          'Printed and fully filled-out Unified Application Form.',
+          'Proof of Business Registration: DTI (for sole owners), SEC (for corporations), or CDA (for cooperatives).',
+          'Clear photo of your business location showing the storefront and signboard.',
         ],
       },
       {
-        title: 'If Applied Through Representative',
-        icon: 'bi-people',
+        title: 'Proof of Location (Bring One)',
+        icon: 'bi-geo-alt',
         items: [
-          'Letter of Authority / Special Power of Attorney / Secretary Certificate',
-          'Valid ID of owner and representative',
+          'If you own the space: Land Title or Tax Declaration.',
+          'If you rent the space: Notarized Lease Contract or written consent from the property owner.',
+        ],
+      },
+      {
+        title: 'If Applying Through a Representative',
+        icon: 'bi-person-vcard',
+        items: [
+          'For Sole Proprietorships: Special Power of Attorney (SPA) and valid IDs of both the owner and representative.',
+          'For Corporations/Cooperatives: Board Resolution or Secretary Certificate.',
         ],
       },
     ],
     faqs: [
       {
-        question: 'How long does the processing take?',
-        answer: 'As prescribed by R.A. 11032 (Ease of Doing Business Law), government transactions follow a 3-7-20 day rule. While typical applications are processed within 1 Day, official timelines are: Up to 3 days for Simple, 7 days for Complex, and 20 days for Highly Technical transactions. If City Council approval is required, it may take 45 working days (extendable by 20 days).',
+        question: 'How much exactly will the new permit cost?',
+        answer:
+          'The exact fee cannot be predetermined online. It is calculated by the BPLO Assessor based on the starting capital declared in your application form and your specific line of business.',
       },
       {
-        question: 'What if that location had a previous tenant?',
-        answer: 'The previous tenant must have filed a formal Closure/Retirement of business to the City Treasurer\'s Office. Otherwise, the building owner must submit a Termination of Lease Contract and an Affidavit of No Relation so the new applicant can secure an account number.',
+        question: 'What is a Special Power of Attorney (SPA)?',
+        answer:
+          'An SPA is a notarized legal document where the business owner gives another person permission to process the permit on their behalf.',
+      },
+      {
+        question: 'Where can I get the Business Application Form?',
+        answer: 'You can download and print the form from the Application Method section of this page, or get a physical copy directly from BPLO.',
       },
     ],
     office: {
-      name: 'Business Permits & Licensing Office',
-      location: 'City Hall, Ground Floor',
-      phone: '(02) 8551-5930',
-      hours: 'Mon-Thu: 8AM - 7PM',
+      name: 'Business Permit and Licensing Office (BPLO)',
+      location: '1F, New Municipal Building',
+      email: 'bplo@binangonan.gov.ph',
+      hours: 'Monday to Friday, 8:00 AM - 5:00 PM',
     },
     relatedServices: [
       {
         title: 'Business Permit Renewal',
         link: '/service-details/business-permit-renewal',
       },
-      {
-        title: 'City Treasurer',
-        link: '/service-details/city-treasurer',
-      },
     ],
-    onlineLink: 'https://cityoflaspinas.ph/',
-    sourceUrl: 'https://laspinascity.gov.ph/storage/uploads/gallery/625e67f3ae023.pdf',
-    sourceName: 'Citizen\'s Charter 2022 (1st Edition)',
+    onlineLink: '',
+    formLink: 'https://binangonan.gov.ph/wp-content/uploads/2026/01/Application-Form-for-Business-Permit.pdf',
+    applicationMethod: 'Download Form',
+    sourceUrl: 'https://www.facebook.com/share/p/1H96htkkdy/',
+    sourceName: 'Official LGU Business Permit Requirements',
   },
+
+  /**
+   * ? MARK: Business Permit RENEW
+   */
   {
     id: 'business-permit-renewal',
     title: 'Business Permit (Renewal)',
-    fullTitle: 'Renewal of Business License and Mayor\'s Permit',
+    fullTitle: 'Business Permit Renewal',
     category: 'Business',
     categoryLink: '/services/business',
     badgeText: 'Business',
     badgeIcon: 'bi-shop',
-    description: 'Renew your annual business permit, Mayor\'s clearance, and licensing services as per City Ordinance No: 1373-16',
+    description: 'Keep your business compliant and operating smoothly by renewing your official Mayor\'s Permit through the Business One-Stop-Shop (BOSS).',
     quickStats: [
-      { icon: 'bi-clock', label: 'Processing', value: 'Approx. 3 Hours' },
-      { icon: 'bi-cash', label: 'Fee', value: 'Varies by Assessment' },
+      { icon: 'bi-clock', label: 'Processing', value: 'Usually 1-3 Days' },
+      { icon: 'bi-cash', label: 'Fee', value: 'Based on Gross Sales' },
       {
         icon: 'bi-person-check',
         label: 'Who Can Apply',
-        value: 'Registered Business Owner',
+        value: 'Registered Owners or Authorized Reps',
       },
-      { icon: 'bi-calendar-check', label: 'Appointment', value: 'Online / Walk-in' },
+      { icon: 'bi-calendar-check', label: 'Application', value: 'Walk-in' },
     ],
     processSteps: [
       {
-        title: 'Submit Application',
+        title: 'Submit & Assessment',
         description:
-          'Submit duly accomplished application form indicating gross sale/receipt together with complete requirements to BPLO.',
+          'Submit your printed renewal form and financial documents to the BPLO. They will assess your local business tax based on your declared gross sales from the previous year.',
       },
       {
-        title: 'Evaluation & Approval',
+        title: 'Pay Taxes',
         description:
-          'BPLO personnel reviews requirements. The application is then forwarded for approval by the BPLO Chief or authorized representative.',
+          'Proceed to the Municipal Treasurer\'s Office. Pay your computed local taxes and regulatory fees, and ensure you receive your Official Receipt.',
       },
       {
-        title: 'Generate Payment Order',
+        title: 'Claim Renewed Permit',
         description:
-          'Once approved, a computer-generated Tax Order of Payment (TOP) is released, covering consolidated taxes and fees.',
-      },
-      {
-        title: 'Pay Taxes and Fees',
-        description: 'Present TOP and pay at the Business License Division, Treasury Department. Receive Official Receipt and Cedula.',
-      },
-      {
-        title: 'Claim Permit & Clearances',
-        description: 'Return to BPLO to claim your Business License, Mayor\'s Permit, Sanitary Permit, and other regulatory clearances.',
+          'Return to the BPLO releasing area with your receipt to claim your updated Mayor\'s Permit and clearances for the current year.',
         isFinal: true,
       },
     ],
     requirements: [
       {
-        title: 'Documentary Requirements',
-        icon: 'bi-arrow-repeat',
+        title: 'Core Documents',
+        icon: 'bi-file-text',
         items: [
-          'Unified Application Form',
-          'Prior Year Audited Financial Statement / ITR (Last 2 years)',
-          'Monthly/Quarterly VAT Returns / Percentage Tax Returns of previous years',
-          'Homeowners/Subdivision/Condominium Clearance to conduct business',
-          'Undertaking (BPLO)',
-          'Special Requirements based on line of business (if applicable)',
+          'Printed and fully filled-out Unified Application Form (Tick the "Renewal" box).',
+          'Your Mayor\'s Permit from the previous year, or your previous Tax Order of Payment.',
+          'Valid Fire Safety Inspection Certificate (Must be valid for 1 year).',
+          'Certificate of Tax Exemption from local taxes or fees (Only if your business is legally exempt).',
         ],
       },
       {
-        title: 'If Applied Through Representative',
-        icon: 'bi-people',
+        title: 'Proof of Income',
+        icon: 'bi-graph-up',
         items: [
-          'Letter of Authority / Special Power of Attorney / Secretary Certificate',
-          'Valid ID of owner and representative',
+          'For BIR-registered businesses: Financial Statements, ITR, or Sales Returns (2550Q/2551Q) showing your annual gross receipts.',
+          'For non-BIR registered businesses: A Notarized Sworn Declaration of your gross sales/receipts.',
+        ],
+      },
+      {
+        title: 'If Applying Through a Representative',
+        icon: 'bi-person-vcard',
+        items: [
+          'For Sole Proprietorships: Special Power of Attorney (SPA) and valid IDs of both the owner and representative.',
+          'For Corporations/Cooperatives: Board Resolution or Secretary Certificate.',
         ],
       },
     ],
     faqs: [
       {
-        question: 'When should I renew my business permit?',
-        answer: 'Before January 20 of each year to avoid penalties.',
-      },
-      {
-        question: 'How long does the processing take?',
-        answer: 'According to the Citizen\'s Charter 2022, the total processing time for a simple renewal is approximately 3 hours and 10 minutes.',
-      },
-      {
-        question: 'What happens if I renew late?',
+        question: 'How is the renewal fee computed?',
         answer:
-          'Renewals after the January 20 deadline are subject to surcharges and monthly interest as prescribed by the City\'s Revenue Code (Ordinance 1373-16).',
+          'Unlike new businesses which are taxed on their starting capital, renewals are taxed based on your declared annual gross receipts from the previous year. Bring your financial statements so the BPLO Assessor can compute the exact amount.',
+      },
+      {
+        question: 'Do I really need a new Fire Safety Inspection Certificate?',
+        answer:
+          'Yes. Fire Safety certificates are only valid for one year. You must secure a new, valid certificate from the Bureau of Fire Protection to renew your business permit.',
+      },
+      {
+        question: 'Where can I get the Business Application Form?',
+        answer: 'You can download and print the form from the Application Method section of this page, or get a physical copy directly from BPLO.',
       },
     ],
     office: {
-      name: 'Business Permits & Licensing Office',
-      location: 'City Hall, Ground Floor',
-      phone: '(02) 8551-5930',
-      hours: 'Mon-Thu: 8AM - 7PM',
+      name: 'Business Permit and Licensing Office (BPLO)',
+      location: '1F, New Municipal Building',
+      email: 'bplo@binangonan.gov.ph',
+      hours: 'Monday to Friday, 8:00 AM - 5:00 PM',
     },
     relatedServices: [
       {
-        title: 'City Treasurer',
-        link: '/service-details/city-treasurer',
+        title: 'Business Permit Application (New)',
+        link: '/service-details/business-permit-new',
       },
-      // Bring back when we have the details
-      // {
-      //   title: 'Fire Safety Certificate',
-      //   link: '/services/business',
-      // },
     ],
-    onlineLink: 'https://cityoflaspinas.ph/',
-    sourceUrl: 'https://laspinascity.gov.ph/storage/uploads/gallery/625e67f3ae023.pdf',
-    sourceName: 'Citizen\'s Charter 2022 (1st Edition)',
+    onlineLink: '',
+    formLink: 'https://binangonan.gov.ph/wp-content/uploads/2026/01/Application-Form-for-Business-Permit.pdf',
+    applicationMethod: 'Download Form',
+    sourceUrl: 'https://www.facebook.com/share/p/1H96htkkdy/',
+    sourceName: 'Official LGU Business Permit Requirements',
   },
+
   {
     id: 'tricycle-franchising',
     hidden: true,

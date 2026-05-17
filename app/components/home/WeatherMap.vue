@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import LeafletMap from '@/components/home/LeafletMap.vue'
 import { useConfig } from '@/composables/useConfig'
 
-const { site, lguName, fullLocation, labels } = useConfig()
-const coords = computed(() => [site.value.coordinates.lat, site.value.coordinates.lng] as [number, number])
+const { site, lguName, fullLocation } = useConfig()
 
-// Weather Logic
 const weatherTemp = ref<number | null>(null)
 const weatherCode = ref<number>(0)
 const weatherWindSpeed = ref<number | null>(null)
 const weatherMaxTemp = ref<number | null>(null)
 const weatherMinTemp = ref<number | null>(null)
+const weatherHumidity = ref<number | null>(null)
+const weatherCloudCover = ref<number | null>(null)
+const weatherRain = ref<number | null>(null)
+const weatherApparentTemp = ref<number | null>(null)
+const weatherUvIndex = ref<number | null>(null)
+const weatherUpdatedAt = ref<string>('')
 const weatherError = ref(false)
-const hourlyForecast = ref<{ time: string, temp: number, icon: string }[]>([])
 
 function getWeatherIcon(code: number) {
   switch (true) {
@@ -37,13 +39,14 @@ const weatherIcon = computed(() => getWeatherIcon(weatherCode.value))
 
 const weatherDescription = computed(() => {
   const code = weatherCode.value
+
   switch (true) {
     case code === 0:
-      return 'Clear Sky'
+      return 'Clear sky'
     case code === 1:
-      return 'Mainly Clear'
+      return 'Mainly clear'
     case code === 2:
-      return 'Partly Cloudy'
+      return 'Partly cloudy'
     case code === 3:
       return 'Overcast'
     case code === 45 || code === 48:
@@ -51,17 +54,17 @@ const weatherDescription = computed(() => {
     case code >= 51 && code <= 55:
       return 'Drizzle'
     case code >= 56 && code <= 57:
-      return 'Freezing Drizzle'
+      return 'Freezing drizzle'
     case code >= 61 && code <= 65:
       return 'Rain'
     case code >= 66 && code <= 67:
-      return 'Freezing Rain'
+      return 'Freezing rain'
     case code >= 71 && code <= 77:
       return 'Snow'
     case code >= 80 && code <= 82:
-      return 'Rain Showers'
+      return 'Rain showers'
     case code >= 85 && code <= 86:
-      return 'Snow Showers'
+      return 'Snow showers'
     case code >= 95 && code <= 99:
       return 'Thunderstorm'
     default:
@@ -71,34 +74,41 @@ const weatherDescription = computed(() => {
 
 async function fetchWeather() {
   try {
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${site.value.coordinates.lat}&longitude=${site.value.coordinates.lng}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weathercode&timezone=Asia%2FManila`)
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${site.value.coordinates.lat}&longitude=${site.value.coordinates.lng}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,cloud_cover,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,uv_index_max&timezone=Asia%2FManila`,
+    )
+
     const data = await response.json()
 
-    if (data && data.current_weather) {
-      weatherTemp.value = data.current_weather.temperature
-      weatherCode.value = data.current_weather.weathercode
-      weatherWindSpeed.value = data.current_weather.windspeed
+    if (data?.current) {
+      weatherTemp.value = Math.round(data.current.temperature_2m)
+      weatherCode.value = data.current.weather_code
+      weatherWindSpeed.value = Math.round(data.current.wind_speed_10m)
+      weatherHumidity.value = data.current.relative_humidity_2m
+      weatherCloudCover.value = data.current.cloud_cover
+      weatherRain.value = data.current.rain
+      weatherApparentTemp.value = Math.round(data.current.apparent_temperature)
 
-      if (data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_min) {
-        weatherMaxTemp.value = data.daily.temperature_2m_max[0]
-        weatherMinTemp.value = data.daily.temperature_2m_min[0]
+      if (data.current.time) {
+        weatherUpdatedAt.value = new Date(data.current.time).toLocaleString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        })
       }
 
-      if (data.hourly && data.hourly.time && data.hourly.temperature_2m) {
-        const currentHour = new Date()
-        const forecast = []
+      if (data.daily?.temperature_2m_max?.length) {
+        weatherMaxTemp.value = Math.round(data.daily.temperature_2m_max[0])
+      }
 
-        for (let i = 0; i < data.hourly.time.length; i++) {
-          const time = new Date(data.hourly.time[i])
-          if (time >= currentHour && forecast.length < 4) {
-            forecast.push({
-              time: time.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true }),
-              temp: Math.round(data.hourly.temperature_2m[i]),
-              icon: getWeatherIcon(data.hourly.weathercode[i]),
-            })
-          }
-        }
-        hourlyForecast.value = forecast
+      if (data.daily?.temperature_2m_min?.length) {
+        weatherMinTemp.value = Math.round(data.daily.temperature_2m_min[0])
+      }
+
+      if (data.daily?.uv_index_max?.length) {
+        weatherUvIndex.value = Number(data.daily.uv_index_max[0].toFixed(1))
       }
 
       weatherError.value = false
@@ -120,135 +130,202 @@ onMounted(() => {
 <template>
   <section class="bg-gray-50 py-12">
     <div class="container mx-auto px-4">
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="text-xl font-bold text-gray-900 m-0">
-          Weather and Map of {{ lguName }}
-        </h2>
+      <!-- ? MARK: Section Header -->
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Weather and Map of {{ lguName }}
+          </h2>
+
+          <p class="mt-1 max-w-xl text-base leading-relaxed text-gray-600">
+            Current local weather conditions.
+          </p>
+        </div>
       </div>
 
-      <!-- Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-8 items-stretch">
-        <!-- Weather Column -->
-        <div class="flex flex-col">
-          <div id="weather-container" class="h-full">
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 h-full flex flex-col hover-card-premium">
-              <ClientOnly>
-                <div v-if="!weatherError" class="flex flex-col h-full">
-                  <!-- Current Weather -->
-                  <div class="flex flex-col items-center text-center pb-6 border-b border-gray-100">
-                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                      {{ fullLocation }}
-                    </p>
-                    <div class="flex items-center justify-center gap-4 mb-2">
-                      <i :class="`bi ${weatherIcon} text-6xl text-primary-600 leading-none opacity-90`" />
-                      <Transition
-                        mode="out-in"
-                        enter-active-class="transition-opacity duration-300"
-                        leave-active-class="transition-opacity duration-300"
-                        enter-from-class="opacity-0"
-                        leave-to-class="opacity-0"
-                      >
-                        <span v-if="weatherTemp !== null" class="text-6xl font-bold text-gray-900 leading-none tracking-tight">
-                          {{ weatherTemp }}°
-                        </span>
-                        <span v-else class="text-6xl font-bold text-gray-900 leading-none tracking-tight">
-                          --
-                        </span>
-                      </Transition>
-                    </div>
-                    <p class="text-lg text-gray-800 font-medium">
+      <!-- ? MARK: Weather Dashboard -->
+      <div class="overflow-hidden rounded-3xl bg-primary-700 text-white">
+        <ClientOnly>
+          <div
+            v-if="!weatherError"
+            class="grid grid-cols-1 gap-8 p-6 lg:grid-cols-[360px_1fr] lg:p-8"
+          >
+            <!-- ? MARK: Main Weather -->
+            <div class="flex flex-col justify-between">
+              <div>
+                <p class="text-lg font-bold text-white">
+                  {{ fullLocation }}
+                </p>
+
+                <div class="mt-8 flex items-end gap-3">
+                  <span class="text-7xl font-bold leading-none tracking-tight sm:text-8xl">
+                    {{ weatherTemp !== null ? weatherTemp : '--' }}
+                  </span>
+
+                  <span class="mb-3 text-3xl font-bold">
+                    °C
+                  </span>
+                </div>
+
+                <div class="mt-8 flex items-center gap-5">
+                  <i class="bi text-6xl text-white/90" :class="weatherIcon" />
+
+                  <div>
+                    <p class="text-2xl font-bold text-white">
                       {{ weatherDescription }}
                     </p>
-                  </div>
 
-                  <!-- Weather Details -->
-                  <div class="grid grid-cols-3 gap-4 py-6 border-b border-gray-100">
-                    <div class="flex flex-col items-center text-center">
-                      <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mb-2 text-blue-600">
-                        <i class="bi bi-wind text-sm" />
-                      </div>
-                      <span class="text-xs text-gray-500 mb-0.5">Wind</span>
-                      <span v-if="weatherWindSpeed !== null" class="font-semibold text-gray-900 text-sm">
-                        {{ weatherWindSpeed }} km/h
-                      </span>
-                      <span v-else class="font-semibold text-gray-900 text-sm">--</span>
-                    </div>
-                    <div class="flex flex-col items-center text-center">
-                      <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center mb-2 text-orange-600">
-                        <i class="bi bi-thermometer-high text-sm" />
-                      </div>
-                      <span class="text-xs text-gray-500 mb-0.5">High</span>
-                      <span v-if="weatherMaxTemp !== null" class="font-semibold text-gray-900 text-sm">
-                        {{ weatherMaxTemp }}°
-                      </span>
-                      <span v-else class="font-semibold text-gray-900 text-sm">--</span>
-                    </div>
-                    <div class="flex flex-col items-center text-center">
-                      <div class="w-8 h-8 rounded-full bg-cyan-50 flex items-center justify-center mb-2 text-cyan-600">
-                        <i class="bi bi-thermometer-low text-sm" />
-                      </div>
-                      <span class="text-xs text-gray-500 mb-0.5">Low</span>
-                      <span v-if="weatherMinTemp !== null" class="font-semibold text-gray-900 text-sm">
-                        {{ weatherMinTemp }}°
-                      </span>
-                      <span v-else class="font-semibold text-gray-900 text-sm">--</span>
-                    </div>
-                  </div>
-
-                  <!-- Hourly Forecast -->
-                  <div v-if="hourlyForecast.length > 0" class="mt-auto pt-6">
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-1">
-                      Hourly Forecast
+                    <p v-if="weatherUpdatedAt" class="mt-1 text-sm text-white/75">
+                      as of {{ weatherUpdatedAt }}
                     </p>
-                    <div class="flex justify-between overflow-x-auto pb-2 px-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                      <div v-for="(hour, index) in hourlyForecast" :key="index" class="flex flex-col items-center min-w-[3rem]">
-                        <span class="text-[0.7rem] font-medium text-gray-500 mb-2 whitespace-nowrap">{{ index === 0 ? 'Now' : hour.time }}</span>
-                        <i :class="`bi ${hour.icon} text-xl text-primary-600 mb-2`" />
-                        <span class="text-sm font-bold text-gray-900">{{ hour.temp }}°</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
-                <div v-else class="flex items-center justify-center h-full text-gray-400 text-sm">
-                  Weather unavailable
-                </div>
-                <template #fallback>
-                  <div class="flex flex-col items-center h-full animate-pulse">
-                    <div class="w-32 h-4 bg-gray-200 rounded mb-8 mt-2" />
-                    <div class="w-20 h-20 bg-gray-200 rounded-full mb-4" />
-                    <div class="w-24 h-8 bg-gray-200 rounded mb-2" />
-                    <div class="w-32 h-4 bg-gray-200 rounded" />
-                    <div class="mt-auto w-full h-24 bg-gray-200 rounded-xl" />
-                  </div>
-                </template>
-              </ClientOnly>
-            </div>
-          </div>
-        </div>
+              </div>
 
-        <!-- Map Column -->
-        <div class="flex flex-col">
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
-            <div
-              id="map-container"
-              class="h-[300px] lg:h-auto lg:flex-1 w-full relative z-0"
-            >
-              <ClientOnly>
-                <LeafletMap :coords="coords" :popup-text="labels.hallName" />
-                <template #fallback>
-                  <div class="h-full w-full bg-gray-100 animate-pulse flex items-center justify-center text-gray-400">
-                    Loading map...
-                  </div>
-                </template>
-              </ClientOnly>
+              <div class="mt-8 border-t border-white/15 pt-5">
+                <div class="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/90">
+                  <span>
+                    Clouds:
+                    <strong class="text-white">{{ weatherCloudCover ?? '—' }}%</strong>
+                  </span>
+
+                  <span>
+                    Humidity:
+                    <strong class="text-white">{{ weatherHumidity ?? '—' }}%</strong>
+                  </span>
+
+                  <span>
+                    Rain now:
+                    <strong class="text-white">{{ weatherRain ?? '—' }} mm</strong>
+                  </span>
+
+                  <span>
+                    Wind:
+                    <strong class="text-white">{{ weatherWindSpeed ?? '—' }} km/h</strong>
+                  </span>
+                </div>
+              </div>
             </div>
-            <p class="text-sm text-gray-500 p-4 m-0 flex items-center gap-1.5 border-t border-gray-100 relative z-10 bg-white">
-              <i class="bi bi-geo-alt text-primary-600" />
-              {{ labels.hallName }}, {{ fullLocation }}
-            </p>
+
+            <!-- ? MARK: Weather Details -->
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div class="rounded-2xl border border-white/10 bg-white/10 p-5">
+                <i class="bi bi-thermometer-half text-xl text-white/75" />
+
+                <p class="mt-5 text-sm font-medium text-white/85">
+                  How hot it feels
+                </p>
+
+                <p class="mt-2 text-2xl font-bold text-white">
+                  {{ weatherApparentTemp ?? '—' }}°C
+                </p>
+
+                <p class="mt-2 text-sm leading-relaxed text-white/80">
+                  Takes humidity into account for a feels-like temperature.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-white/10 p-5">
+                <i class="bi bi-droplet-half text-xl text-white/75" />
+
+                <p class="mt-5 text-sm font-medium text-white/85">
+                  Humidity
+                </p>
+
+                <p class="mt-2 text-2xl font-bold text-white">
+                  {{ weatherHumidity ?? '—' }}%
+                </p>
+
+                <p class="mt-2 text-sm leading-relaxed text-white/80">
+                  High humidity can make heat feel heavier.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-white/10 p-5">
+                <i class="bi bi-cloud-rain text-xl text-white/75" />
+
+                <p class="mt-5 text-sm font-medium text-white/85">
+                  Rain now
+                </p>
+
+                <p class="mt-2 text-2xl font-bold text-white">
+                  {{ weatherRain ?? '—' }} mm
+                </p>
+
+                <p class="mt-2 text-sm leading-relaxed text-white/80">
+                  Current measured rainfall at this time.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-white/10 p-5">
+                <i class="bi bi-wind text-xl text-white/75" />
+
+                <p class="mt-5 text-sm font-medium text-white/85">
+                  Wind speed
+                </p>
+
+                <p class="mt-2 text-2xl font-bold text-white">
+                  {{ weatherWindSpeed ?? '—' }} km/h
+                </p>
+
+                <p class="mt-2 text-sm leading-relaxed text-white/80">
+                  Useful for outdoor work and travel planning.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-white/10 p-5">
+                <i class="bi bi-thermometer-sun text-xl text-white/75" />
+
+                <p class="mt-5 text-sm font-medium text-white/85">
+                  Today’s range
+                </p>
+
+                <p class="mt-2 text-2xl font-bold text-white">
+                  {{ weatherMinTemp ?? '—' }}° / {{ weatherMaxTemp ?? '—' }}°
+                </p>
+
+                <p class="mt-2 text-sm leading-relaxed text-white/80">
+                  Expected low and high temperature today.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-white/10 p-5">
+                <i class="bi bi-sun text-xl text-white/75" />
+
+                <p class="mt-5 text-sm font-medium text-white/85">
+                  UV index
+                </p>
+
+                <p class="mt-2 text-2xl font-bold text-white">
+                  {{ weatherUvIndex ?? '—' }}
+                </p>
+
+                <p class="mt-2 text-sm leading-relaxed text-white/80">
+                  Use shade or protection when the UV index is high.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div
+            v-else
+            class="flex min-h-[320px] items-center justify-center p-8 text-white/80"
+          >
+            Weather unavailable
+          </div>
+
+          <template #fallback>
+            <div class="min-h-[320px] animate-pulse p-8">
+              <div class="h-8 w-48 rounded bg-white/20" />
+              <div class="mt-8 h-24 w-40 rounded bg-white/20" />
+              <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div class="h-32 rounded-2xl bg-white/10" />
+                <div class="h-32 rounded-2xl bg-white/10" />
+                <div class="h-32 rounded-2xl bg-white/10" />
+              </div>
+            </div>
+          </template>
+        </ClientOnly>
       </div>
     </div>
   </section>

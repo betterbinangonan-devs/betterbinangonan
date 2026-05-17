@@ -59,64 +59,56 @@ const services: ServiceCard[] = [
 <template>
   <section class="py-12">
     <div class="container mx-auto px-4">
-      <!-- Section Header -->
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">
-          {{ translate('section-popular') }}
-        </h2>
-        <p class="text-gray-500">
-          Quick access to frequently requested municipal services
-        </p>
+      <!-- ? MARK: Section Header -->
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            {{ translate('section-popular') }}
+          </h2>
+
+          <p class="mt-1 max-w-xl text-base leading-relaxed text-gray-600">
+            Quick access to frequently requested municipal services.
+          </p>
+        </div>
+
+        <NuxtLink to="/services" class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:gap-3 hover:text-primary-700">
+          View all services
+          <i class="bi bi-arrow-right text-xs" />
+        </NuxtLink>
       </div>
 
-      <!-- Services Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UiCard
-          v-for="service in services.filter(service => !service.hidden)"
-          :key="service.href + service.titleKey"
-          :to="service.href"
-          interactive
-          class="group flex items-center gap-4"
-          :class="service.isViewAll
-            ? '!bg-primary-600 !border-transparent text-white'
-            : 'text-gray-800'"
-        >
-          <!-- Icon -->
-          <div
-            class="w-12 h-12 flex items-center justify-center rounded-lg text-xl shrink-0"
-            :class="service.isViewAll
-              ? 'bg-white/20 text-white'
-              : 'bg-gray-100 text-primary-600'"
-          >
-            <i class="bi" :class="[service.icon]" />
-          </div>
+      <!-- ? MARK: Services Grid -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <NuxtLink v-for="service in services.filter(service => !service.hidden && !service.isViewAll)" :key="service.href + service.titleKey" :to="service.href" class="group rounded-2xl border border-gray-200 bg-white p-5 text-gray-800 transition hover:border-primary-300 hover:bg-primary-50/50">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-xl text-primary-600 transition group-hover:scale-105 group-hover:bg-primary-600 group-hover:text-white">
+              <i class="bi" :class="[service.icon]" />
+            </div>
 
-          <!-- Content -->
-          <div class="flex-1 min-w-0">
-            <h3
-              class="text-base font-semibold m-0 mb-1"
-              :class="service.isViewAll ? 'text-white' : 'text-gray-900'"
-            >
-              {{ translate(service.titleKey) }}
-            </h3>
-            <p
-              v-if="service.descKey"
-              class="text-[0.8125rem] m-0"
-              :class="service.isViewAll ? 'text-white/80' : 'text-gray-500'"
-            >
-              {{ translate(service.descKey) }}
-            </p>
-            <p v-if="service.isViewAll" class="text-[0.8125rem] m-0 text-white/80">
-              Browse complete directory
-            </p>
-          </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  <h3 class="font-semibold text-gray-900 transition group-hover:text-primary-700">
+                    {{ translate(service.titleKey) }}
+                  </h3>
 
-          <!-- Arrow -->
-          <i
-            class="bi bi-arrow-right transition-all duration-200 opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
-            :class="service.isViewAll ? 'text-white' : 'text-gray-400'"
-          />
-        </UiCard>
+                  <p v-if="service.descKey" class="mt-1 text-sm leading-relaxed text-gray-600">
+                    {{ translate(service.descKey) }}
+                  </p>
+                </div>
+
+                <!-- <i class="bi bi-arrow-right shrink-0 text-sm text-gray-300 transition group-hover:text-primary-600" /> -->
+              </div>
+
+              <div class="mt-4">
+                <span class="inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
+                  View services
+                  <i class="bi bi-arrow-right text-xs" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
       </div>
     </div>
   </section>

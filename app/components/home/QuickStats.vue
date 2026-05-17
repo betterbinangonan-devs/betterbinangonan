@@ -48,49 +48,57 @@ const stats = computed(() => [
 <template>
   <section class="bg-gray-50 py-12">
     <div class="container mx-auto px-4">
-      <!-- Header -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <h2 class="text-xl font-bold text-gray-900 m-0">
-          {{ lguName }} at a Glance
-        </h2>
+      <!-- ? MARK: Section Header -->
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            {{ lguName }} at a Glance
+          </h2>
+
+          <p class="mt-1 max-w-xl text-base leading-relaxed text-gray-600">
+            Key facts and basic information about {{ lguName }}.
+          </p>
+        </div>
+
         <NuxtLink
           to="/statistics"
-          class="text-primary-600 font-medium flex items-center gap-1 hover:underline"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:gap-3 hover:text-primary-700"
         >
-          View Statistics <i class="bi bi-arrow-right" />
+          View statistics
+          <i class="bi bi-arrow-right text-xs" />
         </NuxtLink>
       </div>
 
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <UiCard
+      <!-- ? MARK: Stats Grid -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <NuxtLink
           v-for="stat in stats"
           :key="stat.label"
           :to="stat.href"
-          interactive
-          class="group relative flex items-center gap-4 overflow-hidden"
+          class="group rounded-2xl border border-gray-200 bg-white p-5 text-gray-800 transition hover:border-primary-300 hover:bg-primary-50/50"
         >
-          <!-- Left accent bar (hidden by default, shows on hover) -->
-          <div class="absolute top-0 left-0 w-1 h-full bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div class="mb-5 flex items-start justify-between gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-xl text-primary-600 transition group-hover:scale-105 group-hover:bg-primary-600 group-hover:text-white">
+              <i class="bi" :class="[stat.icon]" />
+            </div>
 
-          <!-- Icon -->
-          <div class="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-lg text-primary-600 text-xl shrink-0 transition-all duration-300 group-hover:bg-primary-600 group-hover:text-white">
-            <i class="bi" :class="[stat.icon]" />
+            <i class="bi bi-arrow-right text-sm text-gray-300 transition group-hover:text-primary-600" />
           </div>
 
-          <!-- Content -->
-          <div class="flex-1 min-w-0">
-            <span class="block text-2xl font-bold text-primary-600 leading-tight transition-colors duration-300 group-hover:text-primary-700">
+          <div>
+            <p class="text-2xl font-bold leading-tight text-gray-900 transition group-hover:text-primary-700">
               {{ stat.value }}
-            </span>
-            <span class="block text-sm font-medium text-gray-800 mt-0.5">
+            </p>
+
+            <p class="mt-1 text-sm font-semibold text-gray-800">
               {{ stat.label }}
-            </span>
-            <span class="block text-xs text-gray-500 mt-1">
+            </p>
+
+            <p class="mt-2 text-xs leading-relaxed text-gray-500">
               {{ stat.source }}
-            </span>
+            </p>
           </div>
-        </UiCard>
+        </NuxtLink>
       </div>
     </div>
   </section>
