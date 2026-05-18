@@ -45,8 +45,8 @@
     "@tailwindcss/postcss": "^4.2.2",
     "@takumi-rs/core": "^1.0.9",
     "@takumi-rs/wasm": "^1.1.2",
-    "@vitest/coverage-v8": "^4.1.5",
-    "@vue/test-utils": "^2.4.9",
+    "@vitest/coverage-v8": "^4.1.6",
+    "@vue/test-utils": "^2.4.10",
     "autoprefixer": "^10.4.27",
     "commander": "^13.1.0",
     "eslint": "^10.2.0",
@@ -56,7 +56,7 @@
     "nuxt-og-image": "^6.4.0",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2",
-    "vitest": "^4.1.5",
+    "vitest": "^4.1.6",
     "vue-tsc": "^3.2.6"
   }
 }
