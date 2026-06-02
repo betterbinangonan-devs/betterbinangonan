@@ -1,82 +1,19 @@
-<!-- app\pages\services\index.vue -->
-
 <script setup lang="ts">
 import { useLanguage } from '@/composables/useLanguage'
+import { categoriesContent } from '@/utils/categoriesContent'
 
 const { translate } = useLanguage()
 const route = useRoute()
 const initialQuery = computed(() => (route.query.q as string) || '')
 
-const categories = [
-  {
-    href: '/services/certificates',
-    icon: 'bi-file-earmark-text-fill',
-    titleKey: 'cat-certificates',
-    descKey: 'cat-certificates-desc',
-  },
-  {
-    href: '/services/business',
-    icon: 'bi-shop',
-    titleKey: 'cat-business',
-    descKey: 'cat-business-desc',
-  },
-  {
-    href: '/services/social-services',
-    icon: 'bi-people-fill',
-    titleKey: 'cat-social',
-    descKey: 'cat-social-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/health',
-    icon: 'bi-heart-pulse-fill',
-    titleKey: 'cat-health',
-    descKey: 'cat-health-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/tax-payments',
-    icon: 'bi-cash-coin',
-    titleKey: 'cat-tax',
-    descKey: 'cat-tax-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/agriculture',
-    icon: 'bi-tree-fill',
-    titleKey: 'cat-agriculture',
-    descKey: 'cat-agriculture-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/infrastructure',
-    icon: 'bi-building-fill-gear',
-    titleKey: 'cat-infrastructure',
-    descKey: 'cat-infrastructure-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/education',
-    icon: 'bi-mortarboard-fill',
-    titleKey: 'cat-education',
-    descKey: 'cat-education-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/public-safety',
-    icon: 'bi-shield-fill-check',
-    titleKey: 'cat-safety',
-    descKey: 'cat-safety-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/environment',
-    icon: 'bi-globe-americas',
-    titleKey: 'cat-environment',
-    descKey: 'cat-environment-desc',
-    hidden: true,
-  },
-]
+// SSOT Integration: Map data directly from categoriesContent.ts
+const categories = categoriesContent.map(cat => ({
+  href: `/services/${cat.id}`,
+  icon: cat.icon,
+  title: cat.name,
+  description: cat.description,
+  hidden: cat.hidden,
+}))
 
 const lifeEvents = [
   {
@@ -85,14 +22,20 @@ const lifeEvents = [
     labelKey: 'life-starting-business',
   },
   {
-    href: '/services/certificates',
+    href: '/services/civil-registry',
     icon: 'bi-heart',
     labelKey: 'life-getting-married',
   },
   {
-    href: '/services/certificates',
+    href: '/services/civil-registry',
     icon: 'bi-emoji-smile',
     labelKey: 'life-having-baby',
+  },
+  {
+    href: '/services/infrastructure',
+    icon: 'bi-hammer',
+    labelKey: 'life-building',
+    hidden: false, // Unhidden since infrastructure is now active
   },
   {
     href: '/services/social-services',
@@ -113,12 +56,6 @@ const lifeEvents = [
     hidden: true,
   },
   {
-    href: '/services/infrastructure',
-    icon: 'bi-hammer',
-    labelKey: 'life-building',
-    hidden: true,
-  },
-  {
     href: '/services/public-safety',
     icon: 'bi-question-circle',
     labelKey: 'life-trouble',
@@ -130,13 +67,11 @@ const lifeEvents = [
 <template>
   <div>
     <UiPageHero badge-icon="bi-grid-fill" :badge-text="translate('nav-services')" :title="translate('services-title')" :description="translate('services-subtitle')" :breadcrumbs="[{ label: translate('nav-services') }]">
-      <!-- ? MARK: Search Box -->
       <div class="mx-auto mt-8 max-w-xl">
         <ServicesSearch placeholder="Search other services..." class="[&_input]:pl-10 [&_input]:pr-4 [&_input]:py-3 [&_input]:border [&_input]:border-white/25 [&_input]:rounded-full [&_input]:shadow-none [&_input]:bg-transparent [&_input]:text-white [&_input]:placeholder:text-white/50 hover:[&_input]:bg-white/10 hover:[&_input]:border-white/45 focus:[&_input]:bg-white/10 focus:[&_input]:border-white/70 focus:[&_input]:ring-4 focus:[&_input]:ring-white/10" :initial-query="initialQuery" />
       </div>
     </UiPageHero>
 
-    <!-- ? MARK: Service Categories -->
     <section class="py-12">
       <div class="container mx-auto px-4">
         <div class="mx-auto max-w-3xl">
@@ -154,35 +89,29 @@ const lifeEvents = [
             </p>
           </div>
 
-          <div class="mx-auto max-w-2xl overflow-hidden rounded-2xl border border-gray-200 bg-white">
-            <NuxtLink v-for="category in categories.filter(category => !category.hidden)" :key="category.href" :to="category.href" class="group block border-b border-gray-100 p-5 transition last:border-b-0 hover:bg-primary-50/50">
-              <div class="flex items-start gap-4">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-xl text-primary-600 transition group-hover:scale-105 group-hover:bg-primary-600 group-hover:text-white">
-                  <i class="bi" :class="[category.icon]" />
-                </div>
+          <!-- Dynamic Categories -->
+          <div class="flex flex-col gap-3">
+            <NuxtLink
+              v-for="category in categories.filter(category => !category.hidden)"
+              :key="category.href"
+              :to="category.href"
+              class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-primary-200 hover:bg-primary-50/30"
+            >
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-lg text-primary-600">
+                <i :class="category.icon" />
+              </div>
 
-                <div class="min-w-0 flex-1">
-                  <div class="flex items-start justify-between gap-4">
-                    <div class="min-w-0">
-                      <h3 class="font-semibold text-gray-900 transition group-hover:text-primary-700">
-                        {{ translate(category.titleKey) }}
-                      </h3>
-
-                      <p class="mt-1 text-sm leading-relaxed text-gray-600">
-                        {{ translate(category.descKey) }}
-                      </p>
-                    </div>
-
-                    <!-- <i class="bi bi-arrow-right shrink-0 text-sm text-gray-300 transition group-hover:text-primary-600" /> -->
-                  </div>
-
-                  <div class="mt-4">
-                    <span class="inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
-                      Browse services
-                      <i class="bi bi-arrow-right text-xs" />
-                    </span>
-                  </div>
-                </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="font-semibold text-gray-900 group-hover:text-primary-700">
+                  {{ category.title }}
+                </h3>
+                <p class="mt-1 text-sm leading-relaxed text-gray-500">
+                  {{ category.description }}
+                </p>
+                <span class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
+                  Browse services
+                  <i class="bi bi-arrow-right text-xs" />
+                </span>
               </div>
             </NuxtLink>
           </div>
@@ -190,7 +119,6 @@ const lifeEvents = [
       </div>
     </section>
 
-    <!-- ? MARK: Browse by Life Event -->
     <section class="bg-gray-50 py-12">
       <div class="container mx-auto px-4">
         <div class="mx-auto max-w-3xl">

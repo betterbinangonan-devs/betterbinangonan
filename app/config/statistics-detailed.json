@@ -1,132 +1,52 @@
 {
   "barangayPopulation": [
-    {
-      "rank": 1,
-      "name": "B. F. International Village",
-      "population": 80621,
-      "percentage": 13.1
-    },
-    {
-      "rank": 2,
-      "name": "Manuyo Dos",
-      "population": 51459,
-      "percentage": 8.4
-    },
-    {
-      "rank": 3,
-      "name": "Talon Dos",
-      "population": 44452,
-      "percentage": 7.2
-    },
-    {
-      "rank": 4,
-      "name": "Talon Uno",
-      "population": 42677,
-      "percentage": 6.9
-    },
-    {
-      "rank": 5,
-      "name": "Talon Singko",
-      "population": 42013,
-      "percentage": 6.8
-    },
-    {
-      "rank": 6,
-      "name": "Pamplona Tres",
-      "population": 37234,
-      "percentage": 6.0
-    },
-    {
-      "rank": 7,
-      "name": "Pulang Lupa Uno",
-      "population": 36908,
-      "percentage": 6.0
-    },
-    {
-      "rank": 8,
-      "name": "Almanza Dos",
-      "population": 36679,
-      "percentage": 6.0
-    },
-    {
-      "rank": 9,
-      "name": "Almanza Uno",
-      "population": 33683,
-      "percentage": 5.5
-    },
-    {
-      "rank": 10,
-      "name": "Talon Tres",
-      "population": 33192,
-      "percentage": 5.4
-    },
-    {
-      "rank": 11,
-      "name": "Pulang Lupa Dos",
-      "population": 32788,
-      "percentage": 5.3
-    },
-    {
-      "rank": 12,
-      "name": "Pilar",
-      "population": 31420,
-      "percentage": 5.1
-    },
-    {
-      "rank": 13,
-      "name": "Zapote",
-      "population": 20753,
-      "percentage": 3.4
-    },
-    {
-      "rank": 14,
-      "name": "Pamplona Uno",
-      "population": 19658,
-      "percentage": 3.2
-    },
-    {
-      "rank": 15,
-      "name": "Talon Kuatro",
-      "population": 17656,
-      "percentage": 2.9
-    },
-    {
-      "rank": 16,
-      "name": "Manuyo Uno",
-      "population": 13908,
-      "percentage": 2.3
-    },
-    {
-      "rank": 17,
-      "name": "Elias Aldana",
-      "population": 11758,
-      "percentage": 1.9
-    },
-    {
-      "rank": 18,
-      "name": "Pamplona Dos",
-      "population": 11443,
-      "percentage": 1.9
-    },
-    {
-      "rank": 19,
-      "name": "Daniel Fajardo",
-      "population": 10719,
-      "percentage": 1.7
-    },
-    {
-      "rank": 20,
-      "name": "Ilaya",
-      "population": 7287,
-      "percentage": 1.2
-    }
+    { "rank": 1, "name": "Kalawaan", "population": 39979, "percentage": 12.44 },
+    { "rank": 2, "name": "Calumpang", "population": 21095, "percentage": 6.57 },
+    { "rank": 3, "name": "Bilibiran", "population": 19911, "percentage": 6.20 },
+    { "rank": 4, "name": "Pag-Asa", "population": 19387, "percentage": 6.03 },
+    { "rank": 5, "name": "Pantok", "population": 18431, "percentage": 5.74 },
+    { "rank": 6, "name": "Palangoy", "population": 18060, "percentage": 5.62 },
+    { "rank": 7, "name": "Tatala", "population": 17625, "percentage": 5.48 },
+    { "rank": 8, "name": "Tagpos", "population": 16161, "percentage": 5.03 },
+    { "rank": 9, "name": "Batingan", "population": 16280, "percentage": 5.07 },
+    { "rank": 10, "name": "San Carlos", "population": 14090, "percentage": 4.39 },
+    { "rank": 11, "name": "Tayuman", "population": 12300, "percentage": 3.83 },
+    { "rank": 12, "name": "Lunsad", "population": 11748, "percentage": 3.66 },
+    { "rank": 13, "name": "Mambog", "population": 11372, "percentage": 3.54 },
+    { "rank": 14, "name": "Mahabang Parang", "population": 11052, "percentage": 3.44 },
+    { "rank": 15, "name": "Macamot", "population": 10301, "percentage": 3.21 },
+    { "rank": 16, "name": "Pila Pila", "population": 9659, "percentage": 3.01 },
+    { "rank": 17, "name": "Libid (Pob.)", "population": 8068, "percentage": 2.51 },
+    { "rank": 18, "name": "Libis (Pob.)", "population": 5905, "percentage": 1.84 },
+    { "rank": 19, "name": "Ithan", "population": 3757, "percentage": 1.17 },
+    { "rank": 20, "name": "Bombong", "population": 3275, "percentage": 1.02 },
+    { "rank": 21, "name": "Janosa", "population": 3087, "percentage": 0.96 },
+    { "rank": 22, "name": "Layunan (Pob.)", "population": 2575, "percentage": 0.80 },
+    { "rank": 23, "name": "Kaytome", "population": 2403, "percentage": 0.75 },
+    { "rank": 24, "name": "Rayap", "population": 2164, "percentage": 0.67 },
+    { "rank": 25, "name": "Kalinawan", "population": 2106, "percentage": 0.66 },
+    { "rank": 26, "name": "Sapang", "population": 2249, "percentage": 0.70 },
+    { "rank": 27, "name": "Buhangin", "population": 2000, "percentage": 0.62 },
+    { "rank": 28, "name": "Pipindan", "population": 1928, "percentage": 0.60 },
+    { "rank": 29, "name": "Ginoong Sanay", "population": 1745, "percentage": 0.54 },
+    { "rank": 30, "name": "Limbon-limbon", "population": 1702, "percentage": 0.53 },
+    { "rank": 31, "name": "Bangad", "population": 1478, "percentage": 0.46 },
+    { "rank": 32, "name": "Kinagatan", "population": 1379, "percentage": 0.43 },
+    { "rank": 33, "name": "Habagatan", "population": 1397, "percentage": 0.43 },
+    { "rank": 34, "name": "Kinaboogan", "population": 1267, "percentage": 0.39 },
+    { "rank": 35, "name": "Gulod", "population": 1188, "percentage": 0.37 },
+    { "rank": 36, "name": "Malakaban", "population": 1149, "percentage": 0.36 },
+    { "rank": 37, "name": "Pinagdilawan", "population": 813, "percentage": 0.25 },
+    { "rank": 38, "name": "Tabon", "population": 617, "percentage": 0.19 },
+    { "rank": 39, "name": "Binitagan", "population": 572, "percentage": 0.18 },
+    { "rank": 40, "name": "Kasile", "population": 470, "percentage": 0.15 }
   ],
   "cmciPillars": [
     {
       "id": "economic-dynamism",
       "icon": "bi-graph-up-arrow",
       "title": "Economic Dynamism",
-      "score": "3.7800",
+      "score": "5.9739",
       "trend": "+9.4%",
       "trendType": "up"
     },
@@ -134,7 +54,7 @@
       "id": "government-efficiency",
       "icon": "bi-building-check",
       "title": "Government Efficiency",
-      "score": "8.8844",
+      "score": "9.6036",
       "trend": "+3.3%",
       "trendType": "up"
     },
@@ -142,7 +62,7 @@
       "id": "infrastructure",
       "icon": "bi-building-gear",
       "title": "Infrastructure",
-      "score": "4.0590",
+      "score": "4.0066",
       "trend": "-18.9%",
       "trendType": "down"
     },
@@ -150,7 +70,7 @@
       "id": "resiliency",
       "icon": "bi-shield-check",
       "title": "Resiliency",
-      "score": "11.4576",
+      "score": "12.3547",
       "trend": "Stable",
       "trendType": "stable"
     },
@@ -158,25 +78,25 @@
       "id": "innovation",
       "icon": "bi-lightbulb",
       "title": "Innovation",
-      "score": "6.6662",
+      "score": "7.7415",
       "trend": "Stable",
       "trendType": "stable"
     }
   ],
   "financialData": {
-    "annualIncome": "₱3.89B",
-    "annualIncomeDetailed": "₱3,894,064,737.40",
-    "ntaShare": "₱1.74B",
+    "annualIncome": "₱1.13B",
+    "annualIncomeDetailed": "₱1,129,000,000.00",
+    "ntaShare": "₱504M",
     "ntaDependency": "44.60%",
-    "localSourcesPercentage": "55.10%",
+    "localSourcesPercentage": "55.40%",
     "source": "Bureau of Local Government Finance (BLGF)",
     "sourceUrl": "https://blgf.gov.ph/lgu-fiscal-data/",
-    "year": 2024
+    "year": 2023
   },
   "populationGrowth": {
-    "year1990": 296851,
-    "year2020": 606293,
-    "year2024": 615549,
-    "growthRate": "+0.38% (Annual)"
+    "year1990": 127561,
+    "year2020": 313631,
+    "year2024": 321281,
+    "growthRate": "+2.23% (Annual)"
   }
 }
