@@ -1,9 +1,16 @@
+// server\api\get-dpwh-transparency-api.ts
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
+
+  // Read site config
+  const siteConfigPath = join(process.cwd(), 'app/config/site.json')
+  const siteConfig = JSON.parse(readFileSync(siteConfigPath, 'utf-8'))
+  const municipality = siteConfig.municipality as string
+  const province = siteConfig.province as string
 
   // dev: local static JSON
   if (process.env.NODE_ENV === 'development') {
@@ -22,8 +29,8 @@ export default defineEventHandler(async (event) => {
     params: {
       page: query.page ?? 1,
       limit: 50,
-      search: 'binangonan',
-      province: 'RIZAL',
+      search: municipality,
+      province: province.toUpperCase(),
     },
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
