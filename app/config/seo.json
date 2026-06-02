@@ -159,5 +159,12 @@
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
+  },
+  "dpwh-infrastructure": {
+    "titleFragment": "DPWH Infrastructure Projects",
+    "description": "National government infrastructure projects in {{lguName}} implemented by the Department of Public Works and Highways.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
   }
 }

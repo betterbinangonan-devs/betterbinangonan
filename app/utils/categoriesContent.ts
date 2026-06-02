@@ -29,91 +29,14 @@ export interface CategoryContent {
 }
 
 export const categoriesContent: CategoryContent[] = [
-  {
-    id: 'certificates',
-    name: 'Certificates & Vital Records',
-    icon: 'bi-file-earmark-text-fill',
-    badgeText: 'Certificates',
-    description:
-      'Official documents for birth, death, marriage, and other vital records',
-    services: [
-      {
-        id: 'birth-cert',
-        title: 'Birth Certificate',
-        icon: 'bi-file-earmark-text',
-        description:
-          'Get a certified copy of birth certificate registered in your municipality',
-        fee: '₱75',
-        time: '15-30 mins',
-        link: '/service-details/birth-certificate',
-      },
-      {
-        id: 'marriage-cert',
-        title: 'Marriage Certificate',
-        icon: 'bi-heart',
-        description:
-          'Register or request certified true copy of marriage certificate',
-        fee: '₱150 (Registration)',
-        time: '5 mins',
-        link: '/service-details/marriage-certificate',
-      },
-      {
-        id: 'death-cert',
-        title: 'Death Certificate',
-        icon: 'bi-file-earmark-x',
-        description:
-          'Register death certificate and obtain burial/transfer permit',
-        fee: '₱75-150',
-        time: '~1.5 hrs',
-        link: '/service-details/death-certificate',
-      },
-      {
-        id: 'brgy-clearance',
-        title: 'Barangay Clearance',
-        icon: 'bi-house-check',
-        description: 'Certificate of residence from your barangay',
-        fee: '₱50-100',
-        time: 'Same day',
-      },
-      {
-        id: 'brgy-id',
-        title: 'Barangay ID',
-        icon: 'bi-person-badge',
-        description: 'Official barangay identification card',
-        fee: 'Free',
-        time: '1-2 days',
-      },
-      {
-        id: 'police-clearance',
-        title: 'Police Clearance',
-        icon: 'bi-shield-check',
-        description: 'Police clearance coordination through municipal office',
-        fee: 'Varies',
-        time: '3-5 days',
-      },
-    ],
-    offices: [
-      {
-        title: 'City Civil Registrar',
-        icon: 'bi-building',
-        description:
-          'Birth, death, marriage registration, corrections, and certified copies',
-        link: '/service-details/city-civil-registrar',
-      },
-      {
-        title: 'Human Resource Management',
-        icon: 'bi-people',
-        description:
-          'Service records, employment certificates, leave credits for LGU employees',
-        link: '/service-details/human-resource-management',
-        hidden: true,
-      },
-    ],
-  },
+
+  /**
+   * ? MARK: Business Permit
+   */
   {
     id: 'business',
     name: 'Business, Trade & Investment',
-    icon: 'bi-shop',
+    icon: 'ri-store-2-line',
     badgeText: 'Business',
     description: 'Business permits, licenses, and trade registration services',
     services: [
@@ -192,88 +115,14 @@ export const categoriesContent: CategoryContent[] = [
       },
     ],
   },
-  {
-    id: 'tax-payments',
-    name: 'Taxation & Payments',
-    icon: 'bi-cash-coin',
-    badgeText: 'Taxation',
-    description: 'Property tax, business tax, payments, and tax clearance',
-    hidden: true,
-    services: [
-      {
-        id: 'rpt',
-        title: 'Real Property Tax',
-        icon: 'bi-house',
-        description:
-          'Payment of annual real property tax for land and buildings',
-        fee: 'Based on assessment',
-        time: '15-30 mins',
-        link: '/service-details/city-treasurer',
-      },
-      {
-        id: 'tax-clearance',
-        title: 'Tax Clearance',
-        icon: 'bi-file-check',
-        description: 'Certificate of no tax delinquency',
-        fee: '₱50',
-        time: '15-30 mins',
-        link: '/service-details/city-treasurer',
-      },
-      {
-        id: 'tax-declaration',
-        title: 'Tax Declaration',
-        icon: 'bi-file-text',
-        description: 'Transfer or update of property tax declaration',
-        fee: '₱50-100',
-        time: '1-3 days',
-        link: '/service-details/property-declaration',
-      },
-      {
-        id: 'business-tax',
-        title: 'Business Tax',
-        icon: 'bi-receipt',
-        description: 'Payment of business taxes and fees',
-        fee: 'Varies',
-        time: '15-30 mins',
-        link: '/service-details/city-treasurer',
-      },
-      {
-        id: 'cedula',
-        title: 'Community Tax Certificate',
-        icon: 'bi-card-text',
-        description: 'Cedula or residence certificate',
-        fee: '₱5-5000',
-        time: '10-15 mins',
-      },
-      {
-        id: 'assessment',
-        title: 'Property Assessment',
-        icon: 'bi-clipboard-data',
-        description: 'Assessment of property for taxation purposes',
-        fee: 'Varies',
-        time: '1-5 days',
-        link: '/service-details/municipal-assessor',
-      },
-    ],
-    offices: [
-      {
-        title: 'Municipal Treasurer\'s Office',
-        icon: 'bi-cash-coin',
-        description: 'Tax payments, revenue collection, and tax clearances',
-        link: '/service-details/city-treasurer',
-      },
-      {
-        title: 'Municipal Assessor\'s Office',
-        icon: 'bi-house-door',
-        description: 'Property assessment, tax declarations, and land records',
-        link: '/service-details/municipal-assessor',
-      },
-    ],
-  },
+
+  /**
+   * ? MARK: Social Services
+   */
   {
     id: 'social-services',
     name: 'Social Services',
-    icon: 'bi-people-fill',
+    icon: 'ri-group-line',
     badgeText: 'Social Services',
     description:
       'Welfare programs, senior citizen services, PWD benefits, and financial aid',
@@ -343,10 +192,14 @@ export const categoriesContent: CategoryContent[] = [
       },
     ],
   },
+
+  /**
+   * ? MARK: Health
+   */
   {
     id: 'health',
     name: 'Health & Wellness',
-    icon: 'bi-heart-pulse-fill',
+    icon: 'ri-heart-pulse-line',
     badgeText: 'Health',
     description:
       'Vaccination programs, health certificates, and medical assistance',
@@ -410,10 +263,14 @@ export const categoriesContent: CategoryContent[] = [
       },
     ],
   },
+
+  /**
+   * ? MARK: Agriculture
+   */
   {
     id: 'agriculture',
     name: 'Agriculture',
-    icon: 'bi-tree-fill',
+    icon: 'ri-plant-line',
     badgeText: 'Agriculture',
     description:
       'Agricultural loans, crop insurance, fertilizer assistance, and training',
@@ -483,85 +340,246 @@ export const categoriesContent: CategoryContent[] = [
       },
     ],
   },
+
+  /**
+   * ? MARK: Civil Registry (LCR)
+   */
   {
-    id: 'infrastructure',
-    name: 'Infrastructure',
-    icon: 'bi-building-fill-gear',
-    badgeText: 'Infrastructure',
-    description:
-      'Construction permits, road maintenance requests, and public facilities',
-    hidden: true,
+    id: 'civil-registry',
+    name: 'Civil Registry',
+    icon: 'ri-book-2-line',
+    badgeText: 'Civil Registry',
+    description: 'Birth, marriage, death registrations, and document corrections',
+    hidden: false,
     services: [
       {
-        id: 'building-permit',
-        title: 'Building Permit',
-        icon: 'bi-building',
-        description: 'Permit for construction or renovation of buildings',
+        id: 'birth-registration',
+        title: 'Birth Registration',
+        icon: 'bi-person-vcard',
+        description: 'Timely or late registration of a newborn',
         fee: 'Varies',
-        time: '5-10 days',
-        link: '/service-details/municipal-engineering',
+        time: '26 Minutes',
+        link: '/service-details/birth-registration',
+        hidden: false,
       },
       {
-        id: 'fence-permit',
-        title: 'Fencing Permit',
-        icon: 'bi-bounding-box',
-        description: 'Permit for fence construction',
+        id: 'marriage-license',
+        title: 'Marriage License',
+        icon: 'bi-suit-heart',
+        description: 'Required application before getting married',
+        fee: '₱427 - ₱757',
+        time: '10 Days',
+        link: '/service-details/marriage-license',
+        hidden: false,
+      },
+
+      {
+        id: 'death-registration',
+        title: 'Death Registration',
+        icon: 'bi-file-person',
+        description: 'Timely or late registration of death',
+        fee: '₱285 - ₱505',
+        time: '26 Minutes',
+        link: '/service-details/death-registration',
+      },
+      {
+        id: 'late-marriage-registration',
+        title: 'Late Marriage Reg.',
+        icon: 'bi-clock-history',
+        description: 'Register an unregistered marriage',
+        fee: '₱500.00',
+        time: '26 Mins',
+        link: '/service-details/late-marriage-registration',
+      },
+      {
+        id: 'correction-clerical-error',
+        title: 'Correct Clerical Error',
+        icon: 'bi-eraser',
+        description: 'Fix minor typos in your certificates (RA 9048)',
+        fee: '₱1,400.00',
+        time: '5-6 Months',
+        link: '/service-details/correction-clerical-error',
+      },
+      {
+        id: 'correction-sex-dob-name',
+        title: 'Change Name / Sex / DOB',
+        icon: 'bi-person-gear',
+        description: 'Legal change of first name, sex, or DOB',
+        fee: '₱6,400.00',
+        time: '5-6 Months',
+        link: '/service-details/correction-sex-dob-name',
+      },
+      {
+        id: 'legitimation-ausf',
+        title: 'Legitimation & AUSF',
+        icon: 'bi-people',
+        description: 'Legalize child surname use (RA 9255)',
         fee: 'Varies',
-        time: '3-5 days',
-        link: '/service-details/municipal-engineering',
+        time: '45 Minutes',
+        link: '/service-details/legitimation-ausf',
       },
       {
-        id: 'excavation',
-        title: 'Excavation Permit',
-        icon: 'bi-cone-striped',
-        description: 'Permit for road/land excavation',
-        fee: 'Varies',
-        time: '3-5 days',
-        link: '/service-details/municipal-engineering',
+        id: 'supplemental-report',
+        title: 'Supplemental Report',
+        icon: 'bi-file-plus',
+        description: 'Fill in blank or missing document entries',
+        fee: '₱460.00',
+        time: '40 Minutes',
+        link: '/service-details/supplemental-report',
       },
       {
-        id: 'occupancy',
-        title: 'Occupancy Permit',
-        icon: 'bi-house-check',
-        description: 'Certificate of occupancy for completed buildings',
-        fee: 'Varies',
-        time: '3-5 days',
-        link: '/service-details/municipal-engineering',
+        id: 'certified-true-copy-lcr',
+        title: 'Certified True Copy',
+        icon: 'bi-printer',
+        description: 'Get LGU-certified copies of civil documents',
+        fee: '₱105.00/copy',
+        time: '26 Minutes',
+        link: '/service-details/certified-true-copy-lcr',
+      },
+
+    ],
+    offices: [
+      {
+        title: 'Local Civil Registrar (LCR)',
+        icon: 'bi-folder-check',
+        description: 'Management of all civil registry documents',
+        link: '/offices/lcr',
+      },
+    ],
+  },
+
+  /**
+   * ? MARK: Municipal Assessor
+   */
+  {
+    id: 'assessor',
+    name: 'Property & Assessor',
+    icon: 'ri-map-2-line',
+    badgeText: 'Property & Taxes',
+    description: 'Property assessment, tax declarations, and digitized tax maps',
+    hidden: false,
+    services: [
+      {
+        id: 'assessment-of-building',
+        title: 'Building Assessment',
+        icon: 'bi-house-add',
+        description: 'Declare newly built or renovated structures',
+        fee: '₱300.00 Base',
+        time: 'Subject to schedule',
+        link: '/service-details/assessment-of-building',
+        hidden: false,
       },
       {
-        id: 'road-maintenance',
-        title: 'Road Maintenance Request',
-        icon: 'bi-signpost-2',
-        description: 'Request for road repair and maintenance',
-        fee: 'Free',
-        time: 'Varies',
-        link: '/service-details/municipal-engineering',
-      },
-      {
-        id: 'zoning',
-        title: 'Zoning Clearance',
-        icon: 'bi-map',
-        description: 'Land use and zoning compliance certificate',
-        fee: '₱100-500',
-        time: '3-5 days',
-        link: '/service-details/municipal-planning',
+        id: 'assessor-certifications',
+        title: 'Certifications & Maps',
+        icon: 'bi-files',
+        description: 'Get Tax Decs, tracebacks, and tax maps',
+        fee: '₱50 - ₱400',
+        time: 'Same Day',
+        link: '/service-details/assessor-certifications',
+        hidden: false,
       },
     ],
     offices: [
       {
-        title: 'Municipal Engineering Office',
+        title: 'Municipal Assessor\'s Office',
+        icon: 'bi-building',
+        description: 'Management of real property records and appraisals',
+        link: '/offices/assessor',
+      },
+    ],
+  },
+
+  /**
+   * ? MARK: Infrastructure
+   */
+  {
+    id: 'infrastructure',
+    name: 'Infrastructure',
+    icon: 'ri-building-4-line',
+    badgeText: 'Infrastructure',
+    description:
+      'Construction permits, road maintenance requests, and public facilities',
+    hidden: false,
+    services: [
+      {
+        id: 'construction-permit-guide',
+        title: 'Construction Permit Guide',
+        icon: 'bi-journal-text',
+        description: 'Step-by-step roadmap for securing infrastructure and construction permits',
+        fee: 'Free Guide',
+        time: '5 min read',
+        link: '/service-details/construction-permit-guide',
+        hidden: false,
+      },
+      {
+        id: 'fencing-permit',
+        title: 'Fencing Permit',
+        icon: 'bi-bounding-box',
+        description: 'Permit for fence construction to secure your lot',
+        fee: '₱500 Base Fee',
+        time: '5 Working Days',
+        link: '/service-details/fencing-permit',
+        hidden: false,
+      },
+      {
+        id: 'building-permit-new',
+        title: 'Building Permit',
+        icon: 'bi-building',
+        description: 'Permit for construction or renovation of buildings',
+        fee: 'Computed per sq.m.',
+        time: '15 Working Days',
+        link: '/service-details/building-permit-new',
+        hidden: false,
+      },
+      {
+        id: 'electrical-permit',
+        title: 'Electrical Permit (CEI)',
+        icon: 'bi-lightning-charge',
+        description: 'For new Meralco connection, reconnection, or upgrades',
+        fee: 'Varies by Load',
+        time: '2 Working Days',
+        link: '/service-details/electrical-permit',
+        hidden: false,
+      },
+      {
+        id: 'occupancy-permit',
+        title: 'Occupancy Permit',
+        icon: 'bi-house-check',
+        description: 'Final clearance to legally occupy your new building',
+        fee: '₱2,020.00',
+        time: '7 Working Days',
+        link: '/service-details/occupancy-permit',
+        hidden: false,
+      },
+      {
+        id: 'annual-inspection-certificate',
+        title: 'Annual Inspection Certificate',
+        icon: 'bi-shield-check',
+        description: 'Mandatory yearly safety clearance for commercial buildings and businesses',
+        fee: '₱980.00',
+        time: '25 Minutes',
+        link: '/service-details/annual-inspection-certificate',
+        hidden: false,
+      },
+    ],
+    offices: [
+      {
+        title: 'Office of the Building Official (OBO)',
         icon: 'bi-building-gear',
         description: 'Building permits, construction, and infrastructure',
-        link: '/service-details/municipal-engineering',
+        link: '/offices/obo',
       },
       {
         title: 'Municipal Planning & Development',
         icon: 'bi-clipboard-data',
         description: 'Zoning, land use, and development planning',
-        link: '/service-details/municipal-planning',
+        link: '/offices/mpdc',
+        hidden: true,
       },
     ],
   },
+
   {
     id: 'education',
     name: 'Education & Scholarship',

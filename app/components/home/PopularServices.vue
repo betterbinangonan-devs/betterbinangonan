@@ -1,122 +1,60 @@
 <script setup lang="ts">
 import { useLanguage } from '@/composables/useLanguage'
-
-interface ServiceCard {
-  href: string
-  icon: string
-  titleKey: string
-  descKey: string
-  isViewAll?: boolean
-  hidden?: boolean
-}
+import { categoriesContent } from '@/utils/categoriesContent'
 
 const { translate } = useLanguage()
 
-const services: ServiceCard[] = [
-  {
-    href: '/services/certificates',
-    icon: 'bi-file-earmark-text-fill',
-    titleKey: 'service-certificates',
-    descKey: 'service-certificates-desc',
-  },
-  {
-    href: '/services/business',
-    icon: 'bi-shop',
-    titleKey: 'service-business',
-    descKey: 'service-business-desc',
-  },
-  {
-    href: '/services/tax-payments',
-    icon: 'bi-cash-coin',
-    titleKey: 'service-tax',
-    descKey: 'service-tax-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/social-services',
-    icon: 'bi-people-fill',
-    titleKey: 'service-social',
-    descKey: 'service-social-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/health',
-    icon: 'bi-heart-pulse-fill',
-    titleKey: 'service-health',
-    descKey: 'service-health-desc',
-    hidden: true,
-  },
-  {
-    href: '/services',
-    icon: 'bi-grid-fill',
-    titleKey: 'btn-view-all-services',
-    descKey: '',
-    isViewAll: true,
-  },
-]
+const services = categoriesContent
+  .filter(cat => !cat.hidden)
+  .map(cat => ({
+    href: `/services/${cat.id}`,
+    icon: cat.icon,
+    title: cat.name,
+    description: cat.description,
+  }))
 </script>
 
 <template>
   <section class="py-12">
     <div class="container mx-auto px-4">
-      <!-- Section Header -->
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">
-          {{ translate('section-popular') }}
-        </h2>
-        <p class="text-gray-500">
-          Quick access to frequently requested municipal services
-        </p>
+      <!-- ? MARK: Section Header -->
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            {{ translate('section-popular') }}
+          </h2>
+          <p class="mt-1 max-w-xl text-base leading-relaxed text-gray-600">
+            Quick access to frequently requested municipal services.
+          </p>
+        </div>
+
+        <NuxtLink to="/services" class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:gap-3 hover:text-primary-700">
+          View all services
+          <i class="bi bi-arrow-right text-xs" />
+        </NuxtLink>
       </div>
 
-      <!-- Services Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UiCard
-          v-for="service in services.filter(service => !service.hidden)"
-          :key="service.href + service.titleKey"
+      <!-- ? MARK: Services List -->
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <NuxtLink
+          v-for="service in services"
+          :key="service.href"
           :to="service.href"
-          interactive
-          class="group flex items-center gap-4"
-          :class="service.isViewAll
-            ? '!bg-primary-600 !border-transparent text-white'
-            : 'text-gray-800'"
+          class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-primary-200 hover:bg-primary-50/30"
         >
-          <!-- Icon -->
-          <div
-            class="w-12 h-12 flex items-center justify-center rounded-lg text-xl shrink-0"
-            :class="service.isViewAll
-              ? 'bg-white/20 text-white'
-              : 'bg-gray-100 text-primary-600'"
-          >
-            <i class="bi" :class="[service.icon]" />
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-lg text-primary-600">
+            <i :class="service.icon" />
           </div>
 
-          <!-- Content -->
-          <div class="flex-1 min-w-0">
-            <h3
-              class="text-base font-semibold m-0 mb-1"
-              :class="service.isViewAll ? 'text-white' : 'text-gray-900'"
-            >
-              {{ translate(service.titleKey) }}
+          <div class="min-w-0 flex-1">
+            <h3 class="font-semibold text-gray-900 group-hover:text-primary-700">
+              {{ service.title }}
             </h3>
-            <p
-              v-if="service.descKey"
-              class="text-[0.8125rem] m-0"
-              :class="service.isViewAll ? 'text-white/80' : 'text-gray-500'"
-            >
-              {{ translate(service.descKey) }}
-            </p>
-            <p v-if="service.isViewAll" class="text-[0.8125rem] m-0 text-white/80">
-              Browse complete directory
+            <p class="mt-1 text-sm leading-relaxed text-gray-500">
+              {{ service.description }}
             </p>
           </div>
-
-          <!-- Arrow -->
-          <i
-            class="bi bi-arrow-right transition-all duration-200 opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
-            :class="service.isViewAll ? 'text-white' : 'text-gray-400'"
-          />
-        </UiCard>
+        </NuxtLink>
       </div>
     </div>
   </section>

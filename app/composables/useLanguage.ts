@@ -3,6 +3,8 @@ import { useConfig } from './useConfig'
 
 // Base translations
 const baseTranslations: Record<string, Record<string, string>> = {
+
+  // MARK: EN - English
   en: {
     // Navigation
     'nav-home': 'Home',
@@ -15,6 +17,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-contact': 'Contact',
     'nav-budget': 'Budget',
     'nav-sitemap': 'Sitemap',
+    'nav-dpwh-lang': 'DPWH Projects',
 
     // Hero Section
     'hero-welcome': 'with Better{{lguNameDomain}}.org',
@@ -135,6 +138,8 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'footer-terms': 'Terms of Use',
     'accessibility-statement': 'Accessibility Statement',
   },
+
+  // MARK: FIL - Filipino
   fil: {
     // Navigation - Filipino
     'nav-home': 'Tahanan',
@@ -147,6 +152,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-contact': 'Makipag-ugnayan',
     'nav-budget': 'Badyet',
     'nav-sitemap': 'Mapa ng Site',
+    'nav-dpwh-lang': 'DPWH Projects',
 
     // Hero Section
     'hero-welcome': 'Maligayang Pagdating sa Better{{lguNameDomain}}.org',
@@ -269,6 +275,8 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'footer-terms': 'Mga Tuntunin ng Paggamit',
     'accessibility-statement': 'Pahayag ng Aksesibilidad',
   },
+
+  // MARK: ILO - Ilocano
   ilo: {
     // Navigation - Ilocano
     'nav-home': 'Pagtaengan',
@@ -281,6 +289,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-contact': 'Kontaken',
     'nav-budget': 'Badyet',
     'nav-sitemap': 'Mapa ti Site',
+    'nav-dpwh-lang': 'DPWH Projects',
 
     // Hero Section
     'hero-welcome': 'Naragsak nga Isasangbay iti Better{{lguNameDomain}}.org',
