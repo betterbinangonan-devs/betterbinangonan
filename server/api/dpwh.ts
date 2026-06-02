@@ -1,6 +1,23 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import process from 'node:process'
+
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
 
+  // dev: local static JSON
+  if (process.env.NODE_ENV === 'development') {
+    const filePath = join(process.cwd(), 'public/data/dpwh-projects.json')
+    const raw = readFileSync(filePath, 'utf-8')
+    const json = JSON.parse(raw)
+
+    json.data.pagination.totalPages = 1
+    json.data.pagination.hasNext = false
+
+    return json
+  }
+
+  // production: real API
   return await $fetch('https://api.transparency.dpwh.gov.ph/projects', {
     params: {
       page: query.page ?? 1,

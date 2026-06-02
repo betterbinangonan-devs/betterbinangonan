@@ -110,8 +110,8 @@
     {
       "id": "dpwh",
       "label": "DPWH",
-      "href": "/dpwh-infrastructure",
-      "i18nKey": "dpwh"
+      "href": "/dpwh-projects",
+      "i18nKey": "nav-dpwh-lang"
     },
     {
       "id": "tourism",

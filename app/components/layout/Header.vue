@@ -173,7 +173,7 @@ const logoPath = computed(() => {
                     ? 'text-gray-700 hover:text-primary-600 border-transparent'
                     : 'text-white/85 hover:text-white border-transparent'"
               >
-                {{ translate(`nav-${item.label.toLowerCase()}`, { defaultValue: item.label }) }}
+                {{ translate(item.i18nKey || `nav-${item.label.toLowerCase()}`, { defaultValue: item.label }) }}
 
                 <ChevronDown
                   v-if="item.children" class="ml-1 h-4 w-4 transition-colors duration-200" :class="isActiveRoute(route.path, item.href)
@@ -243,7 +243,7 @@ const logoPath = computed(() => {
               : 'text-gray-700 hover:bg-gray-50 hover:text-primary-500'" @click="toggleSubmenu(item.label)"
           >
             <div class="flex items-center w-full">
-              {{ translate(`nav-${item.label.toLowerCase()}`, { defaultValue: item.label }) }}
+              {{ translate(item.i18nKey || `nav-${item.label.toLowerCase()}`, { defaultValue: item.label }) }}
             </div>
             <ChevronDown
               class="h-5 w-5 transition-transform" :class="[
@@ -258,7 +258,7 @@ const logoPath = computed(() => {
               : 'text-gray-700 hover:bg-gray-50 hover:text-primary-500'" @click="toggleMenu()"
           >
             <div class="flex items-center w-full">
-              {{ translate(`nav-${item.label.toLowerCase()}`, { defaultValue: item.label }) }}
+              {{ translate(item.i18nKey || `nav-${item.label.toLowerCase()}`, { defaultValue: item.label }) }}
             </div>
           </NuxtLink>
           <div v-if="item.children && activeMenu === item.label" class="pl-6 py-2 space-y-1 bg-gray-50">

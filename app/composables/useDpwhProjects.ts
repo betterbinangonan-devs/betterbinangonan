@@ -1,3 +1,4 @@
+// app\composables\useDpwhProjects.ts
 export interface DpwhProject {
   contractId: string
   description: string
@@ -7,10 +8,7 @@ export interface DpwhProject {
   budget: number
   amountPaid: number
   progress: number
-  location: {
-    province: string
-    region: string
-  }
+  location: { province: string, region: string }
   contractor: string
   startDate: string
   completionDate: string | null
@@ -45,41 +43,101 @@ export interface DpwhResponse {
   }
 }
 
+const PAGE_SIZE = 10
+
 export function useDpwhProjects() {
   const selectedCategory = ref('')
   const selectedStatus = ref('')
   const selectedYear = ref('')
-  const page = ref(1)
+  const search = ref('')
+  const currentPage = ref(1)
 
-  const { data, pending, error, refresh } = useAsyncData(
-    'dpwh-projects',
-    () => $fetch<{ status: number, data: DpwhResponse }>('/api/dpwh', {
-      params: { page: page.value },
-    }),
-    { watch: [page] },
-  )
+  const allProjects = ref<DpwhProject[]>([])
+  const summary = ref<DpwhSummary | null>(null)
+  const pending = ref(true)
+  const error = ref<string | null>(null)
 
-  const projects = computed(() => data.value?.data?.data ?? [])
-  const summary = computed(() => data.value?.data?.summary ?? null)
-  const totalPages = computed(() => data.value?.data?.pagination?.totalPages ?? 1)
+  async function loadAll() {
+    pending.value = true
+    error.value = null
+    try {
+      const first = await $fetch<{ status: number, data: DpwhResponse }>('/api/dpwh', {
+        params: { page: 1 },
+      })
+
+      const apiTotalPages = first.data?.pagination?.totalPages ?? 1
+      summary.value = first.data?.summary ?? null
+
+      const collected: DpwhProject[] = [...(first.data?.data ?? [])]
+
+      if (apiTotalPages > 1) {
+        const rest = await Promise.all(
+          Array.from({ length: apiTotalPages - 1 }, (_, i) =>
+            $fetch<{ status: number, data: DpwhResponse }>('/api/dpwh', {
+              params: { page: i + 2 },
+            })),
+        )
+        rest.forEach(r => collected.push(...(r.data?.data ?? [])))
+      }
+
+      allProjects.value = collected
+    }
+    catch (e) {
+      error.value = 'Failed to load projects.'
+      console.error(e)
+    }
+    finally {
+      pending.value = false
+    }
+  }
+
+  if (import.meta.client) {
+    onMounted(() => loadAll())
+  }
+  else {
+    loadAll()
+  }
 
   const categories = computed(() => {
-    const cats = new Set(projects.value.map(p => p.category))
+    const cats = new Set(allProjects.value.map(p => p.category))
     return ['', ...Array.from(cats)].map(c => ({ label: c || 'All Categories', value: c }))
   })
 
   const years = computed(() => {
-    const yrs = new Set(projects.value.map(p => p.infraYear))
-    return ['', ...Array.from(yrs).sort((a, b) => Number(b) - Number(a))].map(y => ({ label: y || 'All Years', value: y }))
+    const yrs = new Set(allProjects.value.map(p => p.infraYear))
+    return ['', ...Array.from(yrs).sort((a, b) => Number(b) - Number(a))].map(y => ({
+      label: y || 'All Years',
+      value: y,
+    }))
   })
 
   const filteredProjects = computed(() => {
-    return projects.value.filter((p) => {
+    const q = search.value.toLowerCase()
+    return allProjects.value.filter((p) => {
+      const matchSearch = q
+        ? p.description.toLowerCase().includes(q)
+        || p.contractor.toLowerCase().includes(q)
+        || p.contractId.toLowerCase().includes(q)
+        : true
       const matchCategory = selectedCategory.value ? p.category === selectedCategory.value : true
       const matchStatus = selectedStatus.value ? p.status === selectedStatus.value : true
       const matchYear = selectedYear.value ? p.infraYear === selectedYear.value : true
-      return matchCategory && matchStatus && matchYear
+      return matchSearch && matchCategory && matchStatus && matchYear
     })
+  })
+
+  const totalPages = computed(() => {
+    const len = filteredProjects.value.length
+    return len > 0 ? Math.ceil(len / PAGE_SIZE) : 0
+  })
+
+  const paginatedProjects = computed(() => {
+    const start = (currentPage.value - 1) * PAGE_SIZE
+    return filteredProjects.value.slice(start, start + PAGE_SIZE)
+  })
+
+  watch([search, selectedCategory, selectedStatus, selectedYear], () => {
+    currentPage.value = 1
   })
 
   function formatBudget(amount: number) {
@@ -92,18 +150,18 @@ export function useDpwhProjects() {
 
   function getStatusColor(status: string) {
     if (status === 'Completed')
-      return 'text-green-600 bg-green-50'
+      return 'text-green-700 bg-green-50'
     if (status === 'On-Going')
-      return 'text-blue-600 bg-blue-50'
+      return 'text-blue-700 bg-blue-50'
     if (status === 'For Procurement')
-      return 'text-yellow-600 bg-yellow-50'
+      return 'text-yellow-700 bg-yellow-50'
     return 'text-gray-600 bg-gray-50'
   }
 
   function getCategoryIcon(category: string) {
     const icons: Record<string, string> = {
       'Roads': 'ri-road-map-line',
-      'Bridges': 'ri-bridge-line',
+      'Bridges': 'ri-road-map-line',
       'Buildings and Facilities': 'ri-building-line',
       'Flood Control and Drainage': 'ri-flood-line',
       'Water Provision and Storage': 'ri-water-flash-line',
@@ -112,19 +170,20 @@ export function useDpwhProjects() {
   }
 
   return {
-    projects,
+    paginatedProjects,
     filteredProjects,
     summary,
     pending,
     error,
-    page,
+    search,
+    currentPage,
     totalPages,
     selectedCategory,
     selectedStatus,
     selectedYear,
     categories,
     years,
-    refresh,
+    refresh: loadAll,
     formatBudget,
     getStatusColor,
     getCategoryIcon,
