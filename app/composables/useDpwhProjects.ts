@@ -61,7 +61,7 @@ export function useDpwhProjects() {
     pending.value = true
     error.value = null
     try {
-      const first = await $fetch<{ status: number, data: DpwhResponse }>('/api/dpwh', {
+      const first = await $fetch<{ status: number, data: DpwhResponse }>('/api/get-dpwh-transparency-api', {
         params: { page: 1 },
       })
 
@@ -73,7 +73,7 @@ export function useDpwhProjects() {
       if (apiTotalPages > 1) {
         const rest = await Promise.all(
           Array.from({ length: apiTotalPages - 1 }, (_, i) =>
-            $fetch<{ status: number, data: DpwhResponse }>('/api/dpwh', {
+            $fetch<{ status: number, data: DpwhResponse }>('/api/get-dpwh-transparency-api', {
               params: { page: i + 2 },
             })),
         )
@@ -111,13 +111,13 @@ export function useDpwhProjects() {
     }))
   })
 
-  const filteredProjects = computed(() => {
+  const filteredProjects = computed<DpwhProject[]>(() => {
     const q = search.value.toLowerCase()
     return allProjects.value.filter((p) => {
       const matchSearch = q
-        ? p.description.toLowerCase().includes(q)
-        || p.contractor.toLowerCase().includes(q)
-        || p.contractId.toLowerCase().includes(q)
+        ? (p.description ?? '').toLowerCase().includes(q)
+        || (p.contractor ?? '').toLowerCase().includes(q)
+        || (p.contractId ?? '').toLowerCase().includes(q)
         : true
       const matchCategory = selectedCategory.value ? p.category === selectedCategory.value : true
       const matchStatus = selectedStatus.value ? p.status === selectedStatus.value : true
@@ -131,7 +131,7 @@ export function useDpwhProjects() {
     return len > 0 ? Math.ceil(len / PAGE_SIZE) : 0
   })
 
-  const paginatedProjects = computed(() => {
+  const paginatedProjects = computed<DpwhProject[]>(() => {
     const start = (currentPage.value - 1) * PAGE_SIZE
     return filteredProjects.value.slice(start, start + PAGE_SIZE)
   })

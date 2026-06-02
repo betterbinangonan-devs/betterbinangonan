@@ -126,7 +126,7 @@ watch(visibleItems, () => {
 
           <div class="flex items-center gap-2">
             <button v-if="showBackToTop" type="button" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-primary-600 transition hover:bg-gray-50 hover:text-primary-700" aria-label="Back to top" @click="scrollToTop">
-              <i class="bi bi-arrow-up-short text-2xl" />
+              <i class="ri-arrow-up-s-line text-2xl" />
             </button>
 
             <button type="button" class="flex min-w-0 flex-1 items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-bold text-gray-800 transition hover:bg-gray-50" @click="isMobileTocOpen = !isMobileTocOpen">
