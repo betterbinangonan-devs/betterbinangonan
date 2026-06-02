@@ -1,59 +1,17 @@
 <script setup lang="ts">
 import { useLanguage } from '@/composables/useLanguage'
-
-interface ServiceCard {
-  href: string
-  icon: string
-  titleKey: string
-  descKey: string
-  isViewAll?: boolean
-  hidden?: boolean
-}
+import { categoriesContent } from '@/utils/categoriesContent'
 
 const { translate } = useLanguage()
 
-const services: ServiceCard[] = [
-  {
-    href: '/services/certificates',
-    icon: 'bi-file-earmark-text-fill',
-    titleKey: 'service-certificates',
-    descKey: 'service-certificates-desc',
-  },
-  {
-    href: '/services/business',
-    icon: 'bi-shop',
-    titleKey: 'service-business',
-    descKey: 'service-business-desc',
-  },
-  {
-    href: '/services/tax-payments',
-    icon: 'bi-cash-coin',
-    titleKey: 'service-tax',
-    descKey: 'service-tax-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/social-services',
-    icon: 'bi-people-fill',
-    titleKey: 'service-social',
-    descKey: 'service-social-desc',
-    hidden: true,
-  },
-  {
-    href: '/services/health',
-    icon: 'bi-heart-pulse-fill',
-    titleKey: 'service-health',
-    descKey: 'service-health-desc',
-    hidden: true,
-  },
-  {
-    href: '/services',
-    icon: 'bi-grid-fill',
-    titleKey: 'btn-view-all-services',
-    descKey: '',
-    isViewAll: true,
-  },
-]
+const services = categoriesContent
+  .filter(cat => !cat.hidden)
+  .map(cat => ({
+    href: `/services/${cat.id}`,
+    icon: cat.icon,
+    title: cat.name,
+    description: cat.description,
+  }))
 </script>
 
 <template>
@@ -65,7 +23,6 @@ const services: ServiceCard[] = [
           <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             {{ translate('section-popular') }}
           </h2>
-
           <p class="mt-1 max-w-xl text-base leading-relaxed text-gray-600">
             Quick access to frequently requested municipal services.
           </p>
@@ -77,36 +34,25 @@ const services: ServiceCard[] = [
         </NuxtLink>
       </div>
 
-      <!-- ? MARK: Services Grid -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <NuxtLink v-for="service in services.filter(service => !service.hidden && !service.isViewAll)" :key="service.href + service.titleKey" :to="service.href" class="group rounded-2xl border border-gray-200 bg-white p-5 text-gray-800 transition hover:border-primary-300 hover:bg-primary-50/50">
-          <div class="flex items-start gap-4">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-xl text-primary-600 transition group-hover:scale-105 group-hover:bg-primary-600 group-hover:text-white">
-              <i class="bi" :class="[service.icon]" />
-            </div>
+      <!-- ? MARK: Services List -->
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <NuxtLink
+          v-for="service in services"
+          :key="service.href"
+          :to="service.href"
+          class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-primary-200 hover:bg-primary-50/30"
+        >
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-lg text-primary-600">
+            <i :class="service.icon" />
+          </div>
 
-            <div class="min-w-0 flex-1">
-              <div class="flex items-start justify-between gap-4">
-                <div class="min-w-0">
-                  <h3 class="font-semibold text-gray-900 transition group-hover:text-primary-700">
-                    {{ translate(service.titleKey) }}
-                  </h3>
-
-                  <p v-if="service.descKey" class="mt-1 text-sm leading-relaxed text-gray-600">
-                    {{ translate(service.descKey) }}
-                  </p>
-                </div>
-
-                <!-- <i class="bi bi-arrow-right shrink-0 text-sm text-gray-300 transition group-hover:text-primary-600" /> -->
-              </div>
-
-              <div class="mt-4">
-                <span class="inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
-                  View services
-                  <i class="bi bi-arrow-right text-xs" />
-                </span>
-              </div>
-            </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-semibold text-gray-900 group-hover:text-primary-700">
+              {{ service.title }}
+            </h3>
+            <p class="mt-1 text-sm leading-relaxed text-gray-500">
+              {{ service.description }}
+            </p>
           </div>
         </NuxtLink>
       </div>

@@ -3,20 +3,20 @@ import { Doughnut } from 'vue-chartjs'
 
 const data = {
   labels: [
-    'B. F. International Village',
-    'Manuyo Dos',
-    'Talon Dos',
-    'Talon Uno',
-    'Talon Singko',
-    'Pamplona Tres',
-    'Pulang Lupa Uno',
-    'Almanza Dos',
-    'Almanza Uno',
-    'Talon Tres',
+    'Kalawaan',
+    'Calumpang',
+    'Bilibiran',
+    'Pag-Asa',
+    'Pantok',
+    'Palangoy',
+    'Tatala',
+    'Tagpos',
+    'Batingan',
+    'San Carlos',
   ],
   datasets: [
     {
-      data: [80621, 51459, 44452, 42677, 42013, 37234, 36908, 36679, 33683, 33192],
+      data: [39979, 21095, 19911, 19387, 18431, 18060, 17625, 16161, 16280, 14090],
       backgroundColor: [
         '#0032a0',
         '#F77F00',

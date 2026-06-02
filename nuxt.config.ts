@@ -57,7 +57,7 @@ export default defineNuxtConfig({
   ogImage: {
     enabled: true,
   },
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', 'remixicon/fonts/remixicon.css'],
   modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image'],
   runtimeConfig: {
     public: {

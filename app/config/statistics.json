@@ -17,7 +17,7 @@
   "incomeClass": {
     "class": "1st Class",
     "description": "Municipality",
-    "source": "Income Classification"
+    "source": "BLGF Income Classification"
   },
   "additionalStats": []
 }

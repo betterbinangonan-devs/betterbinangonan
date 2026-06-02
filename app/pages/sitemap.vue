@@ -83,7 +83,7 @@ const sections = computed<SitemapSection[]>(() => [
       {
         href: '/service-details/municipal-engineering',
         label: 'Engineering Office',
-        hidden: true,
+        hidden: false,
       },
       {
         href: '/service-details/municipal-planning',

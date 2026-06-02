@@ -1,12 +1,14 @@
 {
   "$schema": "./schema/navigation.schema.json",
   "mainNav": [
+
     {
       "id": "home",
       "label": "Home",
       "href": "/",
       "i18nKey": "nav-home"
     },
+
     {
       "id": "services",
       "label": "Services",
@@ -14,16 +16,32 @@
       "i18nKey": "nav-services",
       "children": [
         {
-          "id": "certificates",
-          "label": "Certificates",
-          "href": "/services/certificates",
-          "i18nKey": "service-certificates"
+          "id": "civil-registry",
+          "label": "Civil Registry",
+          "href": "/services/civil-registry",
+          "i18nKey": "service-civil-registry",
+          "hidden": false
         },
         {
           "id": "business",
           "label": "Business",
           "href": "/services/business",
-          "i18nKey": "service-business"
+          "i18nKey": "service-business",
+          "hidden": false
+        },
+        {
+          "id": "assessor",
+          "label": "Assessor",
+          "href": "/services/assessor",
+          "i18nKey": "service-assessor",
+          "hidden": false
+        },
+        {
+          "id": "infrastructure",
+          "label": "Infrastructure",
+          "href": "/services/infrastructure",
+          "i18nKey": "cat-infrastructure",
+          "hidden": false
         },
         {
           "id": "tax-payments",
@@ -54,13 +72,6 @@
           "hidden": true
         },
         {
-          "id": "infrastructure",
-          "label": "Infrastructure",
-          "href": "/services/infrastructure",
-          "i18nKey": "cat-infrastructure",
-          "hidden": true
-        },
-        {
           "id": "education",
           "label": "Education",
           "href": "/services/education",
@@ -83,6 +94,7 @@
         }
       ]
     },
+
     {
       "id": "government",
       "label": "Government",
@@ -94,6 +106,12 @@
       "label": "Statistics",
       "href": "/statistics",
       "i18nKey": "nav-statistics"
+    },
+    {
+      "id": "dpwh",
+      "label": "DPWH",
+      "href": "/dpwh-infrastructure",
+      "i18nKey": "dpwh"
     },
     {
       "id": "tourism",
