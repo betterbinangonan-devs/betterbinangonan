@@ -363,6 +363,7 @@ export interface NavigationItem {
   label: string
   href: string
   icon?: string
+  i18nKey?: string
   description?: string
   hidden?: boolean
   children?: NavigationItem[]
