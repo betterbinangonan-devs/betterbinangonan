@@ -160,7 +160,7 @@
     "twitterCard": "summary",
     "hidden": false
   },
-  "dpwh-infrastructure": {
+  "dpwh-projects": {
     "titleFragment": "DPWH Infrastructure Projects",
     "description": "National government infrastructure projects in {{lguName}} implemented by the Department of Public Works and Highways.",
     "ogType": "website",
