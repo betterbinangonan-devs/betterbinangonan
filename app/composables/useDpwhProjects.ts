@@ -46,6 +46,8 @@ export interface DpwhResponse {
 const PAGE_SIZE = 10
 
 export function useDpwhProjects() {
+  const { site } = useConfig()
+
   const selectedCategory = ref('')
   const selectedStatus = ref('')
   const selectedYear = ref('')
@@ -61,8 +63,11 @@ export function useDpwhProjects() {
     pending.value = true
     error.value = null
     try {
+      const municipality = site.value.municipality
+      const province = site.value.province.toUpperCase()
+
       const first = await $fetch<{ status: number, data: DpwhResponse }>('/api/get-dpwh-transparency-api', {
-        params: { page: 1 },
+        params: { page: 1, municipality, province },
       })
 
       const apiTotalPages = first.data?.pagination?.totalPages ?? 1
@@ -74,7 +79,7 @@ export function useDpwhProjects() {
         const rest = await Promise.all(
           Array.from({ length: apiTotalPages - 1 }, (_, i) =>
             $fetch<{ status: number, data: DpwhResponse }>('/api/get-dpwh-transparency-api', {
-              params: { page: i + 2 },
+              params: { page: i + 2, municipality, province },
             })),
         )
         rest.forEach(r => collected.push(...(r.data?.data ?? [])))
