@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useLanguage } from '@/composables/useLanguage'
-import { categoriesContent } from '@/utils/categoriesContent'
+import { serviceCategoriesContent } from '@/utils/serviceCategoriesContent'
 
 const { translate } = useLanguage()
 
-const services = categoriesContent
+const services = serviceCategoriesContent
   .filter(cat => !cat.hidden)
   .map(cat => ({
     href: `/services/${cat.id}`,
@@ -30,7 +30,7 @@ const services = categoriesContent
 
         <NuxtLink to="/services" class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 transition hover:gap-3 hover:text-primary-700">
           View all services
-          <i class="bi bi-arrow-right text-xs" />
+          <i class="ri-arrow-right-wide-fill" />
         </NuxtLink>
       </div>
 

@@ -1,287 +1,301 @@
 <!-- app\pages\privacy.vue -->
-
 <script setup lang="ts">
 const { getSiteTitle, getVolunteerEmail } = useConfig()
 const siteTitle = computed(() => getSiteTitle())
 const volunteerEmail = computed(() => getVolunteerEmail())
 
-const sections = [
-  { id: 'introduction', title: 'Introduction' },
-  { id: 'legal-basis', title: 'Legal Basis' },
-  { id: 'information-collected', title: 'Information We Collect' },
-  { id: 'how-we-use', title: 'How We Use Information' },
-  { id: 'cookies', title: 'Cookies & Analytics' },
-  { id: 'data-sharing', title: 'Data Sharing' },
-  { id: 'data-security', title: 'Data Security' },
-  { id: 'data-retention', title: 'Data Retention' },
-  { id: 'your-rights', title: 'Your Rights' },
-  { id: 'childrens-privacy', title: 'Children\'s Privacy' },
-  { id: 'third-party', title: 'Third-Party Links' },
-  { id: 'changes', title: 'Policy Changes' },
-  { id: 'contact', title: 'Contact Us' },
+const tocItems = [
+  { id: 'introduction', label: 'Introduction', visible: true },
+  { id: 'legal-basis', label: 'Legal Basis', visible: true },
+  { id: 'information-collected', label: 'Information We Collect', visible: true },
+  { id: 'how-we-use', label: 'How We Use Information', visible: true },
+  { id: 'cookies', label: 'Cookies & Analytics', visible: true },
+  { id: 'data-sharing', label: 'Data Sharing', visible: true },
+  { id: 'data-security', label: 'Data Security', visible: true },
+  { id: 'data-retention', label: 'Data Retention', visible: true },
+  { id: 'your-rights', label: 'Your Rights', visible: true },
+  { id: 'childrens-privacy', label: 'Children\'s Privacy', visible: true },
+  { id: 'third-party', label: 'Third-Party Links', visible: true },
+  { id: 'changes', label: 'Policy Changes', visible: true },
+  { id: 'contact', label: 'Contact Us', visible: true },
 ]
 </script>
 
 <template>
   <div>
-    <UiPageHero badge-icon="bi-shield-lock" badge-text="Privacy" title="Privacy Policy" description="How we collect, use, and protect your information" :breadcrumbs="[{ label: 'Privacy Policy' }]" />
+    <UiPageHero badge-icon="ri-shield-keyhole-line" badge-text="Privacy" title="Privacy Policy" description="How we collect, use, and protect your information" :breadcrumbs="[{ label: 'Privacy Policy' }]" />
 
-    <!-- Content -->
-    <section class="py-12">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col lg:flex-row gap-8">
-          <!-- Table of Contents -->
-          <aside class="lg:w-64 shrink-0">
-            <UiCard class="sticky top-24" padding="p-6">
-              <h4 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <i class="bi bi-list-ul" /> Contents
-              </h4>
-              <nav class="space-y-2 text-sm">
-                <a v-for="section in sections" :key="section.id" :href="`#${section.id}`" class="block text-gray-600 hover:text-primary-600 transition-colors">
-                  {{ section.title }}
-                </a>
-              </nav>
-            </UiCard>
-          </aside>
+    <UiPageWithToc :items="tocItems">
+      <section id="introduction" class="scroll-mt-28 py-12">
+        <div class="mx-auto max-w-3xl">
+          <div class="mb-8">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+              Privacy
+            </p>
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              Introduction
+            </h2>
+          </div>
+          <p class="mb-4 text-base leading-relaxed text-gray-600">
+            {{ siteTitle }} ("we," "us," or "our") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.
+          </p>
+          <p class="mb-6 text-base leading-relaxed text-gray-600">
+            This policy is designed to comply with the <strong>Data Privacy Act of 2012 (Republic Act No. 10173)</strong> of the Philippines and its Implementing Rules and Regulations (IRR).
+          </p>
+          <div class="flex items-center gap-3 rounded-2xl border border-green-200 bg-green-50 p-4">
+            <i class="ri-shield-check-line text-2xl text-green-600" />
+            <span class="text-sm text-green-800">
+              We are committed to <strong>transparency</strong> and <strong>data minimization</strong> — we only collect what is necessary.
+            </span>
+          </div>
+        </div>
+      </section>
 
-          <!-- Main Content -->
-          <article class="flex-1 max-w-3xl">
-            <div class="space-y-8">
-              <UiCard id="introduction" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Introduction
-                </h2>
-                <p class="text-gray-600 mb-4">
-                  {{ siteTitle }} ("we," "us," or "our") is committed to
-                  protecting your privacy and ensuring the security of your
-                  personal information. This Privacy Policy explains how we
-                  collect, use, disclose, and safeguard your information
-                  when you visit our website.
-                </p>
-                <p class="text-gray-600 mb-4">
-                  This policy is designed to comply with the
-                  <strong>
-                    Data Privacy Act of 2012 (Republic Act No. 10173)
-                  </strong>
-                  of the Philippines and its Implementing Rules and
-                  Regulations (IRR).
-                </p>
-                <div class="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <i class="bi bi-shield-check text-2xl text-green-600" />
-                  <span class="text-green-800">
-                    We are committed to <strong>transparency</strong> and
-                    <strong>data minimization</strong> — we only collect
-                    what is necessary.
-                  </span>
-                </div>
-              </UiCard>
-
-              <UiCard id="legal-basis" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Legal Basis for Processing
-                </h2>
-                <p class="text-gray-600 mb-4">
-                  Under the Data Privacy Act of 2012, we process personal
-                  information based on the following lawful criteria:
-                </p>
-                <ul class="space-y-2 text-gray-600">
-                  <li>
-                    <strong>Consent:</strong> When you voluntarily provide
-                    information through contact forms or email
-                    communications
-                  </li>
-                  <li>
-                    <strong>Legitimate Interest:</strong> To improve our
-                    website, ensure security, and provide better civic
-                    services
-                  </li>
-                  <li>
-                    <strong>Legal Obligation:</strong> When required by
-                    Philippine law or government authorities
-                  </li>
-                  <li>
-                    <strong>Public Interest:</strong> To promote
-                    transparency and civic engagement in local governance
-                  </li>
-                </ul>
-              </UiCard>
-
-              <UiCard id="information-collected" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Information We Collect
-                </h2>
-                <h3 class="font-semibold text-gray-800 mt-4 mb-2">
-                  Information You Provide Voluntarily
-                </h3>
-                <ul class="list-disc list-inside space-y-1 text-gray-600 mb-4">
-                  <li>
-                    Email address (when you contact us or submit feedback)
-                  </li>
-                  <li>Name (if provided in correspondence)</li>
-                  <li>Message content and inquiries</li>
-                </ul>
-                <h3 class="font-semibold text-gray-800 mt-4 mb-2">
-                  Information Collected Automatically
-                </h3>
-                <ul class="list-disc list-inside space-y-1 text-gray-600">
-                  <li>IP address (anonymized where possible)</li>
-                  <li>Browser type and version</li>
-                  <li>Device type and operating system</li>
-                  <li>Pages visited and time spent on pages</li>
-                </ul>
-              </UiCard>
-
-              <UiCard id="how-we-use" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  How We Use Your Information
-                </h2>
-                <ul class="list-disc list-inside space-y-1 text-gray-600">
-                  <li>To respond to your inquiries and feedback</li>
-                  <li>
-                    To improve website functionality and user experience
-                  </li>
-                  <li>To analyze website traffic and usage patterns</li>
-                  <li>To ensure website security and prevent abuse</li>
-                  <li>To comply with legal obligations</li>
-                </ul>
-              </UiCard>
-
-              <UiCard id="cookies" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Cookies and Analytics
-                </h2>
-                <p class="text-gray-600 mb-4">
-                  We use cookies and similar technologies to enhance your
-                  browsing experience. We use Google Analytics to collect
-                  anonymized data about website usage.
-                </p>
-              </UiCard>
-
-              <UiCard id="data-sharing" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Data Sharing and Disclosure
-                </h2>
-                <p class="text-gray-600">
-                  We do not sell, trade, or rent your personal information
-                  to third parties. We may share information only with
-                  service providers, when required by law, or with your
-                  explicit consent.
-                </p>
-              </UiCard>
-
-              <UiCard id="data-security" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Data Security
-                </h2>
-                <p class="text-gray-600">
-                  We implement appropriate technical and organizational
-                  measures to protect your personal information, including
-                  SSL/TLS encryption, secure hosting infrastructure, and
-                  regular security assessments.
-                </p>
-              </UiCard>
-
-              <UiCard id="data-retention" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Data Retention
-                </h2>
-                <p class="text-gray-600">
-                  We retain personal information only for as long as
-                  necessary. Contact information is deleted within 1 year of
-                  last contact. Server logs are automatically deleted after
-                  90 days.
-                </p>
-              </UiCard>
-
-              <UiCard id="your-rights" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Your Rights Under the Data Privacy Act
-                </h2>
-                <ul class="list-disc list-inside space-y-1 text-gray-600 mb-4">
-                  <li>
-                    <strong>Right to Be Informed</strong>
-                  </li>
-                  <li>
-                    <strong>Right to Access</strong>
-                  </li>
-                  <li>
-                    <strong>Right to Object</strong>
-                  </li>
-                  <li>
-                    <strong>Right to Erasure or Blocking</strong>
-                  </li>
-                  <li>
-                    <strong>Right to Rectification</strong>
-                  </li>
-                  <li>
-                    <strong>Right to Data Portability</strong>
-                  </li>
-                  <li>
-                    <strong>Right to File a Complaint</strong>
-                  </li>
-                </ul>
-                <p class="text-gray-600">
-                  To exercise any of these rights, please contact us at
-                  <a :href="`mailto:${volunteerEmail}`" class="text-primary-600 hover:underline">
-                    {{ volunteerEmail }}
-                  </a>
-                  .
-                </p>
-              </UiCard>
-
-              <UiCard id="childrens-privacy" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Children's Privacy
-                </h2>
-                <p class="text-gray-600">
-                  We do not knowingly collect personal information from
-                  children under 18 years of age without parental consent.
-                </p>
-              </UiCard>
-
-              <UiCard id="third-party" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Third-Party Links
-                </h2>
-                <p class="text-gray-600">
-                  Our website may contain links to external websites. We are
-                  not responsible for the privacy practices of these
-                  third-party sites.
-                </p>
-              </UiCard>
-
-              <UiCard id="changes" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Changes to This Privacy Policy
-                </h2>
-                <p class="text-gray-600">
-                  We may update this Privacy Policy from time to time. The
-                  "Last Updated" date at the bottom of this page will be
-                  revised when changes are made.
-                </p>
-              </UiCard>
-
-              <UiCard id="contact" padding="p-8">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">
-                  Contact Us
-                </h2>
-                <p class="text-gray-600 mb-4">
-                  If you have questions about this Privacy Policy, please
-                  contact us:
-                </p>
-                <a :href="`mailto:${volunteerEmail}`" class="inline-flex items-center gap-3 p-4 bg-primary-50 border border-primary-200 rounded-xl text-primary-700 font-medium hover:bg-primary-100 transition-colors">
-                  <i class="bi bi-envelope-fill text-xl" />
-                  <span>{{ volunteerEmail }}</span>
-                </a>
-              </UiCard>
-
-              <p class="text-sm text-gray-400">
-                Last Updated: February 19, 2026
+      <section id="legal-basis" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Legal Basis for Processing
+          </h2>
+          <p class="mb-4 text-base leading-relaxed text-gray-600">
+            Under the Data Privacy Act of 2012, we process personal information based on the following lawful criteria:
+          </p>
+          <div class="flex flex-col gap-3">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4">
+              <p class="font-semibold text-gray-900">
+                Consent
+              </p>
+              <p class="mt-0.5 text-sm text-gray-500">
+                When you voluntarily provide information through contact forms or email communications.
               </p>
             </div>
-          </article>
+            <div class="rounded-2xl border border-gray-200 bg-white p-4">
+              <p class="font-semibold text-gray-900">
+                Legitimate Interest
+              </p>
+              <p class="mt-0.5 text-sm text-gray-500">
+                To improve our website, ensure security, and provide better civic services.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-gray-200 bg-white p-4">
+              <p class="font-semibold text-gray-900">
+                Legal Obligation
+              </p>
+              <p class="mt-0.5 text-sm text-gray-500">
+                When required by Philippine law or government authorities.
+              </p>
+            </div>
+            <div class="rounded-2xl border border-gray-200 bg-white p-4">
+              <p class="font-semibold text-gray-900">
+                Public Interest
+              </p>
+              <p class="mt-0.5 text-sm text-gray-500">
+                To promote transparency and civic engagement in local governance.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="information-collected" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Information We Collect
+          </h2>
+          <div class="mb-4">
+            <p class="mb-3 font-semibold text-gray-800">
+              Information You Provide Voluntarily
+            </p>
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                Email address (when you contact us or submit feedback)
+              </div>
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                Name (if provided in correspondence)
+              </div>
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                Message content and inquiries
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-3 font-semibold text-gray-800">
+              Information Collected Automatically
+            </p>
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                IP address (anonymized where possible)
+              </div>
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                Browser type and version
+              </div>
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                Device type and operating system
+              </div>
+              <div class="flex items-center gap-3 text-sm text-gray-600">
+                <i class="ri-checkbox-circle-line text-primary-600" />
+                Pages visited and time spent on pages
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-we-use" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            How We Use Your Information
+          </h2>
+          <div class="flex flex-col gap-2">
+            <div
+              v-for="item in [
+                'To respond to your inquiries and feedback',
+                'To improve website functionality and user experience',
+                'To analyze website traffic and usage patterns',
+                'To ensure website security and prevent abuse',
+                'To comply with legal obligations',
+              ]" :key="item" class="flex items-center gap-3 text-sm text-gray-600"
+            >
+              <i class="ri-checkbox-circle-line text-primary-600" />
+              {{ item }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cookies" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Cookies and Analytics
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            We use cookies and similar technologies to enhance your browsing experience. We use Google Analytics to collect anonymized data about website usage.
+          </p>
+        </div>
+      </section>
+
+      <section id="data-sharing" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Data Sharing and Disclosure
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            We do not sell, trade, or rent your personal information to third parties. We may share information only with service providers, when required by law, or with your explicit consent.
+          </p>
+        </div>
+      </section>
+
+      <section id="data-security" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Data Security
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            We implement appropriate technical and organizational measures to protect your personal information, including SSL/TLS encryption, secure hosting infrastructure, and regular security assessments.
+          </p>
+        </div>
+      </section>
+
+      <section id="data-retention" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Data Retention
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            We retain personal information only for as long as necessary. Contact information is deleted within 1 year of last contact. Server logs are automatically deleted after 90 days.
+          </p>
+        </div>
+      </section>
+
+      <section id="your-rights" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Your Rights Under the Data Privacy Act
+          </h2>
+          <div class="mb-6 flex flex-col gap-2">
+            <div
+              v-for="right in [
+                'Right to Be Informed',
+                'Right to Access',
+                'Right to Object',
+                'Right to Erasure or Blocking',
+                'Right to Rectification',
+                'Right to Data Portability',
+                'Right to File a Complaint',
+              ]" :key="right" class="flex items-center gap-3 text-sm text-gray-600"
+            >
+              <i class="ri-checkbox-circle-line text-primary-600" />
+              <strong>{{ right }}</strong>
+            </div>
+          </div>
+          <p class="text-base leading-relaxed text-gray-600">
+            To exercise any of these rights, please contact us at
+            <a :href="`mailto:${volunteerEmail}`" class="text-primary-600 hover:underline">
+              {{ volunteerEmail }}
+            </a>.
+          </p>
+        </div>
+      </section>
+
+      <section id="childrens-privacy" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Children's Privacy
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            We do not knowingly collect personal information from children under 18 years of age without parental consent.
+          </p>
+        </div>
+      </section>
+
+      <section id="third-party" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Third-Party Links
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            Our website may contain links to external websites. We are not responsible for the privacy practices of these third-party sites.
+          </p>
+        </div>
+      </section>
+
+      <section id="changes" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Changes to This Privacy Policy
+          </h2>
+          <p class="text-base leading-relaxed text-gray-600">
+            We may update this Privacy Policy from time to time. The "Last Updated" date at the bottom of this page will be revised when changes are made.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Contact Us
+          </h2>
+          <p class="mb-4 text-base leading-relaxed text-gray-600">
+            If you have questions about this Privacy Policy, please contact us:
+          </p>
+          <NuxtLink
+            to="/contact"
+            class="inline-flex items-center gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-5 py-4 font-medium text-primary-700 transition hover:bg-primary-100"
+          >
+            <i class="ri-contacts-line text-xl" />
+            Visit our Contact page
+            <i class="ri-arrow-right-line" />
+          </NuxtLink>
+          <p class="mt-8 text-sm text-gray-400">
+            Last Updated: June 13, 2026
+          </p>
+        </div>
+      </section>
+    </UiPageWithToc>
   </div>
 </template>

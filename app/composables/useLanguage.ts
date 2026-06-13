@@ -14,7 +14,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-legislative': 'Legislative',
     'nav-transparency': 'Transparency',
     'nav-tourism': 'Tourism',
-    'nav-contact': 'Contact',
+    'nav-contact': 'Hotlines',
     'nav-budget': 'Budget',
     'nav-sitemap': 'Sitemap',
     'nav-dpwh-lang': 'DPWH Projects',
@@ -50,7 +50,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'btn-view-officials': 'View All Officials',
 
     // Contact Section
-    'section-contact': 'Contact Information',
+    'section-contact': 'Hotlines',
     'contact-phone': 'Phone',
     'contact-email': 'Email',
     'contact-address': 'Address',
@@ -108,7 +108,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     // FAQ Page
     'faq-title': 'Frequently Asked Questions',
     'faq-subtitle':
-      'Find answers to common questions about {{lguType}} services',
+      'Find answers to common questions about this website',
     'faq-general': 'General Questions',
     'faq-certificates': 'Certificates & Documents',
     'faq-business': 'Business & Permits',

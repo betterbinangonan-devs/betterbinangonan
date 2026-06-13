@@ -59,7 +59,7 @@ const MUNICIPALITY_LABELS: LGUTypeLabels = {
   subdivisionTypePlural: 'Barangays',
   subdivisionLeader: 'Barangay Captain',
   deptPrefix: 'Municipal',
-  hallName: 'Municipal Hall',
+  hallName: 'New Binangonan Municipal Hall, Barangay Calumpang, Binangonan, Rizal"',
   lguTypeLabel: 'Municipality',
 }
 

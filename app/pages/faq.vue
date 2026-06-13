@@ -1,19 +1,13 @@
 <!-- app\pages\faq.vue -->
-
 <script setup lang="ts">
 const { translate } = useLanguage()
 const { lguName, labels, faq, getSiteTitle, getVolunteerEmail, siteBrandName } = useConfig()
 const siteTitle = computed(() => getSiteTitle())
 const volunteerEmail = computed(() => getVolunteerEmail())
 
-// Helper to interpolate template variables in FAQ content
-function interpolateFAQContent(
-  content: string,
-  vars: Record<string, string>,
-): string {
+function interpolateFAQContent(content: string, vars: Record<string, string>): string {
   return Object.entries(vars).reduce(
-    (text, [key, value]) =>
-      text.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value),
+    (text, [key, value]) => text.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value),
     content,
   )
 }
@@ -38,49 +32,87 @@ const faqCategories = computed(() =>
     })),
   })),
 )
+
+const tocItems = computed(() =>
+  faqCategories.value.map(category => ({
+    id: category.id,
+    label: category.title,
+    visible: true,
+  })),
+)
 </script>
 
 <template>
   <div>
-    <UiPageHero badge-icon="bi-question-circle-fill" badge-text="FAQ" :title="translate('faq-title') || 'Frequently Asked Questions'" :description="translate('faq-subtitle') || 'Find answers to common questions about city services'" :breadcrumbs="[{ label: 'FAQ' }]" />
+    <UiPageHero
+      badge-icon="ri-question-line"
+      badge-text="FAQ"
+      :title="translate('faq-title') || 'Frequently Asked Questions'"
+      :description="translate('faq-subtitle') || 'Find answers to common questions about this site'"
+      :breadcrumbs="[{ label: 'FAQ' }]"
+    />
 
-    <!-- FAQ Content -->
-    <section class="py-12">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto space-y-8">
-          <UiCard v-for="category in faqCategories" :key="category.id" padding="p-0" class="overflow-hidden mb-8 last:mb-0">
-            <div class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
-              <i :class="`bi ${category.icon} text-2xl text-primary-600`" />
-              <h2 class="text-xl font-bold text-gray-900 m-0">
-                {{ category.title }}
-              </h2>
-            </div>
+    <UiPageWithToc :items="tocItems">
+      <section
+        v-for="category in faqCategories"
+        :id="category.id"
+        :key="category.id"
+        class="scroll-mt-28 py-12"
+      >
+        <div class="mx-auto max-w-3xl">
+          <div class="mb-8">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+              FAQ
+            </p>
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              {{ category.title }}
+            </h2>
+          </div>
+
+          <div class="overflow-hidden rounded-2xl border border-gray-200">
             <div class="divide-y divide-gray-100">
-              <UiAccordion v-for="item in category.items" :key="item.id" :title="item.q" class="border-0 rounded-none border-b last:border-b-0">
-                <div class="text-gray-600 leading-relaxed">
+              <UiAccordion
+                v-for="item in category.items"
+                :key="item.id"
+                :title="item.q"
+                class="border-0 rounded-none"
+              >
+                <div class="text-sm leading-relaxed text-gray-600">
                   <div v-html="item.a" />
                 </div>
               </UiAccordion>
             </div>
-          </UiCard>
-
-          <!-- Still Have Questions -->
-          <UiAlert variant="primary" layout="col" icon="bi-chat-dots-fill">
-            <template #title>
-              {{ translate('faq-still-questions') || 'Still have questions?' }}
-            </template>
-            <p class="mb-6">
-              {{
-                translate('faq-contact-help')
-                  || "If you didn't find the answer you were looking for, please don't hesitate to contact us."
-              }}
-            </p>
-            <UiButton to="/contact" variant="solid" color="primary">
-              Contact Us <i class="bi bi-arrow-right" />
-            </UiButton>
-          </UiAlert>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- Still Have Questions -->
+      <section id="contact-us" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
+          <div class="rounded-2xl border border-primary-200 bg-primary-50 p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600">
+                <i class="ri-chat-1-line text-lg" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary-900">
+                  {{ translate('faq-still-questions') || 'Still have questions?' }}
+                </h3>
+                <p class="mt-1 text-sm text-primary-700">
+                  {{ translate('faq-contact-help') || "If you didn't find the answer you were looking for, please don't hesitate to contact us." }}
+                </p>
+                <NuxtLink
+                  to="/contact"
+                  class="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-700"
+                >
+                  Contact Us
+                  <i class="ri-arrow-right-line" />
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </UiPageWithToc>
   </div>
 </template>

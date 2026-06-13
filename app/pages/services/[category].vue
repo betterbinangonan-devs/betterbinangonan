@@ -71,7 +71,7 @@ if (!categoryContent) {
                 </div>
                 <span class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
                   Learn more
-                  <i class="bi bi-arrow-right text-xs" />
+                  <i class="ri-arrow-right-wide-fill" />
                 </span>
               </div>
             </NuxtLink>
@@ -79,52 +79,5 @@ if (!categoryContent) {
         </div>
       </div>
     </section>
-
-    <!-- ? MARK: Responsible Offices -->
-    <!-- <section v-if="visibleOffices.length > 0" class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="mx-auto max-w-3xl">
-          <div class="mb-8">
-            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
-              Offices
-            </p>
-
-            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              Responsible Offices
-            </h2>
-
-            <p class="mt-3 text-base leading-relaxed text-gray-600">
-              These offices handle or support the services listed above.
-            </p>
-          </div>
-
-          <div class="space-y-4">
-            <UiCard v-for="office in visibleOffices" :key="office.title" :to="office.link" interactive class="group border-gray-200 bg-white p-5 transition hover:border-primary-300 hover:bg-gray-50">
-              <div class="flex items-start gap-4">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-xl text-primary-600 transition group-hover:scale-105">
-                  <i class="bi" :class="office.icon" />
-                </div>
-
-                <div class="min-w-0 flex-1">
-                  <div class="flex items-start justify-between gap-4">
-                    <div class="min-w-0">
-                      <h3 class="font-semibold text-gray-900">
-                        {{ office.title }}
-                      </h3>
-
-                      <p class="mt-2 text-sm leading-relaxed text-gray-600">
-                        {{ office.description }}
-                      </p>
-                    </div>
-
-                    <i class="bi bi-arrow-right shrink-0 text-sm text-gray-300 transition group-hover:text-primary-600" />
-                  </div>
-                </div>
-              </div>
-            </UiCard>
-          </div>
-        </div>
-      </div>
-    </section> -->
   </div>
 </template>

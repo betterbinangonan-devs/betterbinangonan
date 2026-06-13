@@ -107,44 +107,6 @@ const logoPath = computed(() => {
 <!-- ? MARK: TEMPLATE HTML -->
 <template>
   <nav ref="headerRef" class="fixed top-0 left-0 right-0 z-50">
-    <!-- ? MARK: TOP BAR -->
-    <!-- Top bar with language switcher and additional links -->
-    <!-- <div class="border-b transition-colors duration-300" :class="isScrolled
-      ? 'bg-[#00184d] border-[#00184d]'
-      : 'bg-white border-gray-200'">
-      <div class="container mx-auto px-4 flex justify-end items-center h-10">
-        <div class="flex items-center space-x-4">
-
-          <NuxtLink to="/join-us" class="text-xs leading-12 font-semibold transition-colors duration-200" :class="isScrolled
-            ? 'text-white hover:text-primary-100'
-            : 'text-primary-600 hover:text-primary-700'">
-            Join Us
-          </NuxtLink>
-
-          <NuxtLink to="/about" class="text-xs leading-12 transition-colors duration-200" :class="isScrolled
-            ? 'text-primary-50 hover:text-white'
-            : 'text-gray-800 hover:text-primary-600'">
-            About <span class="hidden md:inline">{{ siteBrandName }}</span>
-          </NuxtLink>
-
-          <a :href="officialWebsite" class="text-xs leading-12 transition-colors duration-200" :class="isScrolled
-            ? 'text-primary-50 hover:text-white'
-            : 'text-gray-800 hover:text-primary-600'" target="_blank" rel="noreferrer">
-            Official {{ lguName }} Website
-          </a>
-
-          <NuxtLink to="/contact" class="text-xs leading-12 transition-colors duration-200" :class="isScrolled
-            ? 'text-primary-50 hover:text-white'
-            : 'text-gray-800 hover:text-primary-600'">
-            Hotlines
-          </NuxtLink>
-          <div class="hidden md:block">
-            <LanguageSelector v-if="false" class="text-xs" />
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <!-- ? MARK: MAIN NAV -->
     <div
       class="transition-all duration-300"
@@ -156,8 +118,14 @@ const logoPath = computed(() => {
         <div class="flex justify-between items-center py-4">
           <!-- ? MARK: LOGO -->
           <div class="flex items-center">
-            <NuxtLink to="/" class="flex items-center">
-              <img :src="logoPath" :alt="`${siteBrandName} Logo`" class="h-14 w-auto">
+            <NuxtLink to="/#" class="flex items-center">
+              <img
+                :src="logoPath"
+                :alt="`${siteBrandName} Logo`"
+                class="h-14 w-auto select-none object-contain"
+                draggable="false"
+                @contextmenu.prevent
+              >
             </NuxtLink>
           </div>
 
@@ -209,11 +177,11 @@ const logoPath = computed(() => {
           <div class="hidden lg:flex items-center space-x-6">
             <NuxtLink
               to="/services" class="flex items-center font-medium transition-colors duration-200" :class="isScrolled
-                ? 'text-gray-700 hover:text-primary-600'
-                : 'text-white/85 hover:text-white'"
+                ? 'text-gray-500 hover:text-primary-600'
+                : 'text-white/50 hover:text-white'"
             >
               <Search class="h-4 w-4 mr-1" />
-              Search
+              Search service
             </NuxtLink>
           </div>
 
@@ -272,8 +240,8 @@ const logoPath = computed(() => {
             </template>
           </div>
         </div>
-        <NuxtLink to="/join-us" class="block px-4 py-2 text-base font-semibold text-primary-600 hover:bg-primary-50 hover:text-primary-700" @click="closeMenu">
-          Join Us
+        <NuxtLink to="/contact" class="block px-4 py-2 text-base font-semibold text-primary-600 hover:bg-primary-50 hover:text-primary-700" @click="closeMenu">
+          Contact Us
         </NuxtLink>
         <NuxtLink to="/about" class="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500" @click="closeMenu">
           About

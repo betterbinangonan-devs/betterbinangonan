@@ -109,7 +109,7 @@
     },
     {
       "id": "dpwh",
-      "label": "DPWH",
+      "label": "DPWH Projects",
       "href": "/dpwh-projects",
       "i18nKey": "nav-dpwh-lang"
     },
@@ -150,11 +150,12 @@
     },
     {
       "id": "contact",
-      "label": "Contact",
-      "href": "/contact",
+      "label": "Hotlines",
+      "href": "/hotlines",
       "i18nKey": "nav-contact"
     }
   ],
+
   "footerNav": {
     "quickLinks": [
       {
@@ -180,8 +181,8 @@
     ],
     "resources": [
       {
-        "label": "Citizen's Charter 2022 (1st Edition)",
-        "href": "https://laspinascity.gov.ph/storage/uploads/gallery/625e67f3ae023.pdf",
+        "label": "Citizen's Charter",
+        "href": "https://binangonan.gov.ph/citizens-charter/",
         "external": true
       },
       {
@@ -190,8 +191,8 @@
         "external": true
       },
       {
-        "label": "Freedom of Information",
-        "href": "https://www.foi.gov.ph/",
+        "label": "DPWH Transparency Portal",
+        "href": "https://transparency.dpwh.gov.ph/",
         "external": true
       },
       {
@@ -207,13 +208,8 @@
     ],
     "getInvolved": [
       {
-        "label": "Volunteer with us",
-        "href": "/join-us"
-      },
-      {
-        "label": "Contribute code",
-        "href": "https://github.com/betterlaspinas/betterlaspinas",
-        "external": true
+        "label": "Contact Us",
+        "href": "/contact"
       }
     ]
   }

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useLanguage } from '@/composables/useLanguage'
-import { categoriesContent } from '@/utils/categoriesContent'
+import { serviceCategoriesContent } from '@/utils/serviceCategoriesContent'
 
 const { translate } = useLanguage()
 const route = useRoute()
 const initialQuery = computed(() => (route.query.q as string) || '')
 
-// SSOT Integration: Map data directly from categoriesContent.ts
-const categories = categoriesContent.map(cat => ({
+// SSOT Integration: Map data directly from serviceCategoriesContent.ts
+const categories = serviceCategoriesContent.map(cat => ({
   href: `/services/${cat.id}`,
   icon: cat.icon,
   title: cat.name,
@@ -110,7 +110,7 @@ const lifeEvents = [
                 </p>
                 <span class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary-600 transition group-hover:gap-2">
                   Browse services
-                  <i class="bi bi-arrow-right text-xs" />
+                  <i class="ri-arrow-right-wide-fill" />
                 </span>
               </div>
             </NuxtLink>
