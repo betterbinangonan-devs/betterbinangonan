@@ -391,7 +391,7 @@ function toggleFaq(index: number) {
                     <div class="grid grid-cols-1 gap-2">
                       <NuxtLink v-for="related in service.relatedServices" :key="related.title" :to="related.link" class="flex items-center justify-between rounded-xl border border-gray-100 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700">
                         <span>{{ related.title }}</span>
-                        <i class="bi bi-arrow-right text-xs" />
+                        <i class="ri-arrow-right-wide-fill" />
                       </NuxtLink>
                     </div>
                   </UiCard>
@@ -426,11 +426,11 @@ function toggleFaq(index: number) {
                       </h3>
 
                       <p class="mb-5 text-sm leading-relaxed text-gray-600">
-                        Contact us for assistance with this service or other municipal concerns.
+                        Contact the related office for this service or other municipal concerns.
                       </p>
 
-                      <UiButton to="/contact" variant="solid" color="primary" class="w-full justify-center" no-prefetch>
-                        Contact Us
+                      <UiButton to="/hotlines" variant="solid" color="primary" class="w-full justify-center" no-prefetch>
+                        Hotlines
                       </UiButton>
                     </UiCard>
                   </div>

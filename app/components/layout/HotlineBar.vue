@@ -10,8 +10,8 @@ function isPhoneHotline(hotline: unknown): hotline is PhoneHotlineItem {
   return (
     typeof hotline === 'object'
     && hotline !== null
-    && 'number' in hotline
-    && typeof hotline.number === 'string'
+    && 'numbers' in hotline
+    && Array.isArray((hotline as any).numbers)
   )
 }
 
@@ -65,11 +65,11 @@ const displayHotlines = computed(() => {
           <a
             v-for="hotline in displayHotlines"
             :key="hotline.id"
-            :href="`tel:${formatPhoneLink(hotline.number)}`"
+            :href="`tel:${formatPhoneLink(hotline.numbers[0] ?? '')}`"
             class="hover-btn-premium mx-2 inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-white whitespace-nowrap hover:bg-white/30"
           >
             <i class="bi text-xs" :class="hotline.icon || 'bi-telephone-fill'" />
-            <span>{{ hotline.name }}: {{ hotline.number }}</span>
+            <span>{{ hotline.name }}: {{ hotline.numbers[0] }}</span>
           </a>
         </Vue3Marquee>
       </template>

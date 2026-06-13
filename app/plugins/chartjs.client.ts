@@ -7,6 +7,7 @@ import {
   Legend,
   LinearScale,
   LineElement,
+  LogarithmicScale,
   PointElement,
   Title,
   Tooltip,
@@ -16,6 +17,7 @@ export default defineNuxtPlugin(() => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
+    LogarithmicScale,
     PointElement,
     LineElement,
     BarElement,

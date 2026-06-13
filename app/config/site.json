@@ -5,23 +5,65 @@
   "region": "IV-A",
   "siteId": "betterbinangonan",
   "domain": "betterbinangonan.org",
-  "tagline": "Your digital gateway to Binangonan services",
+  "tagline": "Binangonan, Better access starts here.",
   "themeColor": "#190090",
   "officialWebsite": "https://binangonan.gov.ph",
-  "version": "0.0.0",
+  "version": "1.0",
   "contact": {
-    "phone": "(02) 8871-4343",
+    "phone": "",
     "mobile": "",
-    "email": "binangonan@yahoo.com",
-    "address": "New Binangonan Municipal Hall, Barangay Calumpang, Binangonan, Rizal",
-    "postalCode": "1740"
+    "email": "",
+    "address": "Binangonan, Rizal, Philippines",
+    "postalCode": "1940"
   },
+  "project": {
+    "name": "BetterBinangonan",
+    "email": "betterbinangonan.org@gmail.com",
+    "volunteerEmail": "betterbinangonan.org@gmail.com",
+    "phone": "",
+    "officeAddress": "",
+    "description": "A volunteer-led civic tech initiative for transparent local governance.",
+    "lookingForVolunteers": false,
+    "volunteerRoles": ["Developer", "Designer", "Content Writer", "Data Researcher"],
+    "donationUrl": "",
+    "reportIssueUrl": "https://github.com/betterbinangonan-devs/betterbinangonan/issues",
+    "license": "MIT",
+    "launched": "2026",
+    "status": "active",
+    "social": {
+      "facebook": "https://facebook.com/BetterBinangonan.org",
+      "github": "https://github.com/betterbinangonan-devs/betterbinangonan",
+      "twitter": "",
+      "instagram": "",
+      "youtube": "",
+      "discord": "",
+      "linkedin": ""
+    }
+  },
+  "developers": [
+    {
+      "name": "Emman Barrameda",
+      "role": "Founder, Developer",
+      "github": "https://github.com/emmanpbarrameda",
+      "linkedin": "https://linkedin.com/in/emmanpbarrameda",
+      "website": "https://emmanpbarrameda.github.io",
+      "avatar": ""
+    },
+    {
+      "name": "Charles Matthew Ching",
+      "role": "DevOps, Developer",
+      "github": "https://github.com/chaaals",
+      "linkedin": "https://www.linkedin.com/in/chaalschng/",
+      "website": "",
+      "avatar": ""
+    }
+  ],
   "social": {
     "facebook": "https://facebook.com/BetterBinangonan.org",
     "twitter": "",
     "linkedin": "",
     "discord": "",
-    "github": "https://github.com/betterbinangonan/betterbinangonan",
+    "github": "https://github.com/betterbinangonan-devs/betterbinangonan",
     "instagram": "",
     "youtube": ""
   },

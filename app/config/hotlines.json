@@ -8,31 +8,39 @@
       "callDescription": "Tap to call this emergency hotline.",
       "emailDescription": "Send an email inquiry.",
       "tone": "red",
-      "icon": "bi-exclamation-triangle-fill",
+      "icon": "ri-alarm-warning-line",
+      "source": "Binangonan Public Information Office",
+      "sourceUrl": "https://www.facebook.com/share/p/1HcG25JA9C/",
       "items": [
         {
+          "id": "national-emergency-hotline",
+          "name": "National Emergency Hotline",
+          "numbers": ["911"],
+          "icon": "ri-alarm-warning-line"
+        },
+        {
           "id": "mdrrmo-rescue",
-          "name": "MDRRMO Rescue",
-          "number": "0965 623 8674",
-          "icon": "bi-exclamation-triangle-fill"
+          "name": "Binangonan MDRRMO Rescue",
+          "numbers": ["0965 623 8674"],
+          "icon": "ri-alarm-warning-line"
         },
         {
           "id": "police",
           "name": "Binangonan PNP",
-          "number": "0963 473 3347",
-          "icon": "bi-shield-fill"
+          "numbers": ["0963 473 3347"],
+          "icon": "ri-shield-line"
         },
         {
           "id": "fire",
           "name": "Binangonan BFP",
-          "number": "0966 957 7505 / (02) 8652 5796",
-          "icon": "bi-fire"
+          "numbers": ["0966 957 7505", "(02) 8652 5796"],
+          "icon": "ri-fire-line"
         },
         {
           "id": "coast-guard",
           "name": "Philippine Coast Guard",
-          "number": "(02) 8813 6889 / 0950 550 9418 / 0953 809 1351",
-          "icon": "bi-life-preserver"
+          "numbers": ["(02) 8813 6889", "0950 550 9418", "0953 809 1351"],
+          "icon": "ri-ship-line"
         }
       ]
     },
@@ -44,19 +52,19 @@
       "callDescription": "Tap to call this medical hotline.",
       "emailDescription": "Send an email inquiry.",
       "tone": "green",
-      "icon": "bi-hospital-fill",
+      "icon": "ri-hospital-line",
       "items": [
         {
           "id": "health-service",
           "name": "Health Service",
-          "number": "0950 717 1241",
-          "icon": "bi-hospital"
+          "numbers": ["0950 717 1241"],
+          "icon": "ri-heart-pulse-line"
         },
         {
           "id": "rphs-madmh",
           "name": "RPHS Binangonan - Margarito A. Duavit Memorial Hospital",
-          "number": "(02) 8256 3000",
-          "icon": "bi-hospital-fill"
+          "numbers": ["(02) 8256 3000"],
+          "icon": "ri-hospital-line"
         }
       ]
     },
@@ -68,21 +76,45 @@
       "callDescription": "Government assistance contact.",
       "emailDescription": "Send an email inquiry.",
       "tone": "blue",
-      "icon": "bi-building-fill",
+      "icon": "ri-building-line",
+      "source": "Binangonan Public Information Office",
+      "sourceUrl": "https://www.facebook.com/share/p/1EU24EXJsh/",
       "items": [
         {
           "id": "pio-email",
           "name": "Public Information Office",
           "email": "pio@binangonan.gov.ph",
-          "icon": "bi-envelope-fill"
+          "icon": "ri-mail-line"
         },
         {
           "id": "pio-facebook",
-          "name": "PIO Binangonan Facebook Page",
+          "name": "Mahal Kong Binangonan PIO FB Page",
           "url": "https://www.facebook.com/mahalkongbinangonan",
-          "icon": "bi-facebook"
+          "icon": "ri-facebook-line"
         }
       ]
+    },
+    {
+      "id": "municipal-offices",
+      "label": "Municipal Offices",
+      "title": "Municipal Offices Details",
+      "description": "Contact numbers and emails of some offices and departments.",
+      "tone": "blue",
+      "icon": "ri-building-line",
+      "link": "/government#departments",
+      "linkLabel": "Go to Departments & Offices",
+      "items": []
+    },
+    {
+      "id": "barangays",
+      "label": "Barangays",
+      "title": "Barangay Number Details",
+      "description": "Contact information for all barangays.",
+      "tone": "blue",
+      "icon": "ri-map-pin-line",
+      "link": "/government#barangays",
+      "linkLabel": "Go to Barangay Directory",
+      "items": []
     },
     {
       "id": "utilities",
@@ -92,31 +124,31 @@
       "callDescription": "Utility and service contact.",
       "emailDescription": "Send an email inquiry.",
       "tone": "gray",
-      "icon": "bi-lightning-charge-fill",
+      "icon": "ri-lightbulb-line",
       "items": [
         {
           "id": "meralco-hotline",
           "name": "Meralco Hotline",
-          "number": "(02) 16211",
-          "icon": "bi-lightning-charge-fill"
+          "numbers": ["(02) 16211"],
+          "icon": "ri-flashlight-line"
         },
         {
           "id": "meralco-email",
           "name": "Meralco Customer Care",
           "email": "customercare@meralco.com.ph",
-          "icon": "bi-envelope-fill"
+          "icon": "ri-mail-line"
         },
         {
           "id": "manila-water-hotline",
           "name": "Manila Water Hotline",
-          "number": "1627",
-          "icon": "bi-droplet-fill"
+          "numbers": ["1627"],
+          "icon": "ri-drop-line"
         },
         {
           "id": "manila-water-email",
           "name": "Manila Water Email",
           "email": "info@manilawater.com",
-          "icon": "bi-envelope-fill"
+          "icon": "ri-mail-line"
         }
       ]
     }

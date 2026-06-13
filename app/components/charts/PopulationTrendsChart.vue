@@ -1,12 +1,18 @@
+<!-- app\components\charts\PopulationTrendsChart.vue -->
 <script setup lang="ts">
 import { Line } from 'vue-chartjs'
+import { useConfig } from '@/composables/useConfig'
 
-const data = {
-  labels: ['1990', '1995', '2000', '2007', '2010', '2015', '2020', '2024'],
+const { statisticsDetailed } = useConfig()
+
+const trend = computed(() => statisticsDetailed.populationTrend)
+
+const data = computed(() => ({
+  labels: trend.value?.labels ?? [],
   datasets: [
     {
       label: 'Population',
-      data: [297102, 413086, 472780, 532330, 552573, 588894, 606293, 615549],
+      data: trend.value?.data ?? [],
       borderColor: '#0032a0',
       backgroundColor: 'rgba(0, 50, 160, 0.12)',
       fill: true,
@@ -19,15 +25,18 @@ const data = {
       borderWidth: 2.5,
     },
   ],
-}
+}))
 
-const options = {
+const minPop = computed(() => {
+  const min = Math.min(...(trend.value?.data ?? [0]))
+  return Math.floor(min / 50000) * 50000
+})
+
+const options = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
-    legend: {
-      display: false,
-    },
+    legend: { display: false },
     tooltip: {
       backgroundColor: 'rgba(0, 50, 160, 0.92)',
       titleFont: { size: 13, weight: 'bold' as const },
@@ -44,28 +53,20 @@ const options = {
   scales: {
     y: {
       beginAtZero: false,
-      min: 250000,
+      min: minPop.value,
       ticks: {
-        callback: (value: unknown) =>
-          `${(Number(value) / 1000).toFixed(0)}K`,
+        callback: (value: unknown) => `${(Number(value) / 1000).toFixed(0)}K`,
         font: { size: 11 },
         color: '#666',
       },
-      grid: {
-        color: 'rgba(0, 0, 0, 0.04)',
-      },
+      grid: { color: 'rgba(0, 0, 0, 0.04)' },
     },
     x: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        font: { size: 11, weight: 'bold' as const },
-        color: '#666',
-      },
+      grid: { display: false },
+      ticks: { font: { size: 11 }, color: '#666' },
     },
   },
-}
+}))
 </script>
 
 <template>

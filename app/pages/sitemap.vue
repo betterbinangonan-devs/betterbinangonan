@@ -1,7 +1,9 @@
 <!-- app\pages\sitemap.vue -->
-
+<!-- ? MARK: script -->
 <script setup lang="ts">
-const { lguName, labels, site } = useConfig()
+import { serviceCategoriesContent } from '@/utils/serviceCategoriesContent'
+
+const { lguName, navigation } = useConfig()
 
 interface SitemapLink {
   href: string
@@ -17,177 +19,100 @@ interface SitemapSection {
   links: SitemapLink[]
 }
 
-const sections = computed<SitemapSection[]>(() => [
-  {
-    icon: 'bi-house-door',
-    title: 'Main Navigation',
-    links: [
-      { href: '/', label: 'Home' },
-      { href: '/services', label: 'Services' },
-      { href: '/government', label: 'Government' },
-      { href: '/statistics', label: 'Statistics' },
-      { href: '/legislative', label: 'Legislative', hidden: true },
-      { href: '/budget', label: 'Transparency', hidden: true },
-      { href: '/contact', label: 'Contact' },
-      { href: '/news', label: 'News', hidden: true },
-      { href: '/faq', label: 'FAQ' },
-      { href: '/changelog', label: 'Changelog' },
-      { href: '/accessibility', label: 'Accessibility' },
-    ],
-  },
-  {
-    icon: 'bi-grid-3x3-gap',
-    title: 'Service Categories',
-    links: [
-      {
-        href: '/services/certificates',
-        label: 'Certificates & Vital Records',
-      },
-      { href: '/services/business', label: 'Business Services' },
-      { href: '/services/social-services', label: 'Social Services', hidden: true },
-      { href: '/services/health', label: 'Health & Wellness', hidden: true },
-      { href: '/services/tax-payments', label: 'Tax & Payments', hidden: true },
-      { href: '/services/agriculture', label: 'Agriculture', hidden: true },
-      { href: '/services/infrastructure', label: 'Infrastructure', hidden: true },
-      { href: '/services/education', label: 'Education', hidden: true },
-      { href: '/services/environment', label: 'Environment', hidden: true },
-      { href: '/services/public-safety', label: 'Public Safety', hidden: true },
-    ],
-  },
-  {
-    icon: 'bi-building',
-    title: `${labels.value.deptPrefix} Offices`,
-    cols: 4,
-    links: [
-      {
-        href: '/service-details/civil-registrar',
-        label: 'Local Civil Registrar',
-        hidden: true,
-      },
-      {
-        href: '/service-details/city-treasurer',
-        label: 'Treasurer\'s Office',
-        hidden: true,
-      },
-      {
-        href: '/service-details/municipal-assessor',
-        label: 'Assessor\'s Office',
-        hidden: true,
-      },
-      { href: '/service-details/municipal-budget', label: 'Budget Office', hidden: true },
-      {
-        href: '/service-details/municipal-accounting',
-        label: 'Accounting Office',
-        hidden: true,
-      },
-      {
-        href: '/service-details/municipal-engineering',
-        label: 'Engineering Office',
-        hidden: false,
-      },
-      {
-        href: '/service-details/municipal-planning',
-        label: 'Planning Office',
-        hidden: true,
-      },
-      {
-        href: '/service-details/municipal-agriculture',
-        label: 'Agriculture Office',
-        hidden: true,
-      },
-      { href: '/service-details/mswdo-services', label: 'MSWDO', hidden: true },
-      {
-        href: '/service-details/business-permit-new',
-        label: 'BPLS Office',
-      },
-      {
-        href: '/service-details/business-permit-renewal',
-        label: 'BPLS Office',
-      },
-      {
-        href: '/service-details/general-services',
-        label: 'General Services',
-        hidden: true,
-      },
-      {
-        href: '/service-details/human-resource-management',
-        label: 'HR Management',
-        hidden: true,
-      },
-    ],
-  },
-  {
-    icon: 'bi-bank',
-    title: 'Government & Legislative',
-    links: [
-      { href: '/government', label: 'Government Structure' },
-      { href: '/legislative', label: 'Legislative Documents', hidden: true },
-      {
-        href: '/legislative/ordinance-framework',
-        label: 'Ordinance Framework',
-        hidden: true,
-      },
-      {
-        href: '/legislative/resolution-framework',
-        label: 'Resolution Framework',
-        hidden: true,
-      },
-    ],
-  },
-  {
-    icon: 'bi-link-45deg',
-    title: 'Resources & Legal',
-    links: [
-      ...(site.value.social.facebook
-        ? [
-            {
-              href: site.value.social.facebook,
-              label: 'Facebook Page',
-              external: true,
-            },
-          ]
-        : []),
-      { href: '/terms', label: 'Terms of Use', external: false },
-      { href: '/privacy', label: 'Privacy Policy', external: false },
-    ],
-  },
-])
+const sections = computed<SitemapSection[]>(() => {
+  const mainNav = navigation.mainNav ?? []
+
+  const mainNavLinks: SitemapLink[] = mainNav.map((item: any) => ({
+    href: item.href,
+    label: item.label,
+    hidden: item.hidden ?? false,
+  }))
+
+  const servicesNav = mainNav.find((item: any) => item.id === 'services')
+  const serviceLinks: SitemapLink[] = (servicesNav?.children ?? []).map((child: any) => ({
+    href: child.href,
+    label: child.label,
+    hidden: child.hidden ?? false,
+  }))
+
+  const serviceDetailLinks: SitemapLink[] = serviceCategoriesContent
+    .filter(cat => !cat.hidden)
+    .flatMap(cat =>
+      cat.services
+        .filter(s => !s.hidden && s.link)
+        .map(s => ({
+          href: s.link!,
+          label: s.title,
+        })),
+    )
+
+  const legislativeNav = mainNav.find((item: any) => item.id === 'legislative')
+  const governmentLinks: SitemapLink[] = [
+    { href: '/government', label: 'Government Structure' },
+    ...(legislativeNav?.children ?? []).map((child: any) => ({
+      href: child.href,
+      label: child.label,
+      hidden: child.hidden ?? false,
+    })),
+  ]
+
+  const quickLinks: SitemapLink[] = (navigation.footerNav?.quickLinks ?? []).map((item: any) => ({
+    href: item.href,
+    label: item.label,
+  }))
+
+  const getInvolvedLinks: SitemapLink[] = (navigation.footerNav?.getInvolved ?? []).map((item: any) => ({
+    href: item.href,
+    label: item.label,
+    external: item.external ?? false,
+  }))
+
+  return [
+    { icon: 'ri-home-line', title: 'Main Navigation', links: mainNavLinks },
+    { icon: 'ri-grid-line', title: 'Service Categories', links: serviceLinks },
+    { icon: 'ri-file-text-line', title: 'All Services', cols: 4, links: serviceDetailLinks },
+    { icon: 'ri-government-line', title: 'Government & Legislative', links: governmentLinks },
+    { icon: 'ri-file-list-line', title: 'Quick Links', links: quickLinks },
+    { icon: 'ri-hand-heart-line', title: 'Get Involved', links: getInvolvedLinks },
+  ]
+})
 </script>
 
+<!-- ? MARK: design -->
 <template>
   <div>
-    <UiPageHero badge-icon="bi-diagram-3-fill" badge-text="Navigation" title="Sitemap" :description="`Navigate all pages and services of Better ${lguName}`" :breadcrumbs="[{ label: 'Sitemap' }]" />
+    <UiPageHero badge-icon="ri-sitemap-line" badge-text="Navigation" title="Sitemap" :description="`Navigate all pages and services of Better ${lguName}`" :breadcrumbs="[{ label: 'Sitemap' }]" />
 
-    <!-- Sitemap Content -->
     <section class="py-12">
       <div class="container mx-auto px-4">
-        <div class="space-y-8">
-          <UiCard v-for="section in sections.filter(section => section.links.some(link => !link.hidden))" :key="section.title" padding="p-0" class="overflow-hidden">
-            <div class="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
-              <span class="w-10 h-10 flex items-center justify-center bg-primary-100 text-primary-600 rounded-lg">
-                <i :class="`bi ${section.icon} text-lg`" />
-              </span>
-              <h2 class="text-lg font-bold text-gray-900 m-0">
+        <div class="mx-auto max-w-5xl space-y-4">
+          <div v-for="section in sections.filter(s => s.links.some(l => !l.hidden))" :key="section.title" class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+            <div class="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-5 py-4">
+              <div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50 text-primary-600">
+                <i :class="section.icon" />
+              </div>
+              <h2 class="text-base font-bold text-gray-900">
                 {{ section.title }}
               </h2>
             </div>
+
             <div
-              class="p-6 grid gap-3" :class="section.cols === 4
+              class="grid gap-1 p-4" :class="section.cols === 4
                 ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-                : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
-              "
+                : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'"
             >
-              <template v-for="link in section.links.filter(link => !link.hidden)" :key="link.href">
-                <a v-if="link.external" :href="link.href" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
-                  <i class="bi bi-box-arrow-up-right text-sm" />
+              <template v-for="link in section.links.filter(l => !l.hidden)" :key="link.href">
+                <a v-if="link.external" :href="link.href" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition hover:bg-primary-50 hover:text-primary-600">
+                  <i class="ri-external-link-line text-gray-400" />
                   {{ link.label }}
                 </a>
-                <NuxtLink v-else :to="link.href" class="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
-                  <i class="bi bi-arrow-right text-sm" /> {{ link.label }}
+                <NuxtLink v-else :to="link.href" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition hover:bg-primary-50 hover:text-primary-600">
+                  <i class="ri-arrow-right-s-line text-gray-400" />
+                  {{ link.label }}
                 </NuxtLink>
               </template>
             </div>
-          </UiCard>
+          </div>
         </div>
       </div>
     </section>

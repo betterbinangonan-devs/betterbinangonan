@@ -1,170 +1,170 @@
 {
-  "index": {
-    "titleFragment": "Home",
-    "description": "Welcome to Better {{lguName}} — your digital gateway to {{lguTypeLabel}} of {{lguName}} services, government information, and community resources.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
   "about": {
     "titleFragment": "About",
-    "description": "Learn about Better {{lguName}} â€” our mission, history, and how {{siteBrandName}} promotes transparency and accessibility in local governance.",
+    "description": "About — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
   "accessibility": {
     "titleFragment": "Accessibility",
-    "description": "Read our Accessibility Statement. Better {{lguName}} is committed to ensuring our digital services are accessible to all citizens.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "faq": {
-    "titleFragment": "FAQ",
-    "description": "Frequently Asked Questions (FAQ) about {{lguName}}'s services, processes, and government programs. Find quick answers here.",
+    "description": "Accessibility — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
   "budget": {
-    "titleFragment": "Budget & Transparency",
-    "description": "Explore the budget and transparency reports of {{lguName}}. Learn how public funds are allocated and utilized.",
+    "titleFragment": "Budget",
+    "description": "Budget — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": true
   },
+  "changelog": {
+    "titleFragment": "Changelog",
+    "description": "Changelog — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "contact": {
+    "titleFragment": "Contact",
+    "description": "Contact — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "dpwh-projects": {
+    "titleFragment": "Dpwh Projects",
+    "description": "Dpwh Projects — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "faq": {
+    "titleFragment": "Faq",
+    "description": "Faq — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
   "government": {
     "titleFragment": "Government",
-    "description": "Meet the leadership and offices serving {{lguName}}. View the executive, legislative, and department heads of the {{lguTypeLabel}}.",
+    "description": "Government — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "history": {
+    "titleFragment": "History",
+    "description": "History — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "hotlines": {
+    "titleFragment": "Hotlines",
+    "description": "Hotlines — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "index": {
+    "titleFragment": "Index",
+    "description": "Index — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
   "legislative": {
     "titleFragment": "Legislative",
-    "description": "Ordinances and resolutions of the {{legislativeBody}} ng {{lguName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": true
-  },
-  "history": {
-    "titleFragment": "History",
-    "description": "Tracing the roots and evolution of our community in {{lguName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": true
-  },
-  "join-us": {
-    "titleFragment": "Join Us",
-    "description": "Be part of the movement for transparent and accessible governance data in {{lguName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "privacy": {
-    "titleFragment": "Privacy Policy",
-    "description": "Privacy Policy of {{lguName}}. Learn how we protect, collect, and use your personal information.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "terms": {
-    "titleFragment": "Terms of Use",
-    "description": "Terms of Use for the Official Portal of {{lguName}}. Read our policies, guidelines, and terms.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "tourism": {
-    "titleFragment": "Tourism",
-    "description": "Explore the beauty, culture, and hospitality of {{lguName}}. Discover local attractions and vibrant festivals.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": true
-  },
-  "news": {
-    "titleFragment": "News & Announcements",
-    "description": "Stay updated with the latest news, announcements, and press releases from the {{lguTypeLabel}} of {{lguName}}.",
+    "description": "Legislative — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": true
   },
   "legislative-ordinance-framework": {
-    "titleFragment": "Ordinance Framework",
-    "description": "{{deptPrefix}} ordinances enacted by the {{legislativeBody}} of {{lguName}}.",
+    "titleFragment": "Legislative Ordinance Framework",
+    "description": "Legislative Ordinance Framework — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
   "legislative-resolution-framework": {
-    "titleFragment": "Resolution Framework",
-    "description": "Resolutions passed by the {{legislativeBody}} of {{lguName}}.",
+    "titleFragment": "Legislative Resolution Framework",
+    "description": "Legislative Resolution Framework — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
+  "news": {
+    "titleFragment": "News",
+    "description": "News — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": true
+  },
+  "news-slug": {
+    "titleFragment": "News Slug",
+    "description": "News Slug — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": true
+  },
+  "privacy": {
+    "titleFragment": "Privacy",
+    "description": "Privacy — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "service-details-slug": {
+    "titleFragment": "Service Details Slug",
+    "description": "Service Details — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": true
+  },
   "services": {
     "titleFragment": "Services",
-    "description": "Browse and access all public services provided by the local government of {{lguName}}.",
+    "description": "Services — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "services-category": {
+    "titleFragment": "Services Category",
+    "description": "Services Category — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
   "sitemap": {
     "titleFragment": "Sitemap",
-    "description": "Complete sitemap of Better {{lguName}} — find all pages, services, and government resources available on this portal.",
+    "description": "Sitemap — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
   "statistics": {
     "titleFragment": "Statistics",
-    "description": "Explore statistics and data on {{lguName}}'s governance activities. Find insights and trends.",
+    "description": "Statistics — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
-  "contact": {
-    "titleFragment": "Contact Us",
-    "description": "Get in touch with the {{lguTypeLabel}} of {{lguName}}. Find contact information for various offices and departments.",
+  "terms": {
+    "titleFragment": "Terms",
+    "description": "Terms — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
   },
-  "news-slug": {
-    "titleFragment": "{{slug}} | News Article",
-    "description": "Read the latest news and announcements from the {{lguTypeLabel}} of {{lguName}}.",
-    "ogType": "article",
-    "twitterCard": "summary_large_image",
+  "tourism": {
+    "titleFragment": "Tourism",
+    "description": "Tourism — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
     "hidden": true
-  },
-  "services-category": {
-    "titleFragment": "{{category}} | Services",
-    "description": "Browse {{category}} government services in {{lguName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "service-details-slug": {
-    "titleFragment": "{{slug}} | Service Details",
-    "description": "Detailed information about {{slug}} local government services in {{lguName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "changelog": {
-    "titleFragment": "Changelog",
-    "description": "View the history of updates, improvements, and new features added to {{siteBrandName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
-  },
-  "dpwh-projects": {
-    "titleFragment": "DPWH Infrastructure Projects",
-    "description": "National government infrastructure projects in {{lguName}} implemented by the Department of Public Works and Highways.",
-    "ogType": "website",
-    "twitterCard": "summary",
-    "hidden": false
   }
 }

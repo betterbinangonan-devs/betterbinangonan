@@ -53,7 +53,7 @@ const mapWatermarkPath = computed(() => site.value.logo?.logo_map_white || '/ass
               Browse Services
             </NuxtLink>
 
-            <NuxtLink to="/contact" class="inline-flex w-auto min-w-40 justify-center items-center gap-2 bg-white/10 border border-white/30 text-white px-5 py-2.5 rounded-full font-bold text-sm hover-btn-premium hover:bg-white/20">
+            <NuxtLink to="/hotlines" class="inline-flex w-auto min-w-40 justify-center items-center gap-2 bg-white/10 border border-white/30 text-white px-5 py-2.5 rounded-full font-bold text-sm hover-btn-premium hover:bg-white/20">
               Emergency Hotlines
             </NuxtLink>
           </div>

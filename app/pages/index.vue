@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ContactSection from '@/components/home/ContactSection.vue'
+import DpwhProjectsSection from '@/components/home/DpwhProjectsSection.vue'
 import Hero from '@/components/home/Hero.vue'
-import History from '@/components/home/History.vue'
+import HotlineSection from '@/components/home/HotlineSection.vue'
 import PopularServices from '@/components/home/PopularServices.vue'
 import QuickStats from '@/components/home/QuickStats.vue'
 import WeatherMap from '@/components/home/WeatherMap.vue'
@@ -11,12 +11,13 @@ import WeatherMap from '@/components/home/WeatherMap.vue'
   <div>
     <Hero />
     <PopularServices />
+    <DpwhProjectsSection />
     <QuickStats />
     <WeatherMap />
-    <History />
+    <!-- <History /> -->
     <!-- TODO: Add back when available -->
     <!-- <LatestUpdates /> -->
     <!-- <Leadership /> -->
-    <ContactSection />
+    <HotlineSection />
   </div>
 </template>

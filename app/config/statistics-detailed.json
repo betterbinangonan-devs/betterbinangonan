@@ -2,7 +2,7 @@
   "barangayPopulation": [
     { "rank": 1, "name": "Kalawaan", "population": 39979, "percentage": 12.44 },
     { "rank": 2, "name": "Calumpang", "population": 21095, "percentage": 6.57 },
-    { "rank": 3, "name": "Bilibiran", "population": 19911, "percentage": 6.20 },
+    { "rank": 3, "name": "Bilibiran", "population": 19911, "percentage": 6.2 },
     { "rank": 4, "name": "Pag-Asa", "population": 19387, "percentage": 6.03 },
     { "rank": 5, "name": "Pantok", "population": 18431, "percentage": 5.74 },
     { "rank": 6, "name": "Palangoy", "population": 18060, "percentage": 5.62 },
@@ -21,13 +21,13 @@
     { "rank": 19, "name": "Ithan", "population": 3757, "percentage": 1.17 },
     { "rank": 20, "name": "Bombong", "population": 3275, "percentage": 1.02 },
     { "rank": 21, "name": "Janosa", "population": 3087, "percentage": 0.96 },
-    { "rank": 22, "name": "Layunan (Pob.)", "population": 2575, "percentage": 0.80 },
+    { "rank": 22, "name": "Layunan (Pob.)", "population": 2575, "percentage": 0.8 },
     { "rank": 23, "name": "Kaytome", "population": 2403, "percentage": 0.75 },
     { "rank": 24, "name": "Rayap", "population": 2164, "percentage": 0.67 },
     { "rank": 25, "name": "Kalinawan", "population": 2106, "percentage": 0.66 },
-    { "rank": 26, "name": "Sapang", "population": 2249, "percentage": 0.70 },
+    { "rank": 26, "name": "Sapang", "population": 2249, "percentage": 0.7 },
     { "rank": 27, "name": "Buhangin", "population": 2000, "percentage": 0.62 },
-    { "rank": 28, "name": "Pipindan", "population": 1928, "percentage": 0.60 },
+    { "rank": 28, "name": "Pipindan", "population": 1928, "percentage": 0.6 },
     { "rank": 29, "name": "Ginoong Sanay", "population": 1745, "percentage": 0.54 },
     { "rank": 30, "name": "Limbon-limbon", "population": 1702, "percentage": 0.53 },
     { "rank": 31, "name": "Bangad", "population": 1478, "percentage": 0.46 },
@@ -41,62 +41,70 @@
     { "rank": 39, "name": "Binitagan", "population": 572, "percentage": 0.18 },
     { "rank": 40, "name": "Kasile", "population": 470, "percentage": 0.15 }
   ],
+  "populationTrend": {
+    "labels": ["1990", "1995", "2000", "2007", "2010", "2015", "2020", "2024"],
+    "data": [127561, 140700, 187691, 238931, 249872, 282474, 313631, 321281]
+  },
   "cmciPillars": [
     {
       "id": "economic-dynamism",
-      "icon": "bi-graph-up-arrow",
+      "icon": "ri-bar-chart-line",
       "title": "Economic Dynamism",
       "score": "5.9739",
-      "trend": "+9.4%",
+      "trend": "6th",
       "trendType": "up"
     },
     {
       "id": "government-efficiency",
-      "icon": "bi-building-check",
+      "icon": "ri-government-line",
       "title": "Government Efficiency",
       "score": "9.6036",
-      "trend": "+3.3%",
-      "trendType": "up"
+      "trend": "32nd",
+      "trendType": "stable"
     },
     {
       "id": "infrastructure",
-      "icon": "bi-building-gear",
+      "icon": "ri-building-2-line",
       "title": "Infrastructure",
       "score": "4.0066",
-      "trend": "-18.9%",
-      "trendType": "down"
+      "trend": "10th",
+      "trendType": "up"
     },
     {
       "id": "resiliency",
-      "icon": "bi-shield-check",
+      "icon": "ri-shield-line",
       "title": "Resiliency",
       "score": "12.3547",
-      "trend": "Stable",
-      "trendType": "stable"
+      "trend": "19th",
+      "trendType": "up"
     },
     {
       "id": "innovation",
-      "icon": "bi-lightbulb",
+      "icon": "ri-lightbulb-line",
       "title": "Innovation",
       "score": "7.7415",
-      "trend": "Stable",
+      "trend": "33rd",
       "trendType": "stable"
     }
   ],
-  "financialData": {
-    "annualIncome": "₱1.13B",
-    "annualIncomeDetailed": "₱1,129,000,000.00",
-    "ntaShare": "₱504M",
-    "ntaDependency": "44.60%",
-    "localSourcesPercentage": "55.40%",
-    "source": "Bureau of Local Government Finance (BLGF)",
-    "sourceUrl": "https://blgf.gov.ph/lgu-fiscal-data/",
-    "year": 2023
+  "cmciRankingsTrend": {
+    "labels": ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+    "data": [127, 45, 11, 10, 6, 5, 6, 7, 5, 7, 8]
   },
-  "populationGrowth": {
-    "year1990": 127561,
-    "year2020": 313631,
-    "year2024": 321281,
-    "growthRate": "+2.23% (Annual)"
+  "cmciOverall": {
+    "rank": "8th",
+    "score": "39.68",
+    "year": "2024",
+    "classification": "1st to 2nd Class Municipalities (509)"
+  },
+  "financialData": {
+    "annualIncome": "₱1.27B",
+    "annualIncomeDetailed": "₱1,265,100,000.00",
+    "ntaShare": "₱936.61M",
+    "ntaDependency": "74.0%",
+    "localSourcesPercentage": "25.7%",
+    "source": "Bureau of Local Government Finance (BLGF)",
+    "sourceUrl": "https://blgf.gov.ph/lgu-fiscal-data/#ARI",
+    "year": 2025
   }
 }

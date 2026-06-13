@@ -1,64 +1,73 @@
+<!-- app\pages\government\index.vue -->
 <script setup lang="ts">
 import { useConfig } from '@/composables/useConfig'
 
 const { lguName, labels, officials, subdivisions, formatPhoneLink } = useConfig()
 
-// Get executive officials
 const leader = computed(() => officials.executive.find(
-  official => official.position === 'mayor' || official.position === 'governor',
+  o => o.position === 'mayor' || o.position === 'governor',
 ))
 const viceLeader = computed(() => officials.executive.find(
-  official => official.position === 'vice_mayor' || official.position === 'vice_governor',
+  o => o.position === 'vice_mayor' || o.position === 'vice_governor',
 ))
-
-// Get legislative members
 const sbMembers = computed(() => officials.legislative.filter(
-  official => official.position === 'sb_member' || official.position === 'board_member',
+  o => o.position === 'sb_member' || o.position === 'board_member',
 ))
-const ligaPresident = computed(() => officials.legislative.find(
-  official => official.position === 'liga_president',
-))
-const skPresident = computed(() => officials.legislative.find(
-  official => official.position === 'sk_president',
-))
-const ipmr = computed(() => officials.legislative.find(official => official.position === 'ipmr'))
+const ligaPresident = computed(() => officials.legislative.find(o => o.position === 'liga_president'))
+const skPresident = computed(() => officials.legislative.find(o => o.position === 'sk_president'))
+const ipmr = computed(() => officials.legislative.find(o => o.position === 'ipmr'))
 
-// ? MARK: Setup Table of Contents
+// toc
 const govTocItems = computed(() => [
   {
     id: 'executive',
     label: 'Executive Branch',
-    icon: 'bi-star-fill',
     visible: Boolean(leader.value || viceLeader.value),
   },
   {
     id: 'legislative',
     label: 'Legislative Branch',
-    icon: 'bi-people-fill',
     visible: Boolean(sbMembers.value.length > 0),
   },
   {
     id: 'departments',
     label: 'Departments & Offices',
-    icon: 'bi-building-fill-gear',
     visible: Boolean(officials.departments && officials.departments.length > 0),
   },
   {
-    id: 'subdivisions',
+    id: 'barangays',
     label: labels.value.subdivisionTypePlural,
-    icon: 'bi-pin-map-fill',
     visible: Boolean(subdivisions.items && subdivisions.items.length > 0),
   },
 ])
+
+// collapsibles
+const openDepts = ref<Set<string>>(new Set())
+function toggleDept(id: string) {
+  if (openDepts.value.has(id))
+    openDepts.value.delete(id)
+  else
+    openDepts.value.add(id)
+  openDepts.value = new Set(openDepts.value)
+}
+const openBrgys = ref<Set<string>>(new Set())
+function toggleBrgy(id: string) {
+  if (openBrgys.value.has(id))
+    openBrgys.value.delete(id)
+  else
+    openBrgys.value.add(id)
+  openBrgys.value = new Set(openBrgys.value)
+}
 </script>
 
 <template>
   <div>
-    <UiPageHero badge-icon="bi-building-fill" badge-text="Government" title="Government Structure & Officials" :description="`Meet the leadership and offices serving ${lguName}`" :breadcrumbs="[{ label: 'Government' }]" />
+    <UiPageHero badge-icon="ri-building-line" badge-text="Government" title="Government Structure & Officials" :description="`Meet the leadership and offices serving ${lguName}`" :breadcrumbs="[{ label: 'Government' }]" />
 
     <UiPageWithToc :items="govTocItems">
+      <!-- ? MARK: Executive Branch -->
       <section id="executive" class="scroll-mt-28 py-12">
-        <div class="mx-auto max-w-4xl">
+        <div class="mx-auto max-w-3xl">
           <div class="mb-8">
             <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
               Leadership
@@ -71,57 +80,75 @@ const govTocItems = computed(() => [
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <UiCard padding="p-0" interactive class="overflow-hidden border-gray-200">
-              <div class="bg-primary-600 text-white p-6 text-center">
-                <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <!-- Mayor -->
+            <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+              <div class="bg-primary-700 px-6 py-5 text-center text-white">
+                <div class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-white/15">
+                  <i class="ri-user-star-line text-2xl" />
+                </div>
+                <p class="text-xs font-semibold uppercase tracking-wide text-white/60">
                   {{ labels.lguTypeLabel }} {{ labels.leaderTitle }}
-                </span>
-                <h3 class="text-xl font-bold mt-1">
+                </p>
+                <h3 class="mt-1 text-lg font-bold text-white">
                   {{ leader?.name ? `Hon. ${leader.name}` : 'To be updated' }}
                 </h3>
               </div>
-              <div class="p-6 space-y-3 bg-white">
-                <a v-if="leader?.email" :href="`mailto:${leader.email}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
-                  <i class="bi bi-envelope text-primary-600 text-lg" />
+              <div class="divide-y divide-gray-100 p-4">
+                <a v-if="leader?.email" :href="`mailto:${leader.email}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
+                  <i class="ri-mail-line text-primary-600" />
                   {{ leader.email }}
                 </a>
-                <a v-if="leader?.phone" :href="`tel:${formatPhoneLink(leader.phone)}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
-                  <i class="bi bi-telephone text-primary-600 text-lg" />
+                <a v-if="leader?.phone" :href="`tel:${formatPhoneLink(leader.phone)}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
+                  <i class="ri-phone-line text-primary-600" />
                   {{ leader.phone }}
                 </a>
-                <span class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-sm text-gray-700">
-                  <i class="bi bi-clock text-primary-600 text-lg" /> Mon-Fri: 8:00 AM - 5:00 PM
-                </span>
+                <a v-if="leader?.facebook" :href="leader.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
+                  <i class="ri-facebook-line text-primary-600" />
+                  Facebook Page
+                </a>
+                <!-- <div class="flex items-center gap-3 py-3 text-sm text-gray-600">
+                  <i class="ri-time-line text-gray-600" />
+                  Mon–Fri: 8:00 AM – 5:00 PM
+                </div> -->
               </div>
-            </UiCard>
+            </div>
 
-            <UiCard padding="p-0" interactive class="overflow-hidden border-gray-200">
-              <div class="bg-slate-700 text-white p-6 text-center">
-                <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
+            <!-- Vice Mayor -->
+            <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+              <div class="bg-gray-700 px-6 py-5 text-center text-white">
+                <div class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-white/15">
+                  <i class="ri-user-line text-2xl" />
+                </div>
+                <p class="text-xs font-semibold uppercase tracking-wide text-white/60">
                   {{ labels.lguTypeLabel }} {{ labels.viceLeaderTitle }}
-                </span>
-                <h3 class="text-xl font-bold mt-1">
+                </p>
+                <h3 class="mt-1 text-lg font-bold text-white">
                   {{ viceLeader?.name ? `Hon. ${viceLeader.name}` : 'To be updated' }}
                 </h3>
               </div>
-              <div class="p-6 space-y-3 bg-white">
-                <a v-if="viceLeader?.email" :href="`mailto:${viceLeader.email}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-sm text-gray-700 hover:bg-slate-100 hover:text-slate-700 transition-colors">
-                  <i class="bi bi-envelope text-slate-600 text-lg" />
+              <div class="divide-y divide-gray-100 p-4">
+                <a v-if="viceLeader?.email" :href="`mailto:${viceLeader.email}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
+                  <i class="ri-mail-line text-gray-600" />
                   {{ viceLeader.email }}
                 </a>
-                <a v-if="viceLeader?.phone" :href="`tel:${formatPhoneLink(viceLeader.phone)}`" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-sm text-gray-700 hover:bg-slate-100 hover:text-slate-700 transition-colors">
-                  <i class="bi bi-telephone text-slate-600 text-lg" />
+                <a v-if="viceLeader?.phone" :href="`tel:${formatPhoneLink(viceLeader.phone)}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
+                  <i class="ri-phone-line text-gray-600" />
                   {{ viceLeader.phone }}
                 </a>
+                <a v-if="viceLeader?.facebook" :href="viceLeader.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
+                  <i class="ri-facebook-line text-gray-600" />
+                  Facebook Page
+                </a>
               </div>
-            </UiCard>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="legislative" class="scroll-mt-28 py-12 border-t border-gray-100">
-        <div class="mx-auto max-w-4xl">
+      <!-- ? MARK: Legislative Branch -->
+      <section id="legislative" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
           <div class="mb-8">
             <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
               Lawmakers
@@ -134,108 +161,93 @@ const govTocItems = computed(() => [
             </p>
           </div>
 
-          <div class="grid grid-cols-1 gap-4">
-            <UiCard v-for="member in sbMembers" :key="member.id" interactive class="border-gray-200 bg-white p-5 group hover:border-primary-300 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div class="flex items-start gap-5 min-w-0">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-xl text-gray-400 group-hover:bg-primary-50 group-hover:text-primary-600 transition-colors border border-gray-100 group-hover:border-primary-100">
-                  <i class="bi bi-person-fill" />
-                </div>
-                <div class="min-w-0 flex-1 pt-0.5">
-                  <h4 class="text-base font-bold text-gray-900 group-hover:text-primary-700 transition-colors whitespace-normal">
-                    {{ member.name ? `Hon. ${member.name}` : 'To be updated' }}
-                  </h4>
-                  <div class="mt-1">
-                    <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider group-hover:bg-primary-50 group-hover:text-primary-700 transition-colors">
-                      {{ labels.legislativeMembers.replace(/s$/, '') }}
-                    </span>
-                  </div>
-                  <div v-if="member.committees" class="mt-3.5 text-sm">
-                    <div class="flex items-start gap-2">
-                      <span class="font-semibold text-gray-700 w-24 shrink-0">Committee:</span>
-                      <span class="text-gray-600 leading-relaxed">{{ member.committees }}</span>
-                    </div>
-                  </div>
-                </div>
+          <div class="flex flex-col gap-3">
+            <div v-for="member in sbMembers" :key="member.id" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-primary-200">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-600">
+                <i class="ri-user-line" />
               </div>
-            </UiCard>
+              <div class="min-w-0 flex-1">
+                <h4 class="font-semibold text-gray-900">
+                  {{ member.name ? `Hon. ${member.name}` : 'To be updated' }}
+                </h4>
+                <p class="mt-0.5 text-xs font-medium text-primary-600">
+                  {{ labels.legislativeMembers.replace(/s$/, '') }}
+                </p>
+                <p v-if="member.committees" class="mt-1.5 text-sm text-gray-600">
+                  Committee: {{ member.committees }}
+                </p>
+                <a v-if="member.facebook" :href="member.facebook" target="_blank" rel="noopener noreferrer" class="mt-1.5 flex items-center gap-1.5 text-xs text-primary-600 hover:underline">
+                  <i class="ri-facebook-line" />
+                  Facebook Page
+                </a>
+              </div>
+            </div>
 
-            <UiCard v-if="ligaPresident" interactive class="border-gray-200 bg-white p-5 group hover:border-emerald-300 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div class="flex items-start gap-5 min-w-0">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-xl text-gray-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors border border-gray-100 group-hover:border-emerald-100">
-                  <i class="bi bi-person-fill" />
-                </div>
-                <div class="min-w-0 flex-1 pt-0.5">
-                  <h4 class="text-base font-bold text-gray-900 group-hover:text-emerald-700 transition-colors whitespace-normal">
-                    {{ ligaPresident.name ? `Hon. ${ligaPresident.name}` : 'To be updated' }}
-                  </h4>
-                  <div class="mt-1">
-                    <span class="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                      {{ ligaPresident.title }}
-                    </span>
-                  </div>
-                  <div v-if="ligaPresident.committees" class="mt-3.5 text-sm">
-                    <div class="flex items-start gap-2">
-                      <span class="font-semibold text-gray-700 w-24 shrink-0">Committee:</span>
-                      <span class="text-gray-600 leading-relaxed">{{ ligaPresident.committees }}</span>
-                    </div>
-                  </div>
-                </div>
+            <div v-if="ligaPresident" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-green-200">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-50 text-green-600">
+                <i class="ri-user-line" />
               </div>
-            </UiCard>
+              <div class="min-w-0 flex-1">
+                <h4 class="font-semibold text-gray-900">
+                  {{ ligaPresident.name ? `Hon. ${ligaPresident.name}` : 'To be updated' }}
+                </h4>
+                <p class="mt-0.5 text-xs font-medium text-green-600">
+                  {{ ligaPresident.title }}
+                </p>
+                <p v-if="ligaPresident.committees" class="mt-1.5 text-sm text-gray-600">
+                  Committee: {{ ligaPresident.committees }}
+                </p>
+              </div>
+            </div>
 
-            <UiCard v-if="skPresident" interactive class="border-gray-200 bg-white p-5 group hover:border-amber-300 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div class="flex items-start gap-5 min-w-0">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-xl text-gray-400 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-gray-100 group-hover:border-amber-100">
-                  <i class="bi bi-person-fill" />
-                </div>
-                <div class="min-w-0 flex-1 pt-0.5">
-                  <h4 class="text-base font-bold text-gray-900 group-hover:text-amber-700 transition-colors whitespace-normal">
-                    {{ skPresident.name ? `Hon. ${skPresident.name}` : 'To be updated' }}
-                  </h4>
-                  <div class="mt-1">
-                    <span class="inline-flex items-center justify-center bg-amber-50 text-amber-700 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                      {{ skPresident.title }}
-                    </span>
-                  </div>
-                  <div v-if="skPresident.committees" class="mt-3.5 text-sm">
-                    <div class="flex items-start gap-2">
-                      <span class="font-semibold text-gray-700 w-24 shrink-0">Committee:</span>
-                      <span class="text-gray-600 leading-relaxed">{{ skPresident.committees }}</span>
-                    </div>
-                  </div>
-                </div>
+            <div v-if="skPresident" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-amber-200">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-50 text-amber-600">
+                <i class="ri-user-line" />
               </div>
-            </UiCard>
+              <div class="min-w-0 flex-1">
+                <h4 class="font-semibold text-gray-900">
+                  {{ skPresident.name ? `Hon. ${skPresident.name}` : 'To be updated' }}
+                </h4>
+                <p class="mt-0.5 text-xs font-medium text-amber-600">
+                  {{ skPresident.title }}
+                </p>
+                <p v-if="skPresident.committees" class="mt-1.5 text-sm text-gray-600">
+                  Committee: {{ skPresident.committees }}
+                </p>
+              </div>
+            </div>
 
-            <UiCard v-if="ipmr" interactive class="border-gray-200 bg-white p-5 group hover:border-purple-300 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div class="flex items-start gap-5 min-w-0">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-xl text-gray-400 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors border border-gray-100 group-hover:border-purple-100">
-                  <i class="bi bi-person-fill" />
-                </div>
-                <div class="min-w-0 flex-1 pt-0.5">
-                  <h4 class="text-base font-bold text-gray-900 group-hover:text-purple-700 transition-colors whitespace-normal">
-                    {{ ipmr.name ? `Hon. ${ipmr.name}` : 'To be updated' }}
-                  </h4>
-                  <div class="mt-1">
-                    <span class="inline-flex items-center justify-center bg-purple-50 text-purple-700 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                      IPMR
-                    </span>
-                  </div>
-                  <div v-if="ipmr.committees" class="mt-3.5 text-sm">
-                    <div class="flex items-start gap-2">
-                      <span class="font-semibold text-gray-700 w-24 shrink-0">Committee:</span>
-                      <span class="text-gray-600 leading-relaxed">{{ ipmr.committees }}</span>
-                    </div>
-                  </div>
-                </div>
+            <div v-if="ipmr" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-purple-200">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-50 text-purple-600">
+                <i class="ri-user-line" />
               </div>
-            </UiCard>
+              <div class="min-w-0 flex-1">
+                <h4 class="font-semibold text-gray-900">
+                  {{ ipmr.name ? `Hon. ${ipmr.name}` : 'To be updated' }}
+                </h4>
+                <p class="mt-0.5 text-xs font-medium text-purple-600">
+                  IPMR
+                </p>
+                <p v-if="ipmr.committees" class="mt-1.5 text-sm text-gray-600">
+                  Committee: {{ ipmr.committees }}
+                </p>
+              </div>
+            </div>
           </div>
+
+          <p class="mt-6 flex items-center gap-1.5 text-xs text-gray-600">
+            <i class="ri-information-line" />
+            Source:
+            <a href="https://binangonan.gov.ph/municipal-council/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">
+              Binangonan.gov.ph Official Website
+            </a>
+          </p>
         </div>
       </section>
 
-      <section v-if="officials.departments && officials.departments.length > 0" id="departments" class="scroll-mt-28 py-12 border-t border-gray-100">
-        <div class="mx-auto max-w-4xl">
+      <!-- ? MARK: Departments -->
+      <section v-if="officials.departments && officials.departments.length > 0" id="departments" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
           <div class="mb-8">
             <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
               Offices
@@ -248,45 +260,58 @@ const govTocItems = computed(() => [
             </p>
           </div>
 
-          <div class="grid grid-cols-1 gap-4">
-            <UiCard v-for="dept in officials.departments" :key="dept.id" interactive class="border-gray-200 bg-white p-5 group hover:border-primary-300 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div class="flex items-start gap-5 min-w-0">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-xl text-gray-400 group-hover:bg-primary-50 group-hover:text-primary-600 transition-colors border border-gray-100 group-hover:border-primary-100">
-                  <i class="bi" :class="[dept.icon || 'bi-building-fill']" />
+          <div class="flex flex-col gap-3">
+            <div v-for="dept in officials.departments" :key="dept.id" class="overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-primary-200">
+              <button type="button" class="flex w-full items-start gap-4 p-5 text-left" :class="(dept.phones && dept.phones.length > 0) || dept.email || dept.facebook ? 'cursor-pointer' : 'cursor-default'" @click="(dept.phones && dept.phones.length > 0) || dept.email || dept.facebook ? toggleDept(dept.id) : undefined">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-600">
+                  <i :class="dept.icon || 'ri-building-line'" />
                 </div>
-
-                <div class="min-w-0 flex-1 pt-0.5">
-                  <h4 class="text-base font-bold text-gray-900 group-hover:text-primary-700 transition-colors whitespace-normal">
+                <div class="min-w-0 flex-1">
+                  <h4 class="font-semibold text-gray-900">
                     {{ dept.department }}
                   </h4>
-                  <p class="mt-1 text-sm leading-relaxed text-gray-500">
+                  <p class="mt-0.5 text-sm text-gray-600">
                     {{ dept.description }}
                   </p>
+                  <p v-if="(dept.phones && dept.phones.length > 0) || dept.email || dept.facebook" class="mt-1.5 flex items-center gap-1 text-xs font-medium text-primary-600">
+                    <i class="transition-transform duration-200" :class="openDepts.has(dept.id) ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'" />
+                    {{ openDepts.has(dept.id) ? 'Hide contact details' : 'View contact details' }}
+                  </p>
+                </div>
+              </button>
 
-                  <div v-if="dept.phone || dept.email" class="mt-4 space-y-1.5 text-sm">
-                    <div v-if="dept.phone" class="flex items-start gap-2">
-                      <span class="font-semibold text-gray-700 w-14 shrink-0">Phone:</span>
-                      <a :href="`tel:${formatPhoneLink(dept.phone)}`" class="text-primary-600 hover:text-primary-800 font-medium transition-colors">
-                        {{ dept.phone }}
-                      </a>
-                    </div>
-
-                    <div v-if="dept.email" class="flex items-start gap-2">
-                      <span class="font-semibold text-gray-700 w-14 shrink-0">Email:</span>
-                      <a :href="`mailto:${dept.email}`" class="text-primary-600 hover:text-primary-800 font-medium transition-colors break-all">
-                        {{ dept.email }}
-                      </a>
-                    </div>
-                  </div>
+              <div v-if="openDepts.has(dept.id)" class="border-t border-gray-100 pb-5 pl-[72px] pr-5 pt-4">
+                <div class="flex flex-col gap-2 text-sm">
+                  <a v-for="phone in dept.phones" :key="phone" :href="`tel:${formatPhoneLink(phone)}`" class="flex items-center gap-2 text-primary-600 hover:underline">
+                    <i class="ri-phone-line" />
+                    {{ phone }}
+                  </a>
+                  <a v-if="dept.email" :href="`mailto:${dept.email}`" class="flex items-center gap-2 text-primary-600 hover:underline">
+                    <i class="ri-mail-line" />
+                    {{ dept.email }}
+                  </a>
+                  <a v-if="dept.facebook" :href="dept.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-primary-600 hover:underline">
+                    <i class="ri-facebook-line" />
+                    Facebook Page
+                  </a>
                 </div>
               </div>
-            </UiCard>
+            </div>
           </div>
+
+          <p class="mt-6 flex items-center gap-1.5 text-xs text-gray-600">
+            <i class="ri-information-line" />
+            Source:
+            <a href="https://www.facebook.com/share/p/1G6PMuwdwQ/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">
+              Binangonan Public Information Office
+            </a>
+          </p>
         </div>
       </section>
 
-      <section v-if="subdivisions.items && subdivisions.items.length > 0" id="subdivisions" class="scroll-mt-28 py-12 border-t border-gray-100">
-        <div class="mx-auto max-w-4xl">
+      <!-- ? MARK: Subdivisions / Brgys -->
+      <section v-if="subdivisions.items && subdivisions.items.length > 0" id="barangays" class="scroll-mt-28 border-t border-gray-100 py-12">
+        <div class="mx-auto max-w-3xl">
           <div class="mb-8">
             <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
               Community
@@ -299,24 +324,52 @@ const govTocItems = computed(() => [
             </p>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            <UiCard v-for="item in subdivisions.items" :key="item.id" :href="item.phone ? `tel:${formatPhoneLink(item.phone)}` : '#'" padding="p-4" interactive class="border-gray-200 bg-white group hover:border-primary-300">
-              <div class="flex items-start gap-3">
-                <i class="bi bi-geo-alt-fill text-lg text-gray-300 group-hover:text-primary-500 transition-colors mt-0.5" />
-                <div class="min-w-0">
-                  <span class="font-bold text-gray-900 block truncate group-hover:text-primary-700 transition-colors">
-                    {{ item.name }}
-                  </span>
-                  <div class="text-xs text-gray-500 mt-1">
-                    <span class="block truncate"><i class="bi bi-person mr-1" /> {{ item.leader }}</span>
-                    <span v-if="item.phone" class="block mt-1 font-medium text-primary-600">
-                      <i class="bi bi-telephone mr-1" /> {{ item.phone }}
-                    </span>
-                  </div>
+          <div class="flex flex-col gap-3">
+            <div v-for="item in subdivisions.items" :key="item.id" class="overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-primary-200">
+              <button type="button" class="flex w-full items-start gap-4 p-5 text-left" :class="(item.phones && item.phones.length > 0) || item.email || item.facebook ? 'cursor-pointer' : 'cursor-default'" @click="(item.phones && item.phones.length > 0) || item.email || item.facebook ? toggleBrgy(item.id) : undefined">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-600">
+                  <i class="ri-map-pin-line" />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h4 class="font-semibold text-gray-900">
+                    Barangay {{ item.name }}
+                  </h4>
+                  <p class="mt-0.5 text-sm text-gray-600">
+                    {{ item.leader }}
+                  </p>
+                  <p v-if="(item.phones && item.phones.length > 0) || item.email || item.facebook" class="mt-1.5 flex items-center gap-1 text-xs font-medium text-primary-600">
+                    <i class="transition-transform duration-200" :class="openBrgys.has(item.id) ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'" />
+                    {{ openBrgys.has(item.id) ? 'Hide contact details' : 'View contact details' }}
+                  </p>
+                </div>
+              </button>
+
+              <div v-if="openBrgys.has(item.id)" class="border-t border-gray-100 pb-5 pl-[72px] pr-5 pt-4">
+                <div class="flex flex-col gap-2 text-sm">
+                  <a v-for="phone in item.phones" :key="phone" :href="`tel:${formatPhoneLink(phone)}`" class="flex items-center gap-2 text-primary-600 hover:underline">
+                    <i class="ri-phone-line" />
+                    {{ phone }}
+                  </a>
+                  <a v-if="item.email" :href="`mailto:${item.email}`" class="flex items-center gap-2 text-primary-600 hover:underline">
+                    <i class="ri-mail-line" />
+                    {{ item.email }}
+                  </a>
+                  <a v-if="item.facebook" :href="item.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-primary-600 hover:underline">
+                    <i class="ri-facebook-line" />
+                    Facebook Page
+                  </a>
                 </div>
               </div>
-            </UiCard>
+            </div>
           </div>
+
+          <p class="mt-6 flex items-center gap-1.5 text-xs text-gray-600">
+            <i class="ri-information-line" />
+            Source:
+            <a href="https://www.facebook.com/share/p/1G6PMuwdwQ/" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline">
+              Binangonan Public Information Office
+            </a>
+          </p>
         </div>
       </section>
     </UiPageWithToc>

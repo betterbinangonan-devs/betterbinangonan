@@ -195,7 +195,7 @@ const filteredAttractions = computed(() => {
           Contact our local tourism office for more information and assistance
           in planning your visit.
         </p>
-        <UiButton to="/contact" variant="solid" color="primary">
+        <UiButton to="/hotlines" variant="solid" color="primary">
           Contact Us <i class="bi bi-arrow-right" />
         </UiButton>
       </div>

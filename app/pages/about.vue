@@ -149,7 +149,7 @@ const { siteBrandName, lguName } = useConfig()
             </p>
           </NuxtLink> -->
 
-          <NuxtLink to="/join-us" class="group bg-white p-8 rounded-xl border border-gray-200 hover:border-primary-500 hover:shadow-lg transition-all text-center no-underline">
+          <NuxtLink to="/contact-us" class="group bg-white p-8 rounded-xl border border-gray-200 hover:border-primary-500 hover:shadow-lg transition-all text-center no-underline">
             <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl group-hover:scale-110 transition-transform">
               <i class="bi bi-heart-fill" />
             </div>
