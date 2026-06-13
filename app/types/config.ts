@@ -35,6 +35,38 @@ export interface SiteConfig {
     address: string
     postalCode: string
   }
+  project?: {
+    name?: string
+    email?: string
+    volunteerEmail?: string
+    phone?: string
+    officeAddress?: string
+    description?: string
+    lookingForVolunteers?: boolean
+    volunteerRoles?: string[]
+    donationUrl?: string
+    reportIssueUrl?: string
+    license?: string
+    launched?: string
+    status?: 'active' | 'maintenance' | 'archived'
+    social?: {
+      facebook?: string
+      github?: string
+      twitter?: string
+      instagram?: string
+      youtube?: string
+      discord?: string
+      linkedin?: string
+    }
+  }
+  developers?: {
+    name: string
+    role?: string
+    github?: string
+    linkedin?: string
+    website?: string
+    avatar?: string
+  }[]
   social: {
     facebook: string
     twitter: string
@@ -67,6 +99,7 @@ export interface Official {
   email?: string
   phone?: string
   committees?: string
+  facebook?: string
 }
 
 export interface Department {
@@ -78,8 +111,9 @@ export interface Department {
   description: string
   icon: string
   email: string
-  phone: string
+  phones: string[]
   services: string
+  facebook?: string
 }
 
 export interface OfficialsConfig {
@@ -94,14 +128,16 @@ export interface SubdivisionsConfig {
     id: string
     name: string
     leader: string
-    phone?: string
+    phones?: string[]
+    email?: string
+    facebook?: string
   }>
 }
 
 export interface PhoneHotlineItem {
   id: string
   name: string
-  number: string
+  numbers: string[]
   icon?: string
 }
 export interface EmailHotlineItem {
@@ -122,11 +158,15 @@ export interface HotlineSection {
   label: string
   title: string
   description: string
-  callDescription?: string
-  emailDescription?: string
+  callDescription: string
+  emailDescription: string
   tone: 'red' | 'green' | 'blue' | 'gray'
   icon: string
-  items: HotlineItem[]
+  source?: string
+  sourceUrl?: string
+  link?: string
+  linkLabel?: string
+  items: (PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem)[]
 }
 export interface HotlinesConfig {
   sections: HotlineSection[]
@@ -191,6 +231,16 @@ export interface StatisticsDetailedConfig {
     trendType: string
     trend: string
   }>
+  cmciOverall?: {
+    rank: string
+    score: string
+    year: string
+    classification: string
+  }
+  cmciRankingsTrend?: {
+    labels: string[]
+    data: number[]
+  }
   financialData: {
     annualIncome: string
     annualIncomeDetailed: string
@@ -201,10 +251,9 @@ export interface StatisticsDetailedConfig {
     source: string
     year: string | number
   }
-  populationGrowth: {
-    year2020: number
-    year2024: number
-    growthRate: string
+  populationTrend?: {
+    labels: string[]
+    data: number[]
   }
   [key: string]: unknown
 }

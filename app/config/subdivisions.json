@@ -6,241 +6,321 @@
       "id": "bangad",
       "name": "Bangad",
       "leader": "Hon. Efren F. Francisco",
-      "phone": ""
+      "phones": ["0918 735 3468", "0923 544 8515", "0946 435 6415"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "batingan",
       "name": "Batingan",
       "leader": "Hon. Guillermo T. Anore",
-      "phone": ""
+      "phones": ["0928 416 8065", "0975 426 0724"],
+      "email": "",
+      "facebook": "https://www.facebook.com/BatinganPublicInformation"
     },
     {
       "id": "bilibiran",
       "name": "Bilibiran",
       "leader": "Hon. Leonard T. Mateo",
-      "phone": ""
+      "phones": ["0964 119 1449"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "binitagan",
       "name": "Binitagan",
       "leader": "Hon. Alfred G. Cerda",
-      "phone": ""
+      "phones": ["0963 631 6586"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "bombong",
       "name": "Bombong",
       "leader": "Hon. Orlando Ditablan",
-      "phone": ""
+      "phones": ["0926 179 2976", "0955 463 7499"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "buhangin",
       "name": "Buhangin",
       "leader": "Hon. Virgilio O. Rivera",
-      "phone": ""
+      "phones": ["0908 128 6821", "0931 925 1648"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "calumpang",
       "name": "Calumpang",
       "leader": "Hon. James Michael A. Paralejas",
-      "phone": ""
+      "phones": ["0917 180 0691"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "darangan",
       "name": "Darangan",
       "leader": "Hon. Longino L. Del Mundo Jr.",
-      "phone": ""
+      "phones": ["0961 676 0193"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "ginoong-sanay",
       "name": "Ginoong Sanay",
       "leader": "Hon. Roderick C. Lorena",
-      "phone": ""
+      "phones": ["0935 311 9301", "0976 207 1674"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "gulod",
       "name": "Gulod",
       "leader": "Hon. Reynante M. Arambulo",
-      "phone": ""
+      "phones": ["0997 955 5924", "0966 660 6548"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "habagatan",
       "name": "Habagatan",
       "leader": "Hon. Marzen Binaluyo",
-      "phone": ""
+      "phones": ["0963 893 4874", "0977 250 4882"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "ithan",
       "name": "Ithan",
       "leader": "Hon. Roberto L. Bobotioc",
-      "phone": ""
+      "phones": ["0915 031 5292"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "janosa",
       "name": "Janosa",
       "leader": "Hon. Geronimo Mendoza",
-      "phone": ""
+      "phones": ["0932 289 4570"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "kalinawan",
       "name": "Kalinawan",
       "leader": "Hon. Normelito B. Cerda",
-      "phone": ""
+      "phones": ["0947 967 1852"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "kasile",
       "name": "Kasile",
       "leader": "Hon. Catalino C. Ceremonia",
-      "phone": ""
+      "phones": ["0955 690 1046", "0935 199 0301"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "kaytome",
       "name": "Kaytome",
       "leader": "Hon. Florencio M. Dominguez",
-      "phone": ""
+      "phones": ["0922 764 4339", "0938 472 0520"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "kinaboogan",
       "name": "Kinaboogan",
       "leader": "Hon. Alexander V. Paralejas",
-      "phone": ""
+      "phones": ["0912 848 4515"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "kinagatan",
       "name": "Kinagatan",
       "leader": "Hon. Arlene Villariña",
-      "phone": ""
+      "phones": ["0949 608 7451"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "layunan",
       "name": "Layunan",
       "leader": "Hon. Arnel V. Chulvo",
-      "phone": ""
+      "phones": ["0966 914 2683", "0975 662 1379"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "libid",
       "name": "Libid",
       "leader": "Hon. Gil C. Anore",
-      "phone": ""
+      "phones": ["0962 951 7459", "0954 495 6141"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "libis",
       "name": "Libis",
       "leader": "Hon. Vincent R. Pajarillo",
-      "phone": ""
+      "phones": ["8-691-3405"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "limbon-limbon",
       "name": "Limbon-limbon",
       "leader": "Hon. Narciso A. Policarpio",
-      "phone": ""
+      "phones": ["0961 176 9976"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "lunsad",
       "name": "Lunsad",
       "leader": "Hon. Tiburcio U. Mesa",
-      "phone": ""
+      "phones": ["0950 296 7832", "0935 364 7689"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "macamot",
       "name": "Macamot",
       "leader": "Hon. Edward F. Basa",
-      "phone": ""
+      "phones": ["0953 752 3709"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "mahabang-parang",
       "name": "Mahabang Parang",
       "leader": "Hon. Rodel A. Aran",
-      "phone": ""
+      "phones": ["0952 506 5730", "0935 534 8389"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "malakaban",
       "name": "Malakaban",
       "leader": "Hon. Ofelia D. Villadiego",
-      "phone": ""
+      "phones": ["0929 844 9029", "0970 929 3924"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "mambog",
       "name": "Mambog",
       "leader": "Hon. Leilani G. Pereira",
-      "phone": ""
+      "phones": ["0917 728 6847"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "pag-asa",
       "name": "Pag-asa",
       "leader": "Hon. Ma. Miriam C. Gatulayao",
-      "phone": ""
+      "phones": ["0950 252 6769", "0967 531 2928"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "palangoy",
       "name": "Palangoy",
       "leader": "Hon. Cresencio M. Ojoy",
-      "phone": ""
+      "phones": ["0968 882 1438", "0926 069 6344"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "pantok",
       "name": "Pantok",
       "leader": "Hon. Glenn B. Torres",
-      "phone": ""
+      "phones": ["0961 831 4912", "0916 437 3510"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "pila-pila",
       "name": "Pila-pila",
       "leader": "Hon. Johann C. Nido",
-      "phone": ""
+      "phones": ["0926 580 7604"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "pinagdilawan",
       "name": "Pinagdilawan",
       "leader": "Hon. Ohgie O. Pundamiera",
-      "phone": ""
+      "phones": ["0909 010 0033"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "pipindan",
       "name": "Pipindan",
       "leader": "Hon. Vergel Anthony U. Celebre",
-      "phone": ""
+      "phones": ["0995 255 4498", "0935 206 9407"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "rayap",
       "name": "Rayap",
       "leader": "Hon. Jaime B. Celones",
-      "phone": ""
+      "phones": ["0985 158 2683"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "sapang",
       "name": "Sapang",
       "leader": "Hon. Arvin M. Añain",
-      "phone": ""
+      "phones": ["0992 545 2768"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "san-carlos",
       "name": "San Carlos",
       "leader": "Hon. Anne M. De Leon",
-      "phone": ""
+      "phones": ["0968 214 0008"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "tabon",
       "name": "Tabon",
       "leader": "Hon. Conrado B. Mesa",
-      "phone": ""
+      "phones": ["0910 635 7405", "0938 493 7287", "0920 641 9094"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "tagpos",
       "name": "Tagpos",
       "leader": "Hon. Ricardo C. Dela Cuesta",
-      "phone": ""
+      "phones": ["0956 153 8605"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "tatala",
       "name": "Tatala",
       "leader": "Hon. Fermin B. Unida",
-      "phone": ""
+      "phones": ["0964 966 8281"],
+      "email": "",
+      "facebook": ""
     },
     {
       "id": "tayuman",
       "name": "Tayuman",
       "leader": "Hon. Raymundo H. Villadiego",
-      "phone": ""
+      "phones": ["0920 630 2787", "0995 433 8252"],
+      "email": "",
+      "facebook": ""
     }
   ]
 }

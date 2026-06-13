@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     enabled: true,
   },
   css: ['~/assets/css/main.css', 'remixicon/fonts/remixicon.css'],
-  modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image'],
+  modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image', './modules/generate-seo'],
   runtimeConfig: {
     public: {
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',

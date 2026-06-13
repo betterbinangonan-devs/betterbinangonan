@@ -117,7 +117,7 @@ watch(visibleItems, () => {
                   ? 'bg-primary-50 text-primary-700'
                   : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600'" @click="closeMobileToc"
               >
-                <i v-if="item.icon" class="bi text-base" :class="item.icon" />
+                <i v-if="item.icon" class="text-base" :class="item.icon" />
 
                 <span>{{ item.label }}</span>
               </a>
@@ -131,14 +131,14 @@ watch(visibleItems, () => {
 
             <button type="button" class="flex min-w-0 flex-1 items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-bold text-gray-800 transition hover:bg-gray-50" @click="isMobileTocOpen = !isMobileTocOpen">
               <span class="inline-flex min-w-0 items-center gap-2">
-                <i class="bi bi-list-ul shrink-0 text-primary-600" />
+                <i class="ri-list-unordered shrink-0 text-primary-600" />
 
                 <span class="truncate">
                   {{ title }}
                 </span>
               </span>
 
-              <i class="bi bi-chevron-up shrink-0 text-gray-400 transition-transform" :class="isMobileTocOpen ? 'rotate-180' : ''" />
+              <i class="ri-arrow-up-s-line shrink-0 text-gray-400 transition-transform" :class="isMobileTocOpen ? 'rotate-180' : ''" />
             </button>
           </div>
         </div>
@@ -159,7 +159,7 @@ watch(visibleItems, () => {
                     ? 'bg-primary-50 text-primary-700'
                     : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600'"
                 >
-                  <i v-if="item.icon" class="bi text-base" :class="item.icon" />
+                  <i v-if="item.icon" class="text-base" :class="item.icon" />
 
                   <span>{{ item.label }}</span>
                 </a>
