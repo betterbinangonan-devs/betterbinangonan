@@ -972,7 +972,7 @@ export const serviceDetailsContent: ServiceDetail[] = [
   {
     id: 'birth-registration',
     title: 'Birth Certificate Registration',
-    fullTitle: 'Registration of Birth Certificates (Timely & Late)',
+    fullTitle: 'Registration of Birth Certificates',
     category: 'Civil Registry',
     categoryLink: '/services/civil-registry',
     badgeText: 'Civil Registry',

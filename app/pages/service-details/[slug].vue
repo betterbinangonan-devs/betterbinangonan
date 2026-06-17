@@ -76,9 +76,9 @@ function toggleFaq(index: number) {
         { label: service.title },
       ]"
     >
-      <div class="mx-auto mt-8 max-w-xl">
+      <!-- <div class="mx-auto mt-8 max-w-xl">
         <ServicesSearch placeholder="Search services, permits..." class="[&_input]:pl-10 [&_input]:pr-4 [&_input]:py-3 [&_input]:border [&_input]:border-white/25 [&_input]:rounded-full [&_input]:shadow-none [&_input]:bg-transparent [&_input]:text-white [&_input]:placeholder:text-white/50 hover:[&_input]:bg-white/10 hover:[&_input]:border-white/45 focus:[&_input]:bg-white/10 focus:[&_input]:border-white/70 focus:[&_input]:ring-4 focus:[&_input]:ring-white/10" />
-      </div>
+      </div> -->
     </UiPageHero>
 
     <UiPageWithToc :items="serviceTocItems">
