@@ -21,7 +21,7 @@ defineProps<{
 <template>
   <section
     :class="cn(
-      'relative overflow-hidden bg-primary-600 pt-[calc(var(--app-header-height,0px)+3rem)] pb-16 md:pb-20',
+      'relative overflow-hidden bg-primary-600 pt-[calc(var(--app-header-height,0px)+1.5rem)] pb-10 md:pt-[calc(var(--app-header-height,0px)+3rem)] md:pb-20',
       $props.class,
     )"
   >
@@ -29,7 +29,12 @@ defineProps<{
 
     <div class="relative z-10 container mx-auto px-4">
       <div class="text-center max-w-3xl mx-auto">
-        <UiBreadcrumbs v-if="breadcrumbs?.length" :items="breadcrumbs" variant="light" class="mb-4" />
+        <UiBreadcrumbs
+          v-if="breadcrumbs?.length"
+          :items="breadcrumbs"
+          variant="light"
+          class="mb-4 justify-center"
+        />
 
         <slot name="top" />
 
@@ -47,7 +52,7 @@ defineProps<{
           {{ title }}
         </h1>
 
-        <p class="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
+        <p class="text-xs sm:text-lg text-white/90 leading-relaxed max-w-2xl mx-auto">
           {{ description }}
         </p>
 

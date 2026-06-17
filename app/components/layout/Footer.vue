@@ -36,7 +36,7 @@ const socialLinks = computed(() =>
 
 <template>
   <!-- ? MARK: Back to top -->
-  <div class="bg-white py-15 flex justify-center">
+  <div class="bg-white py-6 md:py-10 flex justify-center">
     <a
       href="#"
       class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors group"

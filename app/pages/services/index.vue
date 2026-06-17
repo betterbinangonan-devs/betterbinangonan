@@ -35,7 +35,7 @@ const lifeEvents = [
     href: '/services/infrastructure',
     icon: 'bi-hammer',
     labelKey: 'life-building',
-    hidden: false, // Unhidden since infrastructure is now active
+    hidden: false,
   },
   {
     href: '/services/social-services',
