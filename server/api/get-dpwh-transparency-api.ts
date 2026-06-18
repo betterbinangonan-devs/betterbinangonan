@@ -52,15 +52,10 @@ interface DpwhStaticResponse {
 }
 
 export default defineEventHandler(async (_event) => {
-  const { readFileSync } = await import('node:fs')
-  const { join } = await import('node:path')
-  const { cwd } = await import('node:process')
+  const storage = useStorage('assets:data')
+  const json = await storage.getItem<DpwhStaticResponse>('dpwh-projects.json')
 
-  const filePath = join(cwd(), 'public/data/dpwh-projects.json')
-  const raw = readFileSync(filePath, 'utf-8')
-  const json: DpwhStaticResponse = JSON.parse(raw)
-
-  if (json.data?.pagination) {
+  if (json?.data?.pagination) {
     json.data.pagination.totalPages = 1
     json.data.pagination.hasNext = false
   }
