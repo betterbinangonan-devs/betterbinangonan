@@ -34,6 +34,8 @@
 // })
 
 // server/api/get-dpwh-transparency-api.ts
+import dpwhData from '../../public/data/dpwh-projects.json'
+
 interface DpwhStaticResponse {
   status: number
   code: string
@@ -52,10 +54,9 @@ interface DpwhStaticResponse {
 }
 
 export default defineEventHandler(async (_event) => {
-  const storage = useStorage('assets:data')
-  const json = await storage.getItem<DpwhStaticResponse>('dpwh-projects.json')
+  const json = structuredClone(dpwhData) as DpwhStaticResponse
 
-  if (json?.data?.pagination) {
+  if (json.data?.pagination) {
     json.data.pagination.totalPages = 1
     json.data.pagination.hasNext = false
   }
