@@ -35,8 +35,8 @@
     "hidden": false
   },
   "dpwh-projects": {
-    "titleFragment": "Dpwh Projects",
-    "description": "Dpwh Projects — Better {{lguName}}.",
+    "titleFragment": "DPWH Projects",
+    "description": "DPWH Projects — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
@@ -70,8 +70,8 @@
     "hidden": false
   },
   "index": {
-    "titleFragment": "Index",
-    "description": "Index — Better {{lguName}}.",
+    "titleFragment": "Home",
+    "description": "Home — Better {{lguName}}.",
     "ogType": "website",
     "twitterCard": "summary",
     "hidden": false
