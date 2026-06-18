@@ -1,0 +1,16 @@
+name: Test DPWH Fetch
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test_fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test DPWH API call
+        run: |
+          curl -i "https://api.transparency.dpwh.gov.ph/projects?page=1&limit=50&search=binangonan&province=RIZAL" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+            -H "Referer: https://transparency.dpwh.gov.ph/" \
+            -H "Origin: https://transparency.dpwh.gov.ph" \
+            -H "Accept: application/json, text/plain, */*"

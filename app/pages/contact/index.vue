@@ -98,7 +98,7 @@ const tocItems = computed(() => [
     <UiPageHero badge-icon="ri-contacts-line" badge-text="Contact" title="Contact Us" description="Reach out to us for any concerns, inquiries, or contributions." :breadcrumbs="[{ label: 'Contact' }]" />
 
     <UiPageWithToc :items="tocItems">
-      <!-- Contact Info -->
+      <!-- ? MARK: Contact Info -->
       <section id="contact-info" class="scroll-mt-28 py-12">
         <div class="mx-auto max-w-3xl">
           <div class="mb-8">
@@ -137,7 +137,7 @@ const tocItems = computed(() => [
         </div>
       </section>
 
-      <!-- Social Media -->
+      <!-- ? MARK: Social Media -->
       <section v-if="socialLinks.length" id="social-media" class="scroll-mt-28 py-12">
         <div class="mx-auto max-w-3xl">
           <div class="mb-8">
@@ -173,7 +173,7 @@ const tocItems = computed(() => [
         </div>
       </section>
 
-      <!-- Developers -->
+      <!-- ? MARK: Developers -->
       <section v-if="developers.length" id="developers" class="scroll-mt-28 py-12">
         <div class="mx-auto max-w-3xl">
           <div class="mb-8">
@@ -214,7 +214,7 @@ const tocItems = computed(() => [
         </div>
       </section>
 
-      <!-- Volunteers -->
+      <!-- ? MARK: Volunteers -->
       <section v-if="project?.lookingForVolunteers" id="volunteers" class="scroll-mt-28 py-12">
         <div class="mx-auto max-w-3xl">
           <div class="mb-8">
