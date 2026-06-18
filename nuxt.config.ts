@@ -53,6 +53,12 @@ export default defineNuxtConfig({
       autoSubfolderIndex: false,
       failOnError: false,
     },
+    serverAssets: [
+      {
+        baseName: 'data',
+        dir: './public/data',
+      },
+    ],
   },
   ogImage: {
     enabled: true,
