@@ -111,7 +111,6 @@ const logoPath = computed(() => {
 })
 </script>
 
-
 <!-- ? MARK: TEMPLATE HTML -->
 <template>
   <nav ref="headerRef" class="fixed top-0 left-0 right-0 z-50">
@@ -265,7 +264,8 @@ const logoPath = computed(() => {
         <button
           type="button"
           class="block w-full px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500 cursor-pointer"
-          @click="closeMenu(); isSearchOpen = true">
+          @click="closeMenu(); isSearchOpen = true"
+        >
           Search Services
         </button>
 

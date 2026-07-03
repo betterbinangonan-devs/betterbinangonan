@@ -1,4 +1,4 @@
 export default defineNuxtRouteMiddleware(() => {
-    const breadcrumbs = useState<{ label: string, href?: string }[]>('page-breadcrumbs', () => [])
-    breadcrumbs.value = []
+  const breadcrumbs = useState<{ label: string, href?: string }[]>('page-breadcrumbs', () => [])
+  breadcrumbs.value = []
 })
