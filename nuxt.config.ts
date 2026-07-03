@@ -66,9 +66,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css', 'remixicon/fonts/remixicon.css'],
   modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image', './modules/generate-seo'],
   runtimeConfig: {
+    resendApiKey: process.env.RESEND_API_KEY,
+    contactAutoReplyEnabled: process.env.CONTACT_AUTO_REPLY_ENABLED !== 'false',
     public: {
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
-
       site: {
         lguType: '',
         municipality: '',

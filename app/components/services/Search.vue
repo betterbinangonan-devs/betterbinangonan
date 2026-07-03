@@ -21,8 +21,6 @@ const isModalOpen = ref(false)
 const {
   query,
   setQuery,
-  category,
-  setCategory,
   results,
   suggestions,
   setIsOpen,
@@ -34,10 +32,6 @@ const {
   pendingNavigation,
   clearPendingNavigation,
 } = useSearch(props.initialQuery)
-
-const CATEGORIES = [
-  { id: 'certificates', label: 'Certificates' },
-] as const
 
 const showResults = computed(() =>
   results.value.length > 0
@@ -112,17 +106,6 @@ onMounted(() => {
 
         <!-- Body — original dropdown content -->
         <div class="max-h-[60vh] overflow-y-auto">
-          <!-- Category Filter Tabs -->
-          <div class="flex gap-1.5 px-3 py-3 pb-2.5 border-b border-blue-50 flex-nowrap justify-start bg-gradient-to-b from-gray-50 to-white rounded-t-2xl overflow-x-auto">
-            <button
-              v-for="cat in CATEGORIES" :key="cat.id" type="button" class="px-3 py-1.5 border-2 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap flex-shrink-0 transition-all" :class="category === cat.id
-                ? 'border-blue-700 bg-blue-700 text-white shadow-md'
-                : 'border-blue-200 bg-white text-gray-600 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50'" @click="setCategory(cat.id)"
-            >
-              {{ cat.label }}
-            </button>
-          </div>
-
           <!-- Recent Searches -->
           <div v-if="query.length < 2 && suggestions.recent.length > 0" class="border-b border-blue-50 last:border-b-0">
             <div class="flex justify-between items-center px-4 pt-3 pb-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">

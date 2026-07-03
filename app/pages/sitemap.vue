@@ -13,6 +13,7 @@ interface SitemapLink {
 }
 
 interface SitemapSection {
+  id: string
   icon: string
   title: string
   cols?: number
@@ -68,14 +69,25 @@ const sections = computed<SitemapSection[]>(() => {
   }))
 
   return [
-    { icon: 'ri-home-line', title: 'Main Navigation', links: mainNavLinks },
-    { icon: 'ri-grid-line', title: 'Service Categories', links: serviceLinks },
-    { icon: 'ri-file-text-line', title: 'All Services', cols: 4, links: serviceDetailLinks },
-    { icon: 'ri-government-line', title: 'Government & Legislative', links: governmentLinks },
-    { icon: 'ri-file-list-line', title: 'Quick Links', links: quickLinks },
-    { icon: 'ri-hand-heart-line', title: 'Get Involved', links: getInvolvedLinks },
+    { id: 'main-navigation', icon: 'ri-home-line', title: 'Main Navigation', links: mainNavLinks },
+    { id: 'service-categories', icon: 'ri-grid-line', title: 'Service Categories', links: serviceLinks },
+    { id: 'all-services', icon: 'ri-file-text-line', title: 'All Services', cols: 4, links: serviceDetailLinks },
+    { id: 'government-legislative', icon: 'ri-government-line', title: 'Government & Legislative', links: governmentLinks },
+    { id: 'quick-links', icon: 'ri-file-list-line', title: 'Quick Links', links: quickLinks },
+    { id: 'get-involved', icon: 'ri-hand-heart-line', title: 'Get Involved', links: getInvolvedLinks },
   ]
 })
+
+// ? MARK: toc
+const visibleSections = computed(() => sections.value.filter(s => s.links.some(l => !l.hidden)))
+
+const tocItems = computed(() =>
+  visibleSections.value.map(section => ({
+    id: section.id,
+    label: section.title,
+    visible: true,
+  })),
+)
 </script>
 
 <!-- ? MARK: design -->
@@ -83,38 +95,40 @@ const sections = computed<SitemapSection[]>(() => {
   <div>
     <UiPageHero badge-icon="ri-sitemap-line" badge-text="Navigation" title="Sitemap" :description="`Navigate all pages and services of Better ${lguName}`" :breadcrumbs="[{ label: 'Sitemap' }]" />
 
-    <section class="py-12">
-      <div class="container mx-auto px-4">
-        <div class="mx-auto max-w-5xl space-y-4">
-          <div v-for="section in sections.filter(s => s.links.some(l => !l.hidden))" :key="section.title" class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-            <div class="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-5 py-4">
-              <div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50 text-primary-600">
-                <i :class="section.icon" />
+    <UiPageWithToc :items="tocItems">
+      <section class="py-12">
+        <div class="container mx-auto px-4">
+          <div class="mx-auto max-w-5xl space-y-4">
+            <div v-for="section in visibleSections" :id="section.id" :key="section.title" class="scroll-mt-28 overflow-hidden rounded-2xl border border-gray-200 bg-white">
+              <div class="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-5 py-4">
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50 text-primary-600">
+                  <i :class="section.icon" />
+                </div>
+                <h2 class="text-base font-bold text-gray-900">
+                  {{ section.title }}
+                </h2>
               </div>
-              <h2 class="text-base font-bold text-gray-900">
-                {{ section.title }}
-              </h2>
-            </div>
 
-            <div
-              class="grid gap-1 p-4" :class="section.cols === 4
-                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-                : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'"
-            >
-              <template v-for="link in section.links.filter(l => !l.hidden)" :key="link.href">
-                <a v-if="link.external" :href="link.href" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition hover:bg-primary-50 hover:text-primary-600">
-                  <i class="ri-external-link-line text-gray-400" />
-                  {{ link.label }}
-                </a>
-                <NuxtLink v-else :to="link.href" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition hover:bg-primary-50 hover:text-primary-600">
-                  <i class="ri-arrow-right-s-line text-gray-400" />
-                  {{ link.label }}
-                </NuxtLink>
-              </template>
+              <div
+                class="grid gap-1 p-4" :class="section.cols === 4
+                  ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+                  : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'"
+              >
+                <template v-for="link in section.links.filter(l => !l.hidden)" :key="link.href">
+                  <a v-if="link.external" :href="link.href" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition hover:bg-primary-50 hover:text-primary-600">
+                    <i class="ri-external-link-line text-gray-400" />
+                    {{ link.label }}
+                  </a>
+                  <NuxtLink v-else :to="link.href" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition hover:bg-primary-50 hover:text-primary-600">
+                    <i class="ri-arrow-right-s-line text-gray-400" />
+                    {{ link.label }}
+                  </NuxtLink>
+                </template>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </UiPageWithToc>
   </div>
 </template>

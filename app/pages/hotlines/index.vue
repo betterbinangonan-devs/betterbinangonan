@@ -220,7 +220,7 @@ function hotlineDescription(
                 Looking to contact the {{ siteBrandName }} team?
               </h3>
               <p class="mt-1 text-sm text-primary-700">
-                These hotlines are for LGU {{ lguName }} services. But for questions, feedback, or contributions to this website, visit our contact page.
+                These hotlines are for {{ lguName }} LGU offices. But for questions, feedbacks, reports, or contributions to this website, visit our contact page.
               </p>
               <NuxtLink to="/contact" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-700">
                 <i class="ri-contacts-line" />

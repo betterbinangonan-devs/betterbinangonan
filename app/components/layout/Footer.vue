@@ -14,6 +14,7 @@ const footerNavigation = computed(() => ({
   ],
 }))
 
+// ? MARK: Logo
 const logoPath = computed(
   () =>
     site.value.logo?.logo_landscape_white
@@ -22,6 +23,7 @@ const logoPath = computed(
     || '/logos/svg/BetterGov_Icon-Primary.svg',
 )
 
+// ? MARK: Links
 const socialLinks = computed(() =>
   [
     { label: 'Facebook', href: site.value.social.facebook, icon: 'bi-facebook' },
@@ -32,11 +34,36 @@ const socialLinks = computed(() =>
     { label: 'GitHub', href: site.value.social.github, icon: 'bi-github' },
   ].filter(link => link.href),
 )
+
+// ? MARK: Share
+async function handleShare() {
+  const shareData = {
+    title: siteBrandName.value,
+    text: `Check out ${siteBrandName.value} — ${site.value.tagline}`,
+    url: window.location.href,
+  }
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData)
+    }
+    catch {
+      // user cancelled
+    }
+  }
+  else if (navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+    }
+    catch {
+      // clipboard not available
+    }
+  }
+}
 </script>
 
 <template>
-  <!-- ? MARK: Back to top -->
-  <div class="bg-white py-6 md:py-10 flex justify-center">
+  <!-- ? MARK: Back to top + Share -->
+  <div class="bg-white pt-1 pb-6 md:pt-6 md:pb-10 flex items-center justify-center gap-8">
     <a
       href="#"
       class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors group"
@@ -44,14 +71,47 @@ const socialLinks = computed(() =>
       <i class="ri-arrow-up-wide-line text-xl group-hover:-translate-y-0.5 transition-transform" />
       Back to top
     </a>
+    <button
+      type="button"
+      class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+      @click="handleShare"
+    >
+      <i class="ri-share-line text-xl" />
+      Share
+    </button>
   </div>
 
   <!-- ? MARK: Cost banner — green strip at top -->
-  <div class="bg-green-800 text-white text-sm text-center py-2 px-4">
-    Cost to the People of {{ lguName }}: <span class="font-semibold">₱0</span>
+  <div class="bg-green-800 text-white text-xs text-center py-2 px-4">
+    Cost to the People and Government of {{ lguName }}: <span class="font-semibold">₱0</span>
   </div>
 
   <footer class="bg-blue-950 text-white">
+    <!-- Report card - integrated sa loob ng footer -->
+    <div class="border-b border-white/10">
+      <div class="container mx-auto px-4 py-5">
+        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <div class="flex items-start gap-4 sm:items-center">
+            <div class="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-lg text-primary-300 sm:flex">
+              <i class="ri-error-warning-line" />
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-sm font-semibold text-white">
+                Found any wrong or outdated information on this Page?
+              </h3>
+              <p class="mt-1 text-xs text-gray-400">
+                Help us keep {{ siteBrandName }} accurate. Report errors and we'll get them corrected.
+              </p>
+            </div>
+          </div>
+          <NuxtLink to="/contact#send-message" class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700 sm:w-auto">
+            <i class="ri-flag-line" />
+            Report an Issue
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+
     <div class="container mx-auto px-4 pt-10 pb-6">
       <!-- ? MARK: Main grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
