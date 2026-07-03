@@ -86,11 +86,71 @@ function developerLinks(dev: typeof developers.value[0]) {
 const volunteerRoles = computed(() => project.value?.volunteerRoles ?? [])
 
 const tocItems = computed(() => [
+  { id: 'send-message', label: 'Send a Message', visible: true },
   { id: 'contact-info', label: 'Contact Info', visible: contactItems.value.length > 0 },
   { id: 'social-media', label: 'Social Media', visible: socialLinks.value.length > 0 },
   { id: 'developers', label: 'Developers', visible: developers.value.length > 0 },
   { id: 'volunteers', label: 'Volunteers', visible: Boolean(project.value?.lookingForVolunteers) },
 ])
+
+const subjectOptions = [
+  { value: 'bug', label: 'Report a Website Bug' },
+  { value: 'wrong-info', label: 'Report Wrong/Incorrect Information' },
+  { value: 'volunteer', label: 'Volunteer Inquiry' },
+  { value: 'general', label: 'General Inquiry' },
+  { value: 'others', label: 'Others' },
+]
+
+// ? MARK: Contact form
+const form = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  subjectOther: '',
+  message: '',
+  website: '',
+})
+
+const finalSubject = computed(() => {
+  if (form.subject === 'others')
+    return form.subjectOther.trim()
+  return subjectOptions.find(o => o.value === form.subject)?.label ?? ''
+})
+
+const formStatus = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
+const formErrorMessage = ref('')
+
+async function submitForm() {
+  formStatus.value = 'loading'
+  formErrorMessage.value = ''
+
+  try {
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        ...form,
+        subject: finalSubject.value,
+      },
+    })
+    formStatus.value = 'success'
+    form.name = ''
+    form.email = ''
+    form.subject = ''
+    form.subjectOther = ''
+    form.message = ''
+  }
+  catch (err: any) {
+    formStatus.value = 'error'
+    const fieldErrors = err?.data?.data?.fieldErrors
+    if (fieldErrors) {
+      const firstError = Object.values(fieldErrors).flat()[0]
+      formErrorMessage.value = typeof firstError === 'string' ? firstError : 'Please check your input and try again.'
+    }
+    else {
+      formErrorMessage.value = err?.data?.statusMessage || 'Something went wrong. Please try again.'
+    }
+  }
+}
 </script>
 
 <template>
@@ -98,18 +158,101 @@ const tocItems = computed(() => [
     <UiPageHero badge-icon="ri-contacts-line" badge-text="Contact" title="Contact Us" description="Reach out to us for any concerns, inquiries, or contributions." :breadcrumbs="[{ label: 'Contact' }]" />
 
     <UiPageWithToc :items="tocItems">
-      <!-- ? MARK: Contact Info -->
-      <section id="contact-info" class="scroll-mt-28 py-12">
+      <!-- ? MARK: Send a Message (form) -->
+      <section id="send-message" class="scroll-mt-28 py-12">
         <div class="mx-auto max-w-3xl">
           <div class="mb-8">
             <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
               Get in Touch
             </p>
             <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              Send Us a Message
+            </h2>
+            <p class="mt-3 text-base leading-relaxed text-gray-600">
+              Fill out the form below and we'll get back to you as soon as we can.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8">
+            <form v-if="formStatus !== 'success'" class="flex flex-col gap-5" @submit.prevent="submitForm">
+              <!-- honeypot field - hidden from real users, bots lang mapupunuan nito -->
+              <input v-model="form.website" type="text" name="website" tabindex="-1" autocomplete="off" class="hidden">
+
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="name" class="mb-1.5 block text-sm font-medium text-gray-700">Your Name</label>
+                  <input id="name" v-model="form.name" type="text" required placeholder="Juan Dela Cruz" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                </div>
+
+                <div>
+                  <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">Your Email Address</label>
+                  <input id="email" v-model="form.email" type="email" required placeholder="juan@example.com" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                </div>
+              </div>
+
+              <div>
+                <label for="subject" class="mb-1.5 block text-sm font-medium text-gray-700">Subject</label>
+                <select id="subject" v-model="form.subject" required class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                  <option value="" disabled>
+                    Select a subject
+                  </option>
+                  <option v-for="opt in subjectOptions" :key="opt.value" :value="opt.value">
+                    {{ opt.label }}
+                  </option>
+                </select>
+
+                <input v-if="form.subject === 'others'" v-model="form.subjectOther" type="text" required placeholder="Please specify" class="mt-3 w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+              </div>
+
+              <div>
+                <label for="message" class="mb-1.5 block text-sm font-medium text-gray-700">Your Message</label>
+                <textarea id="message" v-model="form.message" rows="5" required placeholder="Tell us more..." class="w-full resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 transition focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" />
+              </div>
+
+              <div class="flex items-center gap-3">
+                <button type="submit" :disabled="formStatus === 'loading'" class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50">
+                  <i v-if="formStatus === 'loading'" class="ri-loader-4-line animate-spin" />
+                  <i v-else class="ri-send-plane-line" />
+                  {{ formStatus === 'loading' ? 'Sending...' : 'Send Message' }}
+                </button>
+
+                <p v-if="formStatus === 'error'" class="text-sm text-red-600">
+                  {{ formErrorMessage }}
+                </p>
+              </div>
+            </form>
+
+            <!-- Success state -->
+            <div v-else class="flex flex-col items-center py-6 text-center">
+              <div class="flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-2xl text-green-600">
+                <i class="ri-check-line" />
+              </div>
+              <h3 class="mt-4 text-lg font-semibold text-gray-900">
+                Message Sent!
+              </h3>
+              <p class="mt-1 text-sm text-gray-600">
+                Thanks for reaching out. We'll get back to you as soon as we can.
+              </p>
+              <button type="button" class="mt-4 cursor-pointer text-sm font-semibold text-primary-600 hover:underline" @click="formStatus = 'idle'">
+                Send another message
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ? MARK: Contact Info -->
+      <section id="contact-info" class="scroll-mt-28 py-12">
+        <div class="mx-auto max-w-3xl">
+          <div class="mb-8">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+              Other Ways to Reach Us
+            </p>
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               Contact Information
             </h2>
             <p class="mt-3 text-base leading-relaxed text-gray-600">
-              You can reach us through any of the following channels.
+              You can also reach us through any of the following channels.
             </p>
           </div>
 
@@ -286,6 +429,30 @@ const tocItems = computed(() => [
           </div>
         </div>
       </section>
+
+      <!-- ? MARK: Contact the team card -->
+      <div class="container mx-auto px-4 py-8">
+        <div class="mx-auto max-w-3xl">
+          <div class="flex items-start gap-4 rounded-2xl border border-primary-200 bg-primary-50 p-6">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-100 text-lg text-primary-600">
+              <i class="ri-phone-line" />
+            </div>
+            <div class="min-w-0 flex-1">
+              <h3 class="font-semibold text-primary-900">
+                Looking for {{ lguName }} LGU Hotlines?
+              </h3>
+              <p class="mt-1 text-sm text-primary-700">
+                If you need emergency numbers or official contact lines for {{ lguName }}'s LGU offices and services, you'll find them on our Hotlines page.
+              </p>
+              <NuxtLink to="/hotlines" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-700">
+                <i class="ri-team-line" />
+                View Hotlines
+                <i class="ri-arrow-right-line" />
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
     </UiPageWithToc>
   </div>
 </template>

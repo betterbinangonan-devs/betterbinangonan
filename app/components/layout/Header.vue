@@ -9,7 +9,7 @@ import {
   Search,
   X,
 } from 'lucide-vue-next'
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import LanguageSelector from '@/components/ui/LanguageSelector.vue'
 import { useConfig } from '@/composables/useConfig'
 import { useLanguage } from '@/composables/useLanguage'
@@ -74,6 +74,11 @@ function syncHeaderHeight() {
   )
 }
 
+// Lock body scroll habang bukas ang mobile menu
+watch(isOpen, (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+})
+
 onMounted(() => {
   handleScroll()
   syncHeaderHeight()
@@ -93,10 +98,11 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', syncHeaderHeight)
 
   headerObserver?.disconnect()
+  document.body.style.overflow = ''
 })
 
 const logoPath = computed(() => {
-  if (!isScrolled.value) {
+  if (!isScrolled.value && !isOpen.value) {
     return site.value.logo?.logo_landscape_white || site.value.logo?.white || site.value.logo?.main || '/logos/svg/BetterGov_Icon-Primary.svg'
   }
 
@@ -109,23 +115,18 @@ const logoPath = computed(() => {
   <nav ref="headerRef" class="fixed top-0 left-0 right-0 z-50">
     <!-- ? MARK: MAIN NAV -->
     <div
-      class="transition-all duration-300"
-      :class="isScrolled
-        ? 'bg-white/85 backdrop-blur-xl border-b border-white/40 shadow-lg shadow-black/5'
-        : 'bg-transparent border-b border-white/0'"
+      class="transition-all duration-300" :class="isOpen
+        ? 'bg-white border-b border-white/40 shadow-lg shadow-black/5'
+        : isScrolled
+          ? 'bg-white/85 backdrop-blur-xl border-b border-white/40 shadow-lg shadow-black/5'
+          : 'bg-transparent border-b border-white/0'"
     >
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
           <!-- ? MARK: LOGO -->
           <div class="flex items-center">
             <NuxtLink to="/#" class="flex items-center">
-              <img
-                :src="logoPath"
-                :alt="`${siteBrandName} Logo`"
-                class="h-14 w-auto select-none object-contain"
-                draggable="false"
-                @contextmenu.prevent
-              >
+              <img :src="logoPath" :alt="`${siteBrandName} Logo`" class="h-14 w-auto select-none object-contain" draggable="false" @contextmenu.prevent>
             </NuxtLink>
           </div>
 
@@ -188,7 +189,7 @@ const logoPath = computed(() => {
           <!-- ? MARK: MOBILE MENU BUTTON -->
           <div class="lg:hidden flex items-center">
             <button
-              type="button" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-primary-500 transition-colors duration-200" :class="isScrolled
+              type="button" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 transition-colors duration-200" :class="(isScrolled || isOpen)
                 ? 'text-gray-700 hover:text-primary-500 hover:bg-gray-100'
                 : 'text-white hover:bg-white/10'" @click="toggleMenu"
             >
@@ -202,8 +203,8 @@ const logoPath = computed(() => {
     </div>
 
     <!-- ? MARK: MOBILE NAV -->
-    <div class="lg:hidden" :class="isOpen ? 'block' : 'hidden'">
-      <div class="container mx-auto px-2 pt-2 pb-4 space-y-1 border-t border-gray-200 bg-white">
+    <div v-if="isOpen" class="lg:hidden fixed inset-x-0 top-[var(--app-header-height)] bottom-0 z-40 overflow-y-auto bg-white">
+      <div class="container mx-auto px-2 pt-2 pb-4 space-y-1 border-t border-gray-200">
         <div v-for="item in mainNavigation" :key="item.label">
           <button
             v-if="item.children" type="button" class="w-full flex justify-between items-center px-4 py-2 text-base font-medium transition-colors duration-200" :class="isActiveRoute(route.path, item.href)
@@ -240,17 +241,8 @@ const logoPath = computed(() => {
             </template>
           </div>
         </div>
-        <NuxtLink to="/contact" class="block px-4 py-2 text-base font-semibold text-primary-600 hover:bg-primary-50 hover:text-primary-700" @click="closeMenu">
-          Contact Us
-        </NuxtLink>
-        <NuxtLink to="/about" class="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500" @click="closeMenu">
-          About
-        </NuxtLink>
         <NuxtLink to="/services" class="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500" @click="closeMenu">
           Search Services
-        </NuxtLink>
-        <NuxtLink to="/sitemap" class="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500" @click="closeMenu">
-          Sitemap
         </NuxtLink>
         <!-- TEMPORARY: Remove v-if="false" to re-enable Language Selector -->
         <div v-if="false" class="px-4 py-3 border-t border-gray-200">

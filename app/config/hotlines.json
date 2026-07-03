@@ -15,31 +15,44 @@
         {
           "id": "national-emergency-hotline",
           "name": "National Emergency Hotline",
-          "numbers": ["911"],
+          "numbers": [
+            "911"
+          ],
           "icon": "ri-alarm-warning-line"
         },
         {
           "id": "mdrrmo-rescue",
           "name": "Binangonan MDRRMO Rescue",
-          "numbers": ["0965 623 8674"],
+          "numbers": [
+            "0965 623 8674"
+          ],
           "icon": "ri-alarm-warning-line"
         },
         {
           "id": "police",
           "name": "Binangonan PNP",
-          "numbers": ["0963 473 3347"],
+          "numbers": [
+            "0963 473 3347"
+          ],
           "icon": "ri-shield-line"
         },
         {
           "id": "fire",
           "name": "Binangonan BFP",
-          "numbers": ["0966 957 7505", "(02) 8652 5796"],
+          "numbers": [
+            "0966 957 7505",
+            "(02) 8652 5796"
+          ],
           "icon": "ri-fire-line"
         },
         {
           "id": "coast-guard",
           "name": "Philippine Coast Guard",
-          "numbers": ["(02) 8813 6889", "0950 550 9418", "0953 809 1351"],
+          "numbers": [
+            "(02) 8813 6889",
+            "0950 550 9418",
+            "0953 809 1351"
+          ],
           "icon": "ri-ship-line"
         }
       ]
@@ -57,13 +70,17 @@
         {
           "id": "health-service",
           "name": "Health Service",
-          "numbers": ["0950 717 1241"],
+          "numbers": [
+            "0950 717 1241"
+          ],
           "icon": "ri-heart-pulse-line"
         },
         {
           "id": "rphs-madmh",
           "name": "RPHS Binangonan - Margarito A. Duavit Memorial Hospital",
-          "numbers": ["(02) 8256 3000"],
+          "numbers": [
+            "(02) 8256 3000"
+          ],
           "icon": "ri-hospital-line"
         }
       ]
@@ -96,9 +113,9 @@
     },
     {
       "id": "municipal-offices",
-      "label": "Municipal Offices",
-      "title": "Municipal Offices Details",
-      "description": "Contact numbers and emails of some offices and departments.",
+      "label": "LGU Offices",
+      "title": "LGU Offices & Departments",
+      "description": "Contact numbers and email addresses for various LGU offices and departments.",
       "tone": "blue",
       "icon": "ri-building-line",
       "link": "/government#departments",
@@ -108,8 +125,8 @@
     {
       "id": "barangays",
       "label": "Barangays",
-      "title": "Barangay Number Details",
-      "description": "Contact information for all barangays.",
+      "title": "Barangay Directory",
+      "description": "Contact numbers and details for all barangays in the municipality.",
       "tone": "blue",
       "icon": "ri-map-pin-line",
       "link": "/government#barangays",
@@ -129,7 +146,9 @@
         {
           "id": "meralco-hotline",
           "name": "Meralco Hotline",
-          "numbers": ["(02) 16211"],
+          "numbers": [
+            "(02) 16211"
+          ],
           "icon": "ri-flashlight-line"
         },
         {
@@ -141,7 +160,9 @@
         {
           "id": "manila-water-hotline",
           "name": "Manila Water Hotline",
-          "numbers": ["1627"],
+          "numbers": [
+            "1627"
+          ],
           "icon": "ri-drop-line"
         },
         {

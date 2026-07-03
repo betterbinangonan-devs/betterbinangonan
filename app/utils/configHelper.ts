@@ -1,3 +1,4 @@
+// app/utils/configHelper.ts
 import type {
   BudgetConfig,
   CategoriesConfig,
@@ -13,8 +14,6 @@ import type {
   NewsConfig,
   OfficialsConfig,
   SeoRouteConfig,
-  ServiceItem,
-  ServicesConfig,
   SiteConfig,
   StatisticsConfig,
   StatisticsDetailedConfig,
@@ -40,7 +39,6 @@ import newsConfig from '../config/news.json'
 import officialsConfig from '../config/officials.json'
 // Import JSON config files
 import seoConfig from '../config/seo.json'
-import servicesConfig from '../config/services.json'
 import siteConfig from '../config/site.json'
 import statisticsDetailedConfig from '../config/statistics-detailed.json'
 import statisticsConfig from '../config/statistics.json'
@@ -257,23 +255,6 @@ export function getNavigationConfig(): NavigationConfig {
  */
 export function getCategoriesConfig(): CategoriesConfig {
   return categoriesConfig as CategoriesConfig
-}
-
-/**
- * Get the services config with proper typing
- */
-export function getServicesConfig(): ServicesConfig {
-  // return servicesConfig as ServicesConfig
-  // TODO: Remove this and uncomment above to restore all services globally
-  const config = servicesConfig as ServicesConfig
-  return {
-    ...config,
-    services: config.services
-      ? config.services
-          .filter((service: ServiceItem) => service.categoryId === 'certificates' || service.categoryId === 'business')
-          .filter((service: ServiceItem) => !service.hidden)
-      : [],
-  }
 }
 
 /**

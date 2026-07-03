@@ -389,25 +389,6 @@ export interface TourismConfig {
   [key: string]: unknown
 }
 
-export interface ServiceItem {
-  id: string
-  title: string
-  description: string
-  category: string
-  categoryId?: string
-  keywords: string[]
-  office?: string
-  fee?: string
-  processingTime?: string
-  url: string
-  hidden?: boolean
-}
-
-export interface ServicesConfig {
-  services: ServiceItem[]
-  [key: string]: unknown
-}
-
 export interface NavigationItem {
   label: string
   href: string
