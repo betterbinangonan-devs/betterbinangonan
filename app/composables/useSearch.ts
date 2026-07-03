@@ -1,11 +1,25 @@
+// app\composables\useSearch.ts
 import type { IFuseOptions } from 'fuse.js'
-import type { ServiceItem } from '@/types/config'
 import Fuse from 'fuse.js'
 
-import { getServicesConfig } from '@/utils/configHelper'
 import { ESCAPE_REGEX, SPLIT_WHITESPACE_REGEX } from '@/utils/regexConstants'
+import { serviceCategoriesContent } from '@/utils/serviceCategoriesContent'
+import { serviceDetailsContent } from '@/utils/serviceDetailsContent'
 
-interface SearchResult extends ServiceItem {
+// ? MARK: Types
+interface SearchableService {
+  id: string
+  title: string
+  category: string
+  categoryId: string
+  description: string
+  fee: string
+  processingTime: string
+  office: string
+  url: string
+}
+
+interface SearchResult extends SearchableService {
   score: number
   _query: string
 }
@@ -16,35 +30,23 @@ interface SearchSuggestions {
   suggestions: string[]
 }
 
+// ? MARK: Constants
 const RECENT_SEARCHES_KEY = 'betterlgu_recent_searches'
 const MAX_RECENT_SEARCHES = 10
 
-// TODO: Uncomment the hidden categories to restore all service categories
 const CURATED_POPULAR = [
   'birth certificate',
   'business permit',
-  // 'cedula',
-  // 'real property tax',
-  // 'senior citizen id',
-  // 'pwd id',
-  'barangay clearance',
-  // 'building permit',
+  'building permit',
   'marriage certificate',
   'death certificate',
-  // 'tricycle franchise',
-  // 'property declaration',
-  // 'online payment',
-  // 'mswdo',
-  // 'slaughterhouse',
 ]
 
-// Fuse.js configuration for fuzzy search
-const FUSE_OPTIONS: IFuseOptions<ServiceItem> = {
+const FUSE_OPTIONS: IFuseOptions<SearchableService> = {
   keys: [
-    { name: 'title', weight: 0.4 },
-    { name: 'keywords', weight: 0.3 },
-    { name: 'category', weight: 0.1 },
-    { name: 'description', weight: 0.1 },
+    { name: 'title', weight: 0.5 },
+    { name: 'category', weight: 0.2 },
+    { name: 'description', weight: 0.2 },
     { name: 'office', weight: 0.1 },
   ],
   threshold: 0.4,
@@ -53,6 +55,7 @@ const FUSE_OPTIONS: IFuseOptions<ServiceItem> = {
   minMatchCharLength: 2,
 }
 
+// ? MARK: Recent searches (localStorage)
 function getRecentSearches(): string[] {
   if (typeof window === 'undefined')
     return []
@@ -80,7 +83,6 @@ function saveRecentSearch(query: string): void {
     // localStorage not available
   }
 }
-
 function clearStoredRecentSearches(): void {
   if (typeof window === 'undefined')
     return
@@ -92,6 +94,127 @@ function clearStoredRecentSearches(): void {
   }
 }
 
+// ? MARK: Service data merging
+function findQuickStat(detail: (typeof serviceDetailsContent)[number], labelIncludes: string): string | undefined {
+  return detail.quickStats.find(stat => stat.label.toLowerCase().includes(labelIncludes))?.value
+}
+
+function getFlattenedServices(): SearchableService[] {
+  const detailsById = new Map(serviceDetailsContent.map(detail => [detail.id, detail]))
+  const seenIds = new Set<string>()
+  const flattened: SearchableService[] = []
+
+  // Pass 1 — from serviceCategoriesContent.ts
+  for (const category of serviceCategoriesContent) {
+    if (category.hidden)
+      continue
+
+    for (const service of category.services) {
+      if (service.hidden)
+        continue
+
+      const detail = detailsById.get(service.id)
+      const fallbackOffice = category.offices.find(o => !o.hidden)?.title || category.name
+
+      flattened.push({
+        id: service.id,
+        title: detail?.fullTitle || service.title,
+        category: category.name,
+        categoryId: category.id,
+        description: detail?.description || service.description,
+        fee: service.fee,
+        processingTime: service.time,
+        office: detail?.office?.name || fallbackOffice,
+        url: service.link || '#',
+      })
+
+      seenIds.add(service.id)
+    }
+  }
+
+  // Pass 2 — anything only in serviceDetailsContent.ts
+  for (const detail of serviceDetailsContent) {
+    if (detail.hidden || seenIds.has(detail.id))
+      continue
+
+    flattened.push({
+      id: detail.id,
+      title: detail.fullTitle || detail.title,
+      category: detail.category,
+      categoryId: detail.categoryLink.split('/').filter(Boolean).pop() || detail.category.toLowerCase(),
+      description: detail.description,
+      fee: findQuickStat(detail, 'fee') || 'Varies',
+      processingTime: findQuickStat(detail, 'process') || 'Varies',
+      office: detail.office?.name || detail.category,
+      url: `/service-details/${detail.id}`,
+    })
+
+    seenIds.add(detail.id)
+  }
+
+  return flattened
+}
+
+// ? MARK: Sitemap merging (nav links, quick links, get involved, etc.)
+function getFlattenedSitemapEntries(): SearchableService[] {
+  const { navigation } = useConfig()
+  const mainNav = navigation.mainNav ?? []
+  const flattened: SearchableService[] = []
+
+  const pushEntry = (label: string, href: string, section: string) => {
+    if (!href)
+      return
+    flattened.push({
+      id: `sitemap-${href}`,
+      title: label,
+      category: section,
+      categoryId: section.toLowerCase().replace(/\s+/g, '-'),
+      description: `${section} page`,
+      fee: '',
+      processingTime: '',
+      office: '',
+      url: href,
+    })
+  }
+
+  // Main Navigation
+  for (const item of mainNav) {
+    if (item.hidden)
+      continue
+    pushEntry(item.label, item.href, 'Main Navigation')
+  }
+
+  // Service Categories
+  const servicesNav = mainNav.find((item: any) => item.id === 'services')
+  for (const child of servicesNav?.children ?? []) {
+    if (child.hidden)
+      continue
+    pushEntry(child.label, child.href, 'Service Categories')
+  }
+
+  // Government & Legislative
+  pushEntry('Government Structure', '/government', 'Government & Legislative')
+  const legislativeNav = mainNav.find((item: any) => item.id === 'legislative')
+  for (const child of legislativeNav?.children ?? []) {
+    if (child.hidden)
+      continue
+    pushEntry(child.label, child.href, 'Government & Legislative')
+  }
+
+  // Quick Links
+  for (const item of navigation.footerNav?.quickLinks ?? []) {
+    pushEntry(item.label, item.href, 'Quick Links')
+  }
+
+  // Get Involved
+  for (const item of navigation.footerNav?.getInvolved ?? []) {
+    pushEntry(item.label, item.href, 'Get Involved')
+  }
+
+  return flattened
+}
+
+// ? MARK: useSearch composable
 export function useSearch(initialQuery = '') {
   const query = ref(initialQuery)
   const category = ref()
@@ -105,12 +228,13 @@ export function useSearch(initialQuery = '') {
   const selectedIndex = ref(-1)
   const pendingNavigation = ref<string | null>(null)
 
-  const services = computed(() => getServicesConfig().services as ServiceItem[])
+  const services = computed(() => [
+    ...getFlattenedServices(),
+    ...getFlattenedSitemapEntries(),
+  ])
 
-  // Create Fuse instance for fuzzy search
   const fuse = computed(() => new Fuse(services.value, FUSE_OPTIONS))
 
-  // Create Fuse instance for suggestion matching
   const suggestionFuse = computed(
     () =>
       new Fuse(
@@ -121,6 +245,7 @@ export function useSearch(initialQuery = '') {
       ),
   )
 
+  // ? MARK: Search
   const search = (searchQuery: string, categoryFilter?: string): SearchResult[] => {
     if (!searchQuery || searchQuery.length < 2) {
       results.value = []
@@ -129,7 +254,6 @@ export function useSearch(initialQuery = '') {
 
     let fuseResults = fuse.value.search(searchQuery)
 
-    // Apply category filter
     if (categoryFilter) {
       fuseResults = fuseResults.filter((result) => {
         const service = result.item
@@ -144,7 +268,7 @@ export function useSearch(initialQuery = '') {
       .slice(0, 10)
       .map(result => ({
         ...result.item,
-        score: 1 - (result.score ?? 0), // Convert Fuse score (0 = perfect) to higher-is-better
+        score: 1 - (result.score ?? 0),
         _query: searchQuery,
       }))
 
@@ -152,9 +276,9 @@ export function useSearch(initialQuery = '') {
     return searchResults
   }
 
+  // ? MARK: Suggestions
   const getSuggestions = (searchQuery: string): SearchSuggestions => {
     if (!searchQuery || searchQuery.length < 1) {
-      // TODO: Remove this block and uncomment below to restore all recent searches
       const validKeywords = new Set([...services.value.map(service => service.title.toLowerCase()), ...CURATED_POPULAR.map(popular => popular.toLowerCase())])
       const validRecent = getRecentSearches().filter(recentSearch =>
         [...validKeywords].some(keyword => keyword.includes(recentSearch.toLowerCase()) || recentSearch.toLowerCase().includes(keyword)),
@@ -162,7 +286,6 @@ export function useSearch(initialQuery = '') {
 
       return {
         popular: CURATED_POPULAR.slice(0, 4),
-        // recent: getRecentSearches().slice(0, 3),
         recent: validRecent,
         suggestions: [],
       }
@@ -180,12 +303,10 @@ export function useSearch(initialQuery = '') {
     }
   }
 
-  // Update suggestions when query changes
   watch(query, (newQuery) => {
     suggestions.value = getSuggestions(newQuery)
   })
 
-  // Trigger initial search if mounted with a query (mount-only effect)
   onMounted(() => {
     if (initialQuery && initialQuery.length >= 2) {
       search(initialQuery, category.value)
@@ -193,6 +314,7 @@ export function useSearch(initialQuery = '') {
     }
   })
 
+  // ? MARK: Handlers
   const handleQueryChange = (newQuery: string) => {
     query.value = newQuery
     selectedIndex.value = -1
@@ -309,6 +431,7 @@ export function useSearch(initialQuery = '') {
   }
 }
 
+// ? MARK: Highlight helper
 export function highlightMatch(text: string, query: string): string {
   if (!query || query.length < 2)
     return text

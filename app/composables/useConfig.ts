@@ -1,3 +1,4 @@
+// app\composables\useConfig.ts
 import type { SiteConfig } from '@/types/config'
 import {
   configHelpers,
@@ -16,7 +17,6 @@ import {
   getNavigationConfig,
   getNewsConfig,
   getOfficialsConfig,
-  getServicesConfig,
   getSiteBrandName,
   getStatisticsConfig,
   getStatisticsDetailedConfig,
@@ -65,7 +65,6 @@ export function useConfig() {
     legislative: getLegislativeConfig(),
     tourism: getTourismConfig(),
     navigation: getNavigationConfig(),
-    servicesConfig: getServicesConfig(),
     translations: getTranslationOverrides(),
     categories: getCategoriesConfig(),
 
