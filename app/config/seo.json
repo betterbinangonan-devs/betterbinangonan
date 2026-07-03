@@ -92,72 +92,72 @@
   },
   "budget": {
     "titleFragment": "Budget",
-    "description": "Budget — Better {{lguName}}.",
+    "description": "Track {{lguName}}'s municipal income, expenditures, and fund allocation - transparent budget data for every citizen.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": true
   },
   "changelog": {
     "titleFragment": "Changelog",
-    "description": "Changelog — Better {{lguName}}.",
+    "description": "See what's new on {{siteBrandName}} - recent updates, fixes, and improvements to the site.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "history": {
     "titleFragment": "History",
-    "description": "History — Better {{lguName}}.",
+    "description": "Discover the history and heritage of {{lguName}} - from its founding to the present day.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "legislative": {
     "titleFragment": "Legislative",
-    "description": "Legislative — Better {{lguName}}.",
+    "description": "Browse {{lguName}}'s ordinances and resolutions passed by the {{legislativeBody}}.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": true
   },
   "legislative-ordinance-framework": {
-    "titleFragment": "Legislative Ordinance Framework",
-    "description": "Legislative Ordinance Framework — Better {{lguName}}.",
+    "titleFragment": "Ordinance Framework",
+    "description": "How ordinances are proposed, reviewed, and enacted in {{lguName}}'s legislative process.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "legislative-resolution-framework": {
-    "titleFragment": "Legislative Resolution Framework",
-    "description": "Legislative Resolution Framework — Better {{lguName}}.",
+    "titleFragment": "Resolution Framework",
+    "description": "How resolutions are proposed, reviewed, and passed by the {{legislativeBody}} of {{lguName}}.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "news": {
     "titleFragment": "News",
-    "description": "News — Better {{lguName}}.",
+    "description": "Latest news and announcements from {{lguName}}'s local government.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "news-slug": {
-    "titleFragment": "News Slug",
-    "description": "News Slug — Better {{lguName}}.",
-    "ogType": "website",
-    "twitterCard": "summary",
+    "titleFragment": "News",
+    "description": "Read the latest news and updates from {{lguName}}'s local government.",
+    "ogType": "article",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "terms": {
-    "titleFragment": "Terms",
-    "description": "Terms — Better {{lguName}}.",
+    "titleFragment": "Terms of Use",
+    "description": "Terms and conditions for using {{siteBrandName}}.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": false
   },
   "tourism": {
     "titleFragment": "Tourism",
-    "description": "Tourism — Better {{lguName}}.",
+    "description": "Discover {{lguName}}'s attractions, events, and travel tips - plan your visit.",
     "ogType": "website",
-    "twitterCard": "summary",
+    "twitterCard": "summary_large_image",
     "hidden": true
   }
 }

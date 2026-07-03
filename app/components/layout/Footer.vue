@@ -59,21 +59,26 @@ async function handleShare() {
     }
   }
 }
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>
   <!-- ? MARK: Back to top + Share -->
   <div class="bg-white pt-1 pb-6 md:pt-6 md:pb-10 flex items-center justify-center gap-8">
-    <a
-      href="#"
-      class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors group"
+    <button
+      type="button"
+      class="inline-flex cursor-pointer items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors group"
+      @click="scrollToTop"
     >
       <i class="ri-arrow-up-wide-line text-xl group-hover:-translate-y-0.5 transition-transform" />
       Back to top
-    </a>
+    </button>
     <button
       type="button"
-      class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+      class="inline-flex cursor-pointer items-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors"
       @click="handleShare"
     >
       <i class="ri-share-line text-xl" />
@@ -175,13 +180,13 @@ async function handleShare() {
       </div>
 
       <!-- ? MARK: Bottom bar -->
-      <div class="border-t border-gray-800 pt-5 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-        <p class="text-gray-500 text-xs">
+      <div class="border-t border-gray-800 pt-5 flex flex-col items-center gap-3 text-center md:flex-row md:items-center md:justify-between md:gap-2 md:text-left">
+        <p class="text-gray-500 text-xs leading-relaxed">
           {{ currentYear }} {{ siteBrandName }} - MIT License. All public data sourced from official government portals.
         </p>
-        <NuxtLink to="/sitemap" class="text-gray-500 text-xs hover:text-white transition-colors whitespace-nowrap">
-          Sitemap
-        </NuxtLink>
+        <button type="button" class="cursor-pointer text-gray-500 text-xs hover:text-white transition-colors whitespace-nowrap" @click="scrollToTop">
+          Back to Top
+        </button>
       </div>
     </div>
   </footer>

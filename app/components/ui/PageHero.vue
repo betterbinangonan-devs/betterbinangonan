@@ -8,7 +8,7 @@ interface BreadcrumbItem {
   href?: string
 }
 
-defineProps<{
+const props = defineProps<{
   badgeIcon?: string
   badgeText?: string
   title: string
@@ -16,6 +16,16 @@ defineProps<{
   breadcrumbs?: BreadcrumbItem[]
   class?: any
 }>()
+
+// Sync breadcrumbs to shared state
+const breadcrumbState = useState<BreadcrumbItem[]>('page-breadcrumbs', () => [])
+onMounted(() => {
+  breadcrumbState.value = props.breadcrumbs ?? []
+})
+
+onBeforeUnmount(() => {
+  breadcrumbState.value = []
+})
 </script>
 
 <template>
@@ -33,7 +43,8 @@ defineProps<{
           v-if="breadcrumbs?.length"
           :items="breadcrumbs"
           variant="light"
-          class="mb-4 justify-center"
+          truncate
+          class="mb-4 justify-center text-[10px] sm:text-xs"
         />
 
         <slot name="top" />

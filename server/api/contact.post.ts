@@ -1,3 +1,4 @@
+// server\api\contact.post.ts
 import { Resend } from 'resend'
 import { z } from 'zod'
 import siteConfig from '~~/app/config/site.json'

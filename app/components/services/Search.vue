@@ -8,10 +8,13 @@ const props = defineProps<{
   placeholder?: string
   class?: any
   initialQuery?: string
+  icon?: string
+  autoOpen?: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'resultClick'): void
+  (e: 'close'): void
 }>()
 
 const router = useRouter()
@@ -49,6 +52,7 @@ function openModal() {
 function closeModal() {
   isModalOpen.value = false
   setIsOpen(false)
+  emit('close')
 }
 
 function handleResultClick(url: string) {
@@ -77,10 +81,17 @@ function onOverlayClick(e: MouseEvent) {
 }
 
 onMounted(() => {
+  if (props.autoOpen)
+    openModal()
+
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape')
       closeModal()
   })
+})
+
+defineExpose({
+  openModal,
 })
 </script>
 
@@ -88,7 +99,7 @@ onMounted(() => {
   <!-- ? MARK: Trigger search bar  -->
   <div class="relative w-full flex-1 cursor-text" :class="props.class" @click="openModal">
     <input type="search" class="w-full px-5 py-4 pl-12 border-2 border-transparent rounded-full text-base bg-white shadow-lg transition-all duration-200 placeholder:text-gray-400 cursor-pointer pointer-events-none" :placeholder="placeholder || 'Search services (e.g., birth certificate, business permit)'" readonly tabindex="-1" aria-hidden="true">
-    <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10 pointer-events-none" />
+    <i :class="props.icon || 'bi bi-search'" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10 pointer-events-none" />
   </div>
 
   <!-- ? MARK: Modal -->
@@ -97,7 +108,7 @@ onMounted(() => {
       <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden">
         <!-- Search input -->
         <div class="flex items-center gap-3 px-4 py-3 border-b border-blue-50">
-          <i class="bi bi-search text-gray-400 text-lg shrink-0" />
+          <i :class="props.icon || 'bi bi-search'" class="text-gray-400 text-lg shrink-0" />
           <input ref="inputRef" type="search" class="flex-1 text-base text-gray-900 placeholder:text-gray-400 outline-none bg-transparent focus:outline-none" :placeholder="placeholder || 'Search services (e.g., birth certificate, business permit)'" aria-label="Search services" autocomplete="off" :value="query" @input="onInput" @keydown="handleKeyDown">
           <button class="shrink-0 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded px-2 py-1 transition-colors" type="button" @click="closeModal">
             Esc
@@ -162,7 +173,7 @@ onMounted(() => {
 
           <!-- Empty state -->
           <div v-if="!showResults && query.length < 2" class="py-8 px-6 text-center text-gray-400 text-sm">
-            Start typing to search services...
+            Start typing to search services, features...
           </div>
 
           <!-- Search Results -->
