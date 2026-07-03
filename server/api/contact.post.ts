@@ -83,7 +83,7 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
   if (!config.resendApiKey) {
-    console.error('Missing RESEND_API_KEY env var')
+    console.error('Missing NUXT_RESEND_API_KEY env var')
     throw createError({ statusCode: 500, statusMessage: 'Server configuration error' })
   }
 
