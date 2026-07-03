@@ -12,10 +12,6 @@ if (!categoryContent) {
     fatal: true,
   })
 }
-
-// const visibleOffices = computed(() =>
-//   categoryContent.offices.filter(office => office.hidden !== true),
-// )
 </script>
 
 <template>
@@ -43,10 +39,10 @@ if (!categoryContent) {
 
           <!-- Dynamic Services List -->
           <div class="flex flex-col gap-3">
-            <NuxtLink
+            <a
               v-for="service in categoryContent.services"
               :key="service.id"
-              :to="service.link"
+              :href="service.link"
               class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-primary-200 hover:bg-primary-50/30"
             >
               <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-lg text-primary-600">
@@ -74,7 +70,7 @@ if (!categoryContent) {
                   <i class="ri-arrow-right-wide-fill" />
                 </span>
               </div>
-            </NuxtLink>
+            </a>
           </div>
         </div>
       </div>

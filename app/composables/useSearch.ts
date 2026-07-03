@@ -35,11 +35,11 @@ const RECENT_SEARCHES_KEY = 'betterlgu_recent_searches'
 const MAX_RECENT_SEARCHES = 10
 
 const CURATED_POPULAR = [
-  'birth certificate',
-  'business permit',
-  'building permit',
-  'marriage certificate',
-  'death certificate',
+  'birth certificate ...',
+  'business permit ...',
+  'building permit ...',
+  'marriage certificate ...',
+  'dpwh ...',
 ]
 
 const FUSE_OPTIONS: IFuseOptions<SearchableService> = {
@@ -241,7 +241,7 @@ export function useSearch(initialQuery = '') {
         [...services.value.map(service => service.title), ...CURATED_POPULAR].map(
           text => ({ text }),
         ),
-        { keys: ['text'], threshold: 0.4, includeScore: true },
+        { keys: ['text'], threshold: 0.5, includeScore: true },
       ),
   )
 
@@ -285,7 +285,7 @@ export function useSearch(initialQuery = '') {
       ).slice(0, 3)
 
       return {
-        popular: CURATED_POPULAR.slice(0, 4),
+        popular: CURATED_POPULAR.slice(0, 5),
         recent: validRecent,
         suggestions: [],
       }

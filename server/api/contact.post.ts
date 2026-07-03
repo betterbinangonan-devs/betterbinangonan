@@ -1,4 +1,4 @@
-import { Resend } from 'resend'
+// server\api\contact.post.ts
 import { z } from 'zod'
 import siteConfig from '~~/app/config/site.json'
 
@@ -48,6 +48,37 @@ function getSignature(fromName: string) {
   `
 }
 
+// ? MARK: Direct Resend REST API call
+async function sendResendEmail(apiKey: string, payload: {
+  from: string
+  to: string
+  replyTo?: string
+  subject: string
+  html: string
+}) {
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: payload.from,
+      to: payload.to,
+      reply_to: payload.replyTo,
+      subject: payload.subject,
+      html: payload.html,
+    }),
+  })
+
+  if (!response.ok) {
+    const errorBody = await response.text()
+    throw new Error(`Resend API error (${response.status}): ${errorBody}`)
+  }
+
+  return response.json()
+}
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
@@ -81,12 +112,11 @@ export default defineEventHandler(async (event) => {
   }
 
   const { name, email, subject, message } = result.data
-  const resend = new Resend(config.resendApiKey)
   const timestamp = getTimestamp()
   const signature = getSignature(fromName)
 
   try {
-    await resend.emails.send({
+    await sendResendEmail(config.resendApiKey as string, {
       from: `${fromName} Contact <${fromEmail}>`,
       to: toEmail,
       replyTo: email,
@@ -106,7 +136,7 @@ export default defineEventHandler(async (event) => {
 
     if (config.contactAutoReplyEnabled) {
       try {
-        await resend.emails.send({
+        await sendResendEmail(config.resendApiKey as string, {
           from: `${fromName} <${fromEmail}>`,
           to: email,
           subject: `We've received your message - ${fromName} - (${timestamp})`,
