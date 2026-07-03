@@ -263,6 +263,12 @@ onMounted(() => {
                         />
                       </div>
                     </div>
+
+                    <div class="mt-3 flex items-center gap-1.5 text-xs font-semibold text-primary-600 transition-all group-hover:gap-2.5">
+                      <span>Click to preview project details</span>
+                      <i class="ri-arrow-right-wide-fill" />
+                    </div>
+
                   </div>
                 </div>
               </a>

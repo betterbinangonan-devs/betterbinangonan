@@ -89,5 +89,75 @@
     "ogType": "website",
     "twitterCard": "summary_large_image",
     "hidden": false
+  },
+  "budget": {
+    "titleFragment": "Budget",
+    "description": "Budget — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": true
+  },
+  "changelog": {
+    "titleFragment": "Changelog",
+    "description": "Changelog — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "history": {
+    "titleFragment": "History",
+    "description": "History — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "legislative": {
+    "titleFragment": "Legislative",
+    "description": "Legislative — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": true
+  },
+  "legislative-ordinance-framework": {
+    "titleFragment": "Legislative Ordinance Framework",
+    "description": "Legislative Ordinance Framework — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "legislative-resolution-framework": {
+    "titleFragment": "Legislative Resolution Framework",
+    "description": "Legislative Resolution Framework — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "news": {
+    "titleFragment": "News",
+    "description": "News — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "news-slug": {
+    "titleFragment": "News Slug",
+    "description": "News Slug — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "terms": {
+    "titleFragment": "Terms",
+    "description": "Terms — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": false
+  },
+  "tourism": {
+    "titleFragment": "Tourism",
+    "description": "Tourism — Better {{lguName}}.",
+    "ogType": "website",
+    "twitterCard": "summary",
+    "hidden": true
   }
 }
