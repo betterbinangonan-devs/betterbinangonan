@@ -53,6 +53,10 @@ export default defineNuxtModule({
       const navFile = join(nuxt.options.rootDir, 'app/config/navigation.json')
 
       const existingSeo = JSON.parse(readFileSync(seoFile, 'utf-8'))
+
+      console.warn('[DEBUG] budget entry:', JSON.stringify(existingSeo.budget))
+      console.warn('[DEBUG] seoFile path:', seoFile)
+
       const navigation = JSON.parse(readFileSync(navFile, 'utf-8'))
       const pageKeys = getPageKeys(pagesDir)
 

@@ -19,26 +19,27 @@ const activeMenu = ref<string | null>(null)
 const hoveredDropdown = ref<string | null>(null)
 const isScrolled = ref(false)
 const headerRef = ref<HTMLElement | null>(null)
+const isSearchOpen = ref(false)
 let headerObserver: ResizeObserver | null = null
 
 const route = useRoute()
+
 const { translate } = useLanguage()
 const {
   site,
-  // lguName,
-  // lguNameConcatenated,
-  // getOfficialWebsite,
   siteBrandName,
   navigation,
 } = useConfig()
-// const officialWebsite = getOfficialWebsite()
 
 const mainNavigation = navigation.mainNav
+
+// ? MARK: Shared breadcrumb state (synced from UiPageHero)
+const breadcrumbs = useState<{ label: string, href?: string }[]>('page-breadcrumbs', () => [])
 
 function isActiveRoute(pathname: string, href: string): boolean {
   if (!href)
     return false
-  // Remove trailing slash for comparison unless it's root
+  // Remove trailing slash
   const currentPath = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
   if (href === '/')
     return currentPath === '/'
@@ -74,7 +75,7 @@ function syncHeaderHeight() {
   )
 }
 
-// Lock body scroll habang bukas ang mobile menu
+// Lock body scroll
 watch(isOpen, (open) => {
   document.body.style.overflow = open ? 'hidden' : ''
 })
@@ -110,6 +111,7 @@ const logoPath = computed(() => {
 })
 </script>
 
+
 <!-- ? MARK: TEMPLATE HTML -->
 <template>
   <nav ref="headerRef" class="fixed top-0 left-0 right-0 z-50">
@@ -122,11 +124,11 @@ const logoPath = computed(() => {
           : 'bg-transparent border-b border-white/0'"
     >
       <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-4">
+        <div class="flex justify-between items-center py-2.5 lg:py-4">
           <!-- ? MARK: LOGO -->
           <div class="flex items-center">
-            <NuxtLink to="/#" class="flex items-center">
-              <img :src="logoPath" :alt="`${siteBrandName} Logo`" class="h-14 w-auto select-none object-contain" draggable="false" @contextmenu.prevent>
+            <NuxtLink to="/" class="flex items-center">
+              <img :src="logoPath" :alt="`${siteBrandName} Logo`" class="h-11 w-auto select-none object-contain lg:h-14" draggable="false" @contextmenu.prevent>
             </NuxtLink>
           </div>
 
@@ -176,15 +178,18 @@ const logoPath = computed(() => {
           </div>
 
           <div class="hidden lg:flex items-center space-x-6">
-            <NuxtLink
-              to="/services" class="flex items-center font-medium transition-colors duration-200" :class="isScrolled
+            <button
+              type="button"
+              class="flex items-center font-medium transition-colors duration-200 cursor-pointer" :class="isScrolled
                 ? 'text-gray-500 hover:text-primary-600'
                 : 'text-white/50 hover:text-white'"
+              @click="isSearchOpen = true"
             >
               <Search class="h-4 w-4 mr-1" />
               Search service
-            </NuxtLink>
+            </button>
           </div>
+          <ServicesSearch v-if="isSearchOpen" class="hidden" auto-open @close="isSearchOpen = false" />
 
           <!-- ? MARK: MOBILE MENU BUTTON -->
           <div class="lg:hidden flex items-center">
@@ -201,6 +206,21 @@ const logoPath = computed(() => {
         </div>
       </div>
     </div>
+
+    <!-- ? MARK: Sticky breadcrumb (mobile, scrolled only) -->
+    <Transition
+      enter-active-class="transition-all duration-200"
+      enter-from-class="opacity-0 -translate-y-2"
+      leave-active-class="transition-all duration-150"
+      leave-to-class="opacity-0 -translate-y-2"
+    >
+      <div
+        v-if="isScrolled && !isOpen && breadcrumbs.length > 0"
+        class="lg:hidden border-b border-gray-100 bg-white/95 backdrop-blur-xl px-4 py-1.5"
+      >
+        <UiBreadcrumbs :items="breadcrumbs" truncate class="text-[10px]" />
+      </div>
+    </Transition>
 
     <!-- ? MARK: MOBILE NAV -->
     <div v-if="isOpen" class="lg:hidden fixed inset-x-0 top-[var(--app-header-height)] bottom-0 z-40 overflow-y-auto bg-white">
@@ -241,9 +261,14 @@ const logoPath = computed(() => {
             </template>
           </div>
         </div>
-        <NuxtLink to="/services" class="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500" @click="closeMenu">
+
+        <button
+          type="button"
+          class="block w-full px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500 cursor-pointer"
+          @click="closeMenu(); isSearchOpen = true">
           Search Services
-        </NuxtLink>
+        </button>
+
         <!-- TEMPORARY: Remove v-if="false" to re-enable Language Selector -->
         <div v-if="false" class="px-4 py-3 border-t border-gray-200">
           <div class="flex items-center">
