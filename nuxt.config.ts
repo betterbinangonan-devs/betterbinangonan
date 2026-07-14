@@ -26,7 +26,6 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   sitemap: {
-    zeroRuntime: true,
     exclude: [
       '/budget',
       '/history',

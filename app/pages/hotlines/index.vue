@@ -33,7 +33,23 @@ function isLinkHotline(hotline: unknown): hotline is LinkHotlineItem {
   )
 }
 
-const { hotlines, formatPhoneLink } = useConfig()
+const { hotlines, formatPhoneLink, officials, subdivisions, labels } = useConfig()
+
+const hotlineSearch = ref<Record<string, string>>({})
+
+function filteredHotlineItems(section: HotlineSection) {
+  const q = (hotlineSearch.value[section.id] ?? '').trim().toLowerCase()
+  if (!q)
+    return section.items
+
+  return section.items.filter((item) => {
+    const hotline = item as any
+    const inName = hotline.name?.toLowerCase().includes(q)
+    const inTags = Array.isArray(hotline.tags) && hotline.tags.some((tag: string) => tag.toLowerCase().includes(q))
+    const inNumbers = Array.isArray(hotline.numbers) && hotline.numbers.some((num: string) => num.toLowerCase().includes(q))
+    return inName || inTags || inNumbers
+  })
+}
 
 const contactTocItems = computed(() => {
   const hotlineConfig = unref(hotlines)
@@ -129,8 +145,8 @@ function hotlineDescription(
     <UiPageWithToc :items="contactTocItems">
       <section v-for="section in hotlines.sections" v-show="section.items.length === 0 || section.items.some(item => isPhoneHotline(item) || isEmailHotline(item) || isLinkHotline(item))" :id="`${section.id}-hotlines`" :key="section.id" class="scroll-mt-28 py-12">
         <div class="mx-auto max-w-3xl">
-          <!-- ? MARK: header -->
-          <div class="mb-8">
+          <!-- ? MARK: header (hidden for embedded gov components, they have their own) -->
+          <div v-if="section.id !== 'municipal-offices' && section.id !== 'barangays'" class="mb-8">
             <p class="mb-2 text-sm font-semibold uppercase tracking-wide" :class="toneText(section.tone)">
               {{ section.label }}
             </p>
@@ -140,12 +156,22 @@ function hotlineDescription(
             <p class="mt-3 text-base leading-relaxed text-gray-600">
               {{ section.description }}
             </p>
+
+            <div v-if="section.items.length > 0" class="relative mt-5">
+              <i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                v-model="hotlineSearch[section.id]"
+                type="text"
+                placeholder="Search hotline or contact..."
+                class="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-100"
+              >
+            </div>
           </div>
 
           <div class="flex flex-col gap-3">
             <!-- ? MARK: data -->
-            <template v-for="hotline in section.items" :key="hotline.id">
-              <a v-if="isPhoneHotline(hotline) || isEmailHotline(hotline) || isLinkHotline(hotline)" :href="hotlineHref(hotline)" :target="hotlineTarget(hotline)" :rel="hotlineRel(hotline)" class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 no-underline transition" :class="toneHoverBorder(section.tone)">
+            <template v-for="hotline in filteredHotlineItems(section)" :key="hotline.id">
+              <a v-if="isPhoneHotline(hotline) || isEmailHotline(hotline) || isLinkHotline(hotline)" :id="`hotline-${hotline.id}`" :href="hotlineHref(hotline)" :target="hotlineTarget(hotline)" :rel="hotlineRel(hotline)" class="group scroll-mt-24 flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 no-underline transition" :class="toneHoverBorder(section.tone)">
                 <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg" :class="[toneIconBg(section.tone), toneText(section.tone)]">
                   <i :class="hotline.icon || 'ri-phone-line'" />
                 </div>
@@ -177,8 +203,25 @@ function hotlineDescription(
               </a>
             </template>
 
+            <p v-if="section.items.length > 0 && filteredHotlineItems(section).length === 0" class="py-8 text-center text-sm text-gray-500">
+              No hotline found matching "{{ hotlineSearch[section.id] }}"
+            </p>
+
             <!-- ? MARK: for different link -->
-            <div v-if="section.items.length === 0" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5">
+            <GovernmentDepartments
+              v-if="section.id === 'municipal-offices' && section.items.length === 0"
+              :dept-prefix-label="labels.deptPrefix"
+              :departments="officials.departments"
+              :format-phone-link="formatPhoneLink"
+            />
+            <GovernmentBarangays
+              v-else-if="section.id === 'barangays' && section.items.length === 0"
+              :subdivision-type-plural="labels.subdivisionTypePlural"
+              :items="subdivisions.items"
+              :count="subdivisions.count"
+              :format-phone-link="formatPhoneLink"
+            />
+            <div v-else-if="section.items.length === 0" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5">
               <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg" :class="[toneIconBg(section.tone), toneText(section.tone)]">
                 <i :class="section.icon || 'ri-building-line'" />
               </div>
