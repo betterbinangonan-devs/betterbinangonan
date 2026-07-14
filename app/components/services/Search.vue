@@ -173,7 +173,7 @@ defineExpose({
 
           <!-- Empty state -->
           <div v-if="!showResults && query.length < 2" class="py-8 px-6 text-center text-gray-400 text-sm">
-            Start typing to search services, features...
+            Start typing to search services, permits, hotlines ...
           </div>
 
           <!-- Search Results -->

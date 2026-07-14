@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const logoPath = computed(() =>
-  siteConfig.logo?.logo_landscape_white
+  siteConfig.logo?.whitePng
   || siteConfig.logo?.white
   || siteConfig.logo?.main
   || '/assets/images/logo/logo-white.png',
@@ -23,7 +23,7 @@ const tagline = computed(() => siteConfig.tagline)
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.14),_transparent_34%),linear-gradient(135deg,_#1849b2_0%,_#0d3794_100%)]" />
 
     <div class="relative z-10 flex flex-col items-center">
-      <img :src="logoPath" alt="Logo" class="object-contain mb-6" width="240" height="120">
+      <img :src="logoPath" alt="Logo" class="object-contain mb-6" width="140" height="140">
 
       <h1 class="text-5xl font-bold leading-tight tracking-tight text-white text-center max-w-4xl">
         {{ props.title }}

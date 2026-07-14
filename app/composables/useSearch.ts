@@ -214,6 +214,142 @@ function getFlattenedSitemapEntries(): SearchableService[] {
   return flattened
 }
 
+// ? MARK: Generic searchable mapper
+interface SearchableMapConfig<T> {
+  category: string
+  categoryId: string
+  section: string
+  getId: (item: T, index: number) => string
+  getTitle: (item: T) => string
+  getDescription?: (item: T) => string
+  getOffice?: (item: T) => string
+  getAnchor?: (item: T) => string
+}
+
+function mapToSearchable<T extends object>(items: T[] = [], config: SearchableMapConfig<T>): SearchableService[] {
+  return items
+    .filter(item => !(item as { hidden?: boolean }).hidden)
+    .map((item, index) => ({
+      id: config.getId(item, index),
+      title: config.getTitle(item),
+      category: config.category,
+      categoryId: config.categoryId,
+      description: config.getDescription?.(item) ?? '',
+      fee: '',
+      processingTime: '',
+      office: config.getOffice?.(item) ?? config.category,
+      url: `/government#${config.getAnchor?.(item) ?? config.section}`,
+    }))
+}
+
+// ? MARK: Officials/departments/barangays merging
+function getFlattenedOfficials(): SearchableService[] {
+  const { officials, subdivisions, labels } = useConfig()
+
+  return [
+    ...mapToSearchable(officials.executive, {
+      category: 'Government Officials',
+      categoryId: 'government-officials',
+      section: 'executive',
+      getId: o => `official-exec-${o.position}`,
+      getTitle: (o) => {
+        const role = o.position === 'mayor' || o.position === 'governor' ? 'Mayor' : 'Vice Mayor'
+        return o.name ? `${role} Hon. ${o.name}` : role
+      },
+      getDescription: o => o.position === 'mayor' || o.position === 'governor'
+        ? 'Mayor - Executive Branch official'
+        : 'Vice Mayor - Executive Branch official',
+      getOffice: () => 'Executive Branch',
+      getAnchor: o => o.position === 'mayor' || o.position === 'governor'
+        ? 'official-mayor'
+        : 'official-vice-mayor',
+    }),
+    ...mapToSearchable(officials.legislative, {
+      category: 'Government Officials',
+      categoryId: 'government-officials',
+      section: 'legislative',
+      getId: (o, i) => `official-leg-${o.id ?? i}`,
+      getTitle: (o) => {
+        const roleLabel = o.position === 'liga_president'
+          ? 'Liga President'
+          : o.position === 'sk_president'
+            ? 'SK President'
+            : o.position === 'ipmr'
+              ? 'IPMR'
+              : 'SB Member'
+        return o.name ? `${roleLabel} Hon. ${o.name}` : roleLabel
+      },
+      getDescription: o => o.title || o.committees || 'Legislative Branch official',
+      getOffice: () => 'Legislative Branch',
+      getAnchor: (o) => {
+        if (o.position === 'liga_president')
+          return 'official-liga-president'
+        if (o.position === 'sk_president')
+          return 'official-sk-president'
+        if (o.position === 'ipmr')
+          return 'official-ipmr'
+        return `official-leg-${o.id}`
+      },
+    }),
+    ...mapToSearchable(officials.departments, {
+      category: 'Departments & Offices',
+      categoryId: 'departments',
+      section: 'departments',
+      getId: d => `department-${d.id}`,
+      getTitle: d => d.department,
+      getDescription: d => d.description,
+      getOffice: d => d.department,
+      getAnchor: d => `dept-${d.id}`,
+    }),
+    ...mapToSearchable(subdivisions.items, {
+      category: labels.value.subdivisionTypePlural,
+      categoryId: 'barangays',
+      section: 'barangays',
+      getId: item => `barangay-${item.id}`,
+      getTitle: item => `Barangay ${item.name}`,
+      getDescription: item => item.leader,
+      getOffice: item => `Barangay ${item.name}`,
+      getAnchor: item => `barangay-${item.id}`,
+    }),
+  ]
+}
+
+// ? MARK: Hotlines
+function getFlattenedHotlines(): SearchableService[] {
+  const { hotlines } = useConfig()
+  const flattened: SearchableService[] = []
+
+  for (const section of hotlines.sections) {
+    for (const hotline of section.items) {
+      const item = hotline as any
+      if (!item.id || !item.name)
+        continue
+
+      let description = section.description || ''
+      if (Array.isArray(item.numbers))
+        description = `${item.name} - ${item.numbers.join(', ')}`
+      else if (item.email)
+        description = `${item.name} - ${item.email}`
+
+      const tagText = Array.isArray(item.tags) ? item.tags.join(' ') : ''
+
+      flattened.push({
+        id: `hotline-${item.id}`,
+        title: item.name,
+        category: 'Hotlines',
+        categoryId: 'hotlines',
+        description: tagText ? `${description} ${tagText}` : description,
+        fee: '',
+        processingTime: '',
+        office: section.title,
+        url: `/hotlines#hotline-${item.id}`,
+      })
+    }
+  }
+
+  return flattened
+}
+
 // ? MARK: useSearch composable
 export function useSearch(initialQuery = '') {
   const query = ref(initialQuery)
@@ -231,6 +367,8 @@ export function useSearch(initialQuery = '') {
   const services = computed(() => [
     ...getFlattenedServices(),
     ...getFlattenedSitemapEntries(),
+    ...getFlattenedOfficials(),
+    ...getFlattenedHotlines(),
   ])
 
   const fuse = computed(() => new Fuse(services.value, FUSE_OPTIONS))

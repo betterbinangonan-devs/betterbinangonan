@@ -161,29 +161,32 @@ function getTrendLabel(trendType: string): string {
           </p>
         </div>
         <div class="divide-y divide-gray-100 bg-white">
-          <div v-for="pillar in cmciPillars" :key="pillar.id" class="flex items-start gap-6 px-5 py-4">
-            <div class="flex w-40 shrink-0 items-center gap-2">
-              <span class="h-2 w-2 shrink-0 rounded-full" :class="getPillarColor(pillar.id).dot" />
-              <p class="text-sm font-semibold text-gray-700">
-                {{ pillar.title }}
-              </p>
-            </div>
-            <div class="min-w-0 flex-1">
+          <div v-for="pillar in cmciPillars" :key="pillar.id" class="px-5 py-4">
+            <!-- Top row: label + score, always side by side -->
+            <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-2">
-                <p class="text-sm font-bold text-gray-900">
-                  Rank {{ pillar.trend }}
+                <span class="h-2 w-2 shrink-0 rounded-full" :class="getPillarColor(pillar.id).dot" />
+                <p class="text-sm font-semibold text-gray-700">
+                  {{ pillar.title }}
                 </p>
-                <span class="flex items-center gap-0.5 text-xs font-medium" :class="getTrendColor(pillar.trendType)">
-                  <i :class="getTrendIcon(pillar.trendType)" />
-                  {{ getTrendLabel(pillar.trendType) }}
-                </span>
               </div>
-              <p class="mt-0.5 text-xs text-gray-500">
-                {{ getPillarDescription(pillar.id) }}
+              <p class="shrink-0 text-lg font-bold sm:text-sm" :class="getPillarColor(pillar.id).score">
+                {{ pillar.score }}
               </p>
             </div>
-            <p class="shrink-0 text-sm font-bold" :class="getPillarColor(pillar.id).score">
-              {{ pillar.score }}
+
+            <!-- Bottom row: rank + trend + description -->
+            <div class="mt-2 flex items-center gap-2 sm:mt-1">
+              <p class="text-sm font-bold text-gray-900">
+                Rank {{ pillar.trend }}
+              </p>
+              <span class="flex items-center gap-0.5 text-xs font-medium" :class="getTrendColor(pillar.trendType)">
+                <i :class="getTrendIcon(pillar.trendType)" />
+                {{ getTrendLabel(pillar.trendType) }}
+              </span>
+            </div>
+            <p class="mt-0.5 text-xs text-gray-500">
+              {{ getPillarDescription(pillar.id) }}
             </p>
           </div>
         </div>
@@ -254,17 +257,19 @@ function getTrendLabel(trendType: string): string {
         </ClientOnly>
       </UiCard> -->
 
-      <p class="flex items-center gap-1.5 text-xs text-gray-500">
-        <i class="ri-information-line" />
-        Source:
-        <a
-          href="https://cmci.dti.gov.ph/lgu-profile.php?lgu=Binangonan"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-primary-600 hover:underline"
-        >
-          DTI Cities and Municipalities Competitiveness Index (CMCI)
-        </a>
+      <p class="flex items-start gap-1.5 text-xs text-gray-500">
+        <i class="ri-information-line mt-0.5 shrink-0" />
+        <span>
+          Source:
+          <a
+            href="https://cmci.dti.gov.ph/lgu-profile.php?lgu=Binangonan"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary-600 hover:underline"
+          >
+            DTI Cities and Municipalities Competitiveness Index (CMCI)
+          </a>
+        </span>
       </p>
     </div>
   </section>
