@@ -49,18 +49,18 @@
     "@tailwindcss/postcss": "^4.2.2",
     "@takumi-rs/core": "^1.0.9",
     "@takumi-rs/wasm": "^1.1.2",
-    "@vitest/coverage-v8": "^4.1.5",
-    "@vue/test-utils": "^2.4.9",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vue/test-utils": "^2.4.11",
     "autoprefixer": "^10.4.27",
     "commander": "^13.1.0",
     "eslint": "^10.2.0",
     "eslint-plugin-format": "^2.0.1",
-    "happy-dom": "^20.9.0",
+    "happy-dom": "^20.11.0",
     "husky": "^9.1.7",
     "nuxt-og-image": "^6.4.0",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2",
-    "vitest": "^4.1.5",
+    "vitest": "^4.1.10",
     "vue-tsc": "^3.2.6"
   }
 }
