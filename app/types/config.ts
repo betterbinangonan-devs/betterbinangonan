@@ -139,18 +139,21 @@ export interface PhoneHotlineItem {
   name: string
   numbers: string[]
   icon?: string
+  tags?: string[]
 }
 export interface EmailHotlineItem {
   id: string
   name: string
   email: string
   icon?: string
+  tags?: string[]
 }
 export interface LinkHotlineItem {
   id: string
   name: string
   url: string
   icon?: string
+  tags?: string[]
 }
 export type HotlineItem = PhoneHotlineItem | EmailHotlineItem | LinkHotlineItem
 export interface HotlineSection {

@@ -18,7 +18,8 @@
           "numbers": [
             "911"
           ],
-          "icon": "ri-alarm-warning-line"
+          "icon": "ri-alarm-warning-line",
+          "tags": ["emergency", "911", "hotline", "help"]
         },
         {
           "id": "mdrrmo-rescue",
@@ -26,7 +27,8 @@
           "numbers": [
             "0965 623 8674"
           ],
-          "icon": "ri-alarm-warning-line"
+          "icon": "ri-alarm-warning-line",
+          "tags": ["rescue", "disaster", "flood", "baha", "typhoon", "bagyo", "mdrrmo", "ambulance"]
         },
         {
           "id": "police",
@@ -34,7 +36,8 @@
           "numbers": [
             "0963 473 3347"
           ],
-          "icon": "ri-shield-line"
+          "icon": "ri-shield-line",
+          "tags": ["police", "pulis", "pnp", "crime report", "hold-up", "theft", "nakawan"]
         },
         {
           "id": "fire",
@@ -43,7 +46,8 @@
             "0966 957 7505",
             "(02) 8652 5796"
           ],
-          "icon": "ri-fire-line"
+          "icon": "ri-fire-line",
+          "tags": ["fire", "sunog", "bfp", "fire department", "fire truck", "bumbero"]
         },
         {
           "id": "coast-guard",
@@ -53,7 +57,8 @@
             "0950 550 9418",
             "0953 809 1351"
           ],
-          "icon": "ri-ship-line"
+          "icon": "ri-ship-line",
+          "tags": ["coast guard", "maritime", "boat", "bangka", "sea rescue", "lake"]
         }
       ]
     },
@@ -73,7 +78,8 @@
           "numbers": [
             "0950 717 1241"
           ],
-          "icon": "ri-heart-pulse-line"
+          "icon": "ri-heart-pulse-line",
+          "tags": ["health", "kalusugan", "clinic", "check-up", "vaccination", "bakuna"]
         },
         {
           "id": "rphs-madmh",
@@ -81,7 +87,8 @@
           "numbers": [
             "(02) 8256 3000"
           ],
-          "icon": "ri-hospital-line"
+          "icon": "ri-hospital-line",
+          "tags": ["hospital", "ospital", "ambulance", "medical", "emergency room", "er"]
         }
       ]
     },
@@ -101,13 +108,15 @@
           "id": "pio-email",
           "name": "Public Information Office",
           "email": "pio@binangonan.gov.ph",
-          "icon": "ri-mail-line"
+          "icon": "ri-mail-line",
+          "tags": ["pio", "public information", "inquiry", "email", "feedback"]
         },
         {
           "id": "pio-facebook",
           "name": "Mahal Kong Binangonan PIO FB Page",
           "url": "https://www.facebook.com/mahalkongbinangonan",
-          "icon": "ri-facebook-line"
+          "icon": "ri-facebook-line",
+          "tags": ["facebook", "fb page", "social media", "pio", "announcements"]
         }
       ]
     },
@@ -149,13 +158,15 @@
           "numbers": [
             "(02) 16211"
           ],
-          "icon": "ri-flashlight-line"
+          "icon": "ri-flashlight-line",
+          "tags": ["electricity", "kuryente", "power outage", "brownout", "meralco", "power interruption"]
         },
         {
           "id": "meralco-email",
           "name": "Meralco Customer Care",
           "email": "customercare@meralco.com.ph",
-          "icon": "ri-mail-line"
+          "icon": "ri-mail-line",
+          "tags": ["electricity", "kuryente", "meralco", "billing", "customer service"]
         },
         {
           "id": "manila-water-hotline",
@@ -163,13 +174,15 @@
           "numbers": [
             "1627"
           ],
-          "icon": "ri-drop-line"
+          "icon": "ri-drop-line",
+          "tags": ["water", "tubig", "water interruption", "leak", "tulo", "manila water"]
         },
         {
           "id": "manila-water-email",
           "name": "Manila Water Email",
           "email": "info@manilawater.com",
-          "icon": "ri-mail-line"
+          "icon": "ri-mail-line",
+          "tags": ["water", "tubig", "manila water", "billing", "customer service"]
         }
       ]
     }

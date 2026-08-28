@@ -164,19 +164,23 @@ defineProps<{
         </div>
       </div>
 
-      <p class="flex items-center gap-1.5 text-xs text-gray-500">
-        <i class="ri-information-line" />
-        Source:
-        <a
-          :href="statisticsDetailed.financialData?.sourceUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-primary-600 hover:underline"
-        >
-          {{ statisticsDetailed.financialData?.source }}
-        </a>
-        · FY {{ statisticsDetailed.financialData?.year }} Annual Regular Income (ARI) <span class="italic">Preliminary</span>
-      </p>
+      <div class="flex flex-col gap-1 text-xs text-gray-500 sm:flex-row sm:items-center sm:gap-1.5">
+        <span class="flex items-center gap-1.5">
+          <i class="ri-information-line" />
+          Source:
+          <a
+            :href="statisticsDetailed.financialData?.sourceUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary-600 hover:underline"
+          >
+            {{ statisticsDetailed.financialData?.source }}
+          </a>
+        </span>
+        <span>
+          · FY {{ statisticsDetailed.financialData?.year }} Annual Regular Income (ARI) <span class="italic">Preliminary</span>
+        </span>
+      </div>
     </div>
   </section>
 </template>

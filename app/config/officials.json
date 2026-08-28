@@ -501,7 +501,8 @@
       "icon": "bi-geo-alt-fill",
       "email": "tourism@binangonan.gov.ph",
       "phones": ["8650-1963"],
-      "services": "tourism"
+      "services": "tourism",
+      "facebook": "https://www.facebook.com/binangonantourismoffice"
     },
     {
       "id": "treasurer",
