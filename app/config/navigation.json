@@ -114,6 +114,12 @@
       "i18nKey": "nav-dpwh-lang"
     },
     {
+      "id": "bantay-budget",
+      "label": "Bantay Budget",
+      "href": "https://budget.betterbinangonan.org",
+      "i18nKey": "nav-bantay-budget"
+    },
+    {
       "id": "tourism",
       "label": "Tourism",
       "href": "/tourism",

@@ -45,9 +45,11 @@ export interface DpwhResponse {
 
 const PAGE_SIZE = 10
 
-export function useDpwhProjects() {
-  const { site } = useConfig()
+// Live data, served from the betterbinangonan-data repo (Cloudflare).
+// Update it by pushing a new dpwh-projects.json there; no site rebuild needed.
+const DPWH_DATA_URL = 'https://data.betterbinangonan.org/dpwh-projects.json'
 
+export function useDpwhProjects() {
   const selectedCategory = ref('')
   const selectedStatus = ref('')
   const selectedYear = ref('')
@@ -63,29 +65,10 @@ export function useDpwhProjects() {
     pending.value = true
     error.value = null
     try {
-      const municipality = site.value.municipality
-      const province = site.value.province.toUpperCase()
-
-      const first = await $fetch<{ status: number, data: DpwhResponse }>('/api/get-dpwh-transparency-api', {
-        params: { page: 1, municipality, province },
-      })
-
-      const apiTotalPages = first.data?.pagination?.totalPages ?? 1
-      summary.value = first.data?.summary ?? null
-
-      const collected: DpwhProject[] = [...(first.data?.data ?? [])]
-
-      if (apiTotalPages > 1) {
-        const rest = await Promise.all(
-          Array.from({ length: apiTotalPages - 1 }, (_, i) =>
-            $fetch<{ status: number, data: DpwhResponse }>('/api/get-dpwh-transparency-api', {
-              params: { page: i + 2, municipality, province },
-            })),
-        )
-        rest.forEach(r => collected.push(...(r.data?.data ?? [])))
-      }
-
-      allProjects.value = collected
+      // The file already holds every Binangonan project in one list, so one request is enough.
+      const res = await $fetch<{ status: number, data: DpwhResponse }>(DPWH_DATA_URL)
+      summary.value = res.data?.summary ?? null
+      allProjects.value = res.data?.data ?? []
     }
     catch (e) {
       error.value = 'Failed to load projects.'

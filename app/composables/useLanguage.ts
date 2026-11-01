@@ -18,6 +18,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-budget': 'Budget',
     'nav-sitemap': 'Sitemap',
     'nav-dpwh-lang': 'DPWH Projects',
+    'nav-bantay-budget': 'Bantay Budget',
 
     // Hero Section
     'hero-welcome': 'with Better{{lguNameDomain}}.org',
@@ -153,6 +154,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-budget': 'Badyet',
     'nav-sitemap': 'Mapa ng Site',
     'nav-dpwh-lang': 'DPWH Projects',
+    'nav-bantay-budget': 'Bantay Budget',
 
     // Hero Section
     'hero-welcome': 'Maligayang Pagdating sa Better{{lguNameDomain}}.org',
@@ -290,6 +292,7 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-budget': 'Badyet',
     'nav-sitemap': 'Mapa ti Site',
     'nav-dpwh-lang': 'DPWH Projects',
+    'nav-bantay-budget': 'Bantay Budget',
 
     // Hero Section
     'hero-welcome': 'Naragsak nga Isasangbay iti Better{{lguNameDomain}}.org',

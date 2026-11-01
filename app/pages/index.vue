@@ -1,4 +1,6 @@
+<!-- app\pages\index.vue -->
 <script setup lang="ts">
+import BantayBudgetSection from '@/components/home/BantayBudgetSection.vue'
 import DpwhProjectsSection from '@/components/home/DpwhProjectsSection.vue'
 import Hero from '@/components/home/Hero.vue'
 import HotlineSection from '@/components/home/HotlineSection.vue'
@@ -12,6 +14,7 @@ import WeatherMap from '@/components/home/WeatherMap.vue'
     <Hero />
     <PopularServices />
     <DpwhProjectsSection />
+    <BantayBudgetSection />
     <QuickStats />
     <WeatherMap />
     <!-- <History /> -->
