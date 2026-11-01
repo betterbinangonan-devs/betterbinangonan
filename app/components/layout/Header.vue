@@ -132,9 +132,10 @@ const logoPath = computed(() => {
           </div>
 
           <!-- ? MARK: DESKTOP NAV -->
-          <div class="hidden lg:flex items-center lg:space-x-4 xl:space-x-8 lg:pr-6 xl:pr-24 lg:leading-10">
+          <div class="hidden lg:flex items-center lg:space-x-4 xl:space-x-6 lg:pr-6 xl:pr-24 lg:leading-10">
             <div v-for="item in mainNavigation" :key="item.label" class="relative group" @mouseenter="hoveredDropdown = item.label" @mouseleave="hoveredDropdown = null">
               <NuxtLink
+                :target="item.href.startsWith('http') ? '_blank' : undefined"
                 :to="item.href" class="flex items-center font-medium transition-colors duration-200 pb-1 border-b-2 whitespace-nowrap" :class="isActiveRoute(route.path, item.href)
                   ? isScrolled
                     ? 'text-primary-600 border-primary-600'
@@ -241,7 +242,9 @@ const logoPath = computed(() => {
             />
           </button>
           <NuxtLink
-            v-else :to="item.href" class="w-full flex justify-between items-center px-4 py-2 text-base font-medium transition-colors duration-200" :class="isActiveRoute(route.path, item.href)
+            v-else
+            :target="item.href.startsWith('http') ? '_blank' : undefined"
+            :to="item.href" class="w-full flex justify-between items-center px-4 py-2 text-base font-medium transition-colors duration-200" :class="isActiveRoute(route.path, item.href)
               ? 'text-primary-600 bg-primary-50'
               : 'text-gray-700 hover:bg-gray-50 hover:text-primary-500'" @click="toggleMenu()"
           >
