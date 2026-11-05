@@ -20,8 +20,7 @@ const openBrgys = ref<Set<string>>(new Set())
 function toggleBrgy(id: string) {
   if (openBrgys.value.has(id))
     openBrgys.value.delete(id)
-  else
-    openBrgys.value.add(id)
+  else openBrgys.value.add(id)
   openBrgys.value = new Set(openBrgys.value)
 }
 
@@ -30,10 +29,7 @@ const filteredItems = computed(() => {
   if (!brgySearch.value.trim())
     return props.items
   const q = brgySearch.value.toLowerCase()
-  return props.items.filter(item =>
-    item.name?.toLowerCase().includes(q)
-    || item.leader?.toLowerCase().includes(q),
-  )
+  return props.items.filter(item => item.name?.toLowerCase().includes(q) || item.leader?.toLowerCase().includes(q))
 })
 </script>
 
@@ -59,7 +55,14 @@ const filteredItems = computed(() => {
 
       <div class="flex flex-col gap-3">
         <div v-for="item in filteredItems" :id="`barangay-${item.id}`" :key="item.id" class="scroll-mt-24 overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-primary-200">
-          <button type="button" class="flex w-full items-start gap-4 p-5 text-left" :class="(item.phones && item.phones.length > 0) || item.email || item.facebook ? 'cursor-pointer' : 'cursor-default'" @click="(item.phones && item.phones.length > 0) || item.email || item.facebook ? toggleBrgy(item.id) : undefined">
+          <button
+            type="button" class="flex w-full items-start gap-4 p-5 text-left" :class="(item.phones && item.phones.length > 0) || item.email || item.facebook
+              ? 'cursor-pointer'
+              : 'cursor-default'
+            " @click="
+              (item.phones && item.phones.length > 0) || item.email || item.facebook ? toggleBrgy(item.id) : undefined
+            "
+          >
             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-600">
               <i class="ri-map-pin-line" />
             </div>
@@ -72,21 +75,27 @@ const filteredItems = computed(() => {
               </p>
               <p v-if="(item.phones && item.phones.length > 0) || item.email || item.facebook" class="mt-1.5 flex items-center gap-1 text-xs font-medium text-primary-600">
                 <i class="transition-transform duration-200" :class="openBrgys.has(item.id) ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'" />
-                {{ openBrgys.has(item.id) ? 'Hide contact details' : 'View contact details' }}
+                {{ openBrgys.has(item.id) ? "Hide contact details" : "View contact details" }}
               </p>
             </div>
           </button>
 
           <div v-if="openBrgys.has(item.id)" class="border-t border-gray-100 pb-5 pl-[72px] pr-5 pt-4">
             <div class="flex flex-col gap-2 text-sm">
-              <a v-for="phone in item.phones" :key="phone" :href="`tel:${formatPhoneLink(phone)}`" class="flex items-center gap-2 text-primary-600 hover:underline">
-                <i class="ri-phone-line" />
-                {{ phone }}
-              </a>
-              <a v-if="item.email" :href="`mailto:${item.email}`" class="flex items-center gap-2 text-primary-600 hover:underline">
-                <i class="ri-mail-line" />
-                {{ item.email }}
-              </a>
+              <div v-for="phone in item.phones" :key="phone" class="flex items-center gap-1">
+                <a :href="`tel:${formatPhoneLink(phone)}`" class="inline-flex items-center gap-2 text-primary-600 hover:underline">
+                  <i class="ri-phone-line" />
+                  {{ phone }}
+                </a>
+                <UiCopyButton :value="phone" label="Copy number" />
+              </div>
+              <div v-if="item.email" class="flex items-center gap-1">
+                <a :href="`mailto:${item.email}`" class="inline-flex min-w-0 items-center gap-2 break-all text-primary-600 hover:underline">
+                  <i class="ri-mail-line" />
+                  {{ item.email }}
+                </a>
+                <UiCopyButton :value="item.email" label="Copy email" />
+              </div>
               <a v-if="item.facebook" :href="item.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-primary-600 hover:underline">
                 <i class="ri-facebook-line" />
                 Facebook Page

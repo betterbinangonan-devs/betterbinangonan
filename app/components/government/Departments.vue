@@ -79,14 +79,20 @@ const filteredDepartments = computed(() => {
 
           <div v-if="openDepts.has(dept.id)" class="border-t border-gray-100 pb-5 pl-[72px] pr-5 pt-4">
             <div class="flex flex-col gap-2 text-sm">
-              <a v-for="phone in dept.phones" :key="phone" :href="`tel:${formatPhoneLink(phone)}`" class="flex items-center gap-2 text-primary-600 hover:underline">
-                <i class="ri-phone-line" />
-                {{ phone }}
-              </a>
-              <a v-if="dept.email" :href="`mailto:${dept.email}`" class="flex items-center gap-2 text-primary-600 hover:underline">
-                <i class="ri-mail-line" />
-                {{ dept.email }}
-              </a>
+              <div v-for="phone in dept.phones" :key="phone" class="flex items-center gap-1">
+                <a :href="`tel:${formatPhoneLink(phone)}`" class="inline-flex items-center gap-2 text-primary-600 hover:underline">
+                  <i class="ri-phone-line" />
+                  {{ phone }}
+                </a>
+                <UiCopyButton :value="phone" label="Copy number" />
+              </div>
+              <div v-if="dept.email" class="flex items-center gap-1">
+                <a :href="`mailto:${dept.email}`" class="inline-flex min-w-0 items-center gap-2 break-all text-primary-600 hover:underline">
+                  <i class="ri-mail-line" />
+                  {{ dept.email }}
+                </a>
+                <UiCopyButton :value="dept.email" label="Copy email" />
+              </div>
               <a v-if="dept.facebook" :href="dept.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-primary-600 hover:underline">
                 <i class="ri-facebook-line" />
                 Facebook Page

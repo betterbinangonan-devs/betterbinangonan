@@ -14,6 +14,7 @@ const contactItems = computed(() => [
     value: project.value?.email || '—',
     href: project.value?.email ? `mailto:${project.value.email}` : null,
     description: 'Send us an email inquiry.',
+    copyable: true,
     visible: Boolean(project.value?.email),
   },
   {
@@ -23,6 +24,7 @@ const contactItems = computed(() => [
     value: project.value?.volunteerEmail || '—',
     href: project.value?.volunteerEmail ? `mailto:${project.value.volunteerEmail}` : null,
     description: 'Interested in volunteering? Reach out here.',
+    copyable: true,
     visible: Boolean(project.value?.volunteerEmail && project.value.volunteerEmail !== project.value.email),
   },
   {
@@ -32,6 +34,7 @@ const contactItems = computed(() => [
     value: project.value?.phone || '—',
     href: project.value?.phone ? `tel:${project.value.phone}` : null,
     description: 'Call us directly.',
+    copyable: true,
     visible: Boolean(project.value?.phone),
   },
   {
@@ -41,6 +44,7 @@ const contactItems = computed(() => [
     value: project.value?.officeAddress || '—',
     href: null,
     description: 'Our physical office location.',
+    copyable: true,
     visible: Boolean(project.value?.officeAddress),
   },
   {
@@ -50,6 +54,7 @@ const contactItems = computed(() => [
     value: project.value?.reportIssueUrl?.replace(/^https?:\/\//, '') || '—',
     href: project.value?.reportIssueUrl || null,
     description: 'Found a bug or data issue? Let us know on GitHub.',
+    copyable: false,
     visible: Boolean(project.value?.reportIssueUrl),
   },
   {
@@ -59,6 +64,7 @@ const contactItems = computed(() => [
     value: project.value?.donationUrl?.replace(/^https?:\/\//, '') || '—',
     href: project.value?.donationUrl || null,
     description: 'Help keep BetterBinangonan running.',
+    copyable: false,
     visible: Boolean(project.value?.donationUrl),
   },
 ].filter(i => i.visible))
@@ -257,25 +263,34 @@ async function submitForm() {
           </div>
 
           <div class="flex flex-col gap-3">
-            <component :is="item.href ? 'a' : 'div'" v-for="item in contactItems" :key="item.id" :href="item.href ?? undefined" class="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 no-underline transition hover:border-primary-200 hover:bg-primary-50/30">
+            <!-- ? Card is always a div; the link lives on the name (stretched link) so the copy button can sit inside -->
+            <div v-for="item in contactItems" :key="item.id" class="group relative flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-primary-200 hover:bg-primary-50/30">
               <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-50 text-lg text-primary-600">
                 <i :class="item.icon" />
               </div>
               <div class="min-w-0 flex-1">
                 <div class="flex items-center justify-between gap-3">
                   <h3 class="font-semibold text-gray-900">
-                    {{ item.name }}
+                    <a v-if="item.href" :href="item.href" class="no-underline after:absolute after:inset-0 after:rounded-2xl after:content-['']">
+                      {{ item.name }}
+                    </a>
+                    <template v-else>
+                      {{ item.name }}
+                    </template>
                   </h3>
                   <i v-if="item.href" class="ri-arrow-right-up-line text-sm text-gray-300 transition group-hover:text-primary-600" />
                 </div>
-                <p class="mt-1 text-lg font-bold text-gray-900 group-hover:text-primary-700 break-all">
-                  {{ item.value }}
-                </p>
+                <div class="mt-1 flex items-start gap-2">
+                  <p class="min-w-0 break-all text-lg font-bold text-gray-900 group-hover:text-primary-700">
+                    {{ item.value }}
+                  </p>
+                  <UiCopyButton v-if="item.copyable" :value="item.value" :label="`Copy ${item.name.toLowerCase()}`" class="mt-0.5" />
+                </div>
                 <p class="mt-1 text-sm text-gray-500">
                   {{ item.description }}
                 </p>
               </div>
-            </component>
+            </div>
           </div>
         </div>
       </section>
