@@ -136,6 +136,31 @@ function hotlineDescription(
     return section.emailDescription || 'Send an email inquiry.'
   return 'Visit the official page.'
 }
+
+// ? MARK: Copy number
+// key = "<hotline id>:<number>" so each number in a multi-number hotline has its own state
+const copiedKey = ref<string | null>(null)
+let copiedTimer: ReturnType<typeof setTimeout> | undefined
+
+function copyKey(hotline: PhoneHotlineItem, num: string) {
+  return `${hotline.id}:${num}`
+}
+
+async function copyNumber(hotline: PhoneHotlineItem, num: string) {
+  if (!num)
+    return
+  try {
+    await navigator.clipboard.writeText(num)
+    copiedKey.value = copyKey(hotline, num)
+    clearTimeout(copiedTimer)
+    copiedTimer = setTimeout(() => {
+      copiedKey.value = null
+    }, 2000)
+  }
+  catch {
+    // clipboard blocked (e.g. permissions); do nothing
+  }
+}
 </script>
 
 <template>
@@ -159,19 +184,15 @@ function hotlineDescription(
 
             <div v-if="section.items.length > 0" class="relative mt-5">
               <i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                v-model="hotlineSearch[section.id]"
-                type="text"
-                placeholder="Search hotline or contact..."
-                class="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-100"
-              >
+              <input v-model="hotlineSearch[section.id]" type="text" placeholder="Search hotline or contact..." class="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-100">
             </div>
           </div>
 
           <div class="flex flex-col gap-3">
             <!-- ? MARK: data -->
             <template v-for="hotline in filteredHotlineItems(section)" :key="hotline.id">
-              <a v-if="isPhoneHotline(hotline) || isEmailHotline(hotline) || isLinkHotline(hotline)" :id="`hotline-${hotline.id}`" :href="hotlineHref(hotline)" :target="hotlineTarget(hotline)" :rel="hotlineRel(hotline)" class="group scroll-mt-24 flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 no-underline transition" :class="toneHoverBorder(section.tone)">
+              <!-- ? Card is a div (not <a>) so it can hold number links and copy buttons without nesting interactive elements -->
+              <div v-if="isPhoneHotline(hotline) || isEmailHotline(hotline) || isLinkHotline(hotline)" :id="`hotline-${hotline.id}`" class="group relative scroll-mt-24 flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition" :class="toneHoverBorder(section.tone)">
                 <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg" :class="[toneIconBg(section.tone), toneText(section.tone)]">
                   <i :class="hotline.icon || 'ri-phone-line'" />
                 </div>
@@ -179,16 +200,25 @@ function hotlineDescription(
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-3">
                     <h3 class="font-semibold text-gray-900">
-                      {{ hotline.name }}
+                      <!-- ? Stretched link: ::after covers the whole card, so clicking anywhere still calls/opens the first value -->
+                      <a :href="hotlineHref(hotline)" :target="hotlineTarget(hotline)" :rel="hotlineRel(hotline)" class="no-underline after:absolute after:inset-0 after:rounded-2xl after:content-['']">
+                        {{ hotline.name }}
+                      </a>
                     </h3>
                     <i class="text-sm text-gray-300 transition" :class="[hotlineActionIcon(hotline), toneHoverText(section.tone)]" />
                   </div>
 
-                  <!-- Phone — multiple numbers -->
+                  <!-- Phone — multiple numbers, each with its own call link + copy button -->
                   <div v-if="isPhoneHotline(hotline)" class="mt-1 flex flex-col gap-0.5">
-                    <a v-for="num in hotline.numbers" :key="num" :href="`tel:${formatPhoneLink(num)}`" class="text-lg font-bold text-gray-900 transition hover:underline sm:text-xl" :class="toneHoverText(section.tone)">
-                      {{ num }}
-                    </a>
+                    <div v-for="num in hotline.numbers" :key="num" class="flex items-center gap-2">
+                      <!-- ? relative z-10 lifts these above the stretched link's ::after overlay -->
+                      <a :href="`tel:${formatPhoneLink(num)}`" class="relative z-10 text-lg font-bold text-gray-900 transition hover:underline sm:text-xl" :class="toneHoverText(section.tone)">
+                        {{ num }}
+                      </a>
+                      <button type="button" class="relative z-10 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-gray-400 transition hover:bg-gray-100 hover:text-gray-700" :aria-label="copiedKey === copyKey(hotline, num) ? 'Copied' : `Copy ${num}`" :title="copiedKey === copyKey(hotline, num) ? 'Copied!' : 'Copy number'" @click="copyNumber(hotline, num)">
+                        <i :class="copiedKey === copyKey(hotline, num) ? 'ri-check-line text-green-600' : 'ri-file-copy-line'" />
+                      </button>
+                    </div>
                   </div>
 
                   <!-- Email or Link -->
@@ -200,7 +230,7 @@ function hotlineDescription(
                     {{ hotlineDescription(hotline, section) }}
                   </p>
                 </div>
-              </a>
+              </div>
             </template>
 
             <p v-if="section.items.length > 0 && filteredHotlineItems(section).length === 0" class="py-8 text-center text-sm text-gray-500">
@@ -208,19 +238,8 @@ function hotlineDescription(
             </p>
 
             <!-- ? MARK: for different link -->
-            <GovernmentDepartments
-              v-if="section.id === 'municipal-offices' && section.items.length === 0"
-              :dept-prefix-label="labels.deptPrefix"
-              :departments="officials.departments"
-              :format-phone-link="formatPhoneLink"
-            />
-            <GovernmentBarangays
-              v-else-if="section.id === 'barangays' && section.items.length === 0"
-              :subdivision-type-plural="labels.subdivisionTypePlural"
-              :items="subdivisions.items"
-              :count="subdivisions.count"
-              :format-phone-link="formatPhoneLink"
-            />
+            <GovernmentDepartments v-if="section.id === 'municipal-offices' && section.items.length === 0" :dept-prefix-label="labels.deptPrefix" :departments="officials.departments" :format-phone-link="formatPhoneLink" />
+            <GovernmentBarangays v-else-if="section.id === 'barangays' && section.items.length === 0" :subdivision-type-plural="labels.subdivisionTypePlural" :items="subdivisions.items" :count="subdivisions.count" :format-phone-link="formatPhoneLink" />
             <div v-else-if="section.items.length === 0" class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5">
               <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg" :class="[toneIconBg(section.tone), toneText(section.tone)]">
                 <i :class="section.icon || 'ri-building-line'" />

@@ -48,14 +48,20 @@ defineProps<{
             </h3>
           </div>
           <div class="divide-y divide-gray-100 p-4">
-            <a v-if="leader?.email" :href="`mailto:${leader.email}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
-              <i class="ri-mail-line text-primary-600" />
-              {{ leader.email }}
-            </a>
-            <a v-if="leader?.phone" :href="`tel:${formatPhoneLink(leader.phone)}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
-              <i class="ri-phone-line text-primary-600" />
-              {{ leader.phone }}
-            </a>
+            <div v-if="leader?.email" class="flex items-center gap-1 py-3">
+              <a :href="`mailto:${leader.email}`" class="inline-flex min-w-0 items-center gap-3 break-all text-sm text-gray-700 transition hover:text-primary-600">
+                <i class="ri-mail-line text-primary-600" />
+                {{ leader.email }}
+              </a>
+              <UiCopyButton :value="leader.email" label="Copy email" />
+            </div>
+            <div v-if="leader?.phone" class="flex items-center gap-1 py-3">
+              <a :href="`tel:${formatPhoneLink(leader.phone)}`" class="inline-flex items-center gap-3 text-sm text-gray-700 transition hover:text-primary-600">
+                <i class="ri-phone-line text-primary-600" />
+                {{ leader.phone }}
+              </a>
+              <UiCopyButton :value="leader.phone" label="Copy number" />
+            </div>
             <a v-if="leader?.facebook" :href="leader.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
               <i class="ri-facebook-line text-primary-600" />
               Facebook Page
@@ -77,14 +83,20 @@ defineProps<{
             </h3>
           </div>
           <div class="divide-y divide-gray-100 p-4">
-            <a v-if="viceLeader?.email" :href="`mailto:${viceLeader.email}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
-              <i class="ri-mail-line text-gray-600" />
-              {{ viceLeader.email }}
-            </a>
-            <a v-if="viceLeader?.phone" :href="`tel:${formatPhoneLink(viceLeader.phone)}`" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
-              <i class="ri-phone-line text-gray-600" />
-              {{ viceLeader.phone }}
-            </a>
+            <div v-if="viceLeader?.email" class="flex items-center gap-1 py-3">
+              <a :href="`mailto:${viceLeader.email}`" class="inline-flex min-w-0 items-center gap-3 break-all text-sm text-gray-700 transition hover:text-primary-600">
+                <i class="ri-mail-line text-gray-600" />
+                {{ viceLeader.email }}
+              </a>
+              <UiCopyButton :value="viceLeader.email" label="Copy email" />
+            </div>
+            <div v-if="viceLeader?.phone" class="flex items-center gap-1 py-3">
+              <a :href="`tel:${formatPhoneLink(viceLeader.phone)}`" class="inline-flex items-center gap-3 text-sm text-gray-700 transition hover:text-primary-600">
+                <i class="ri-phone-line text-gray-600" />
+                {{ viceLeader.phone }}
+              </a>
+              <UiCopyButton :value="viceLeader.phone" label="Copy number" />
+            </div>
             <a v-if="viceLeader?.facebook" :href="viceLeader.facebook" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 py-3 text-sm text-gray-700 transition hover:text-primary-600">
               <i class="ri-facebook-line text-gray-600" />
               Facebook Page
