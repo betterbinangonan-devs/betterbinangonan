@@ -60,7 +60,7 @@ export default defineNuxtConfig({
     ],
   },
   ogImage: {
-    enabled: true,
+    zeroRuntime: true,
   },
   css: ['~/assets/css/main.css', 'remixicon/fonts/remixicon.css'],
   modules: ['@pinia/nuxt', '@nuxtjs/seo', 'nuxt-og-image', './modules/generate-seo'],
